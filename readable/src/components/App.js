@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../css/App.css';
 
 class App extends Component {
   state = {
@@ -14,11 +13,18 @@ class App extends Component {
 
   render() {
     return (
-      <ul>
-        {
-          this.state.categories.map(category => <li key={category.name}>{category.name}</li>)
-        }
-      </ul>
+      <div>
+        <div className="header">
+          <h1 className="header__headline">Readable</h1>
+          <nav className="header__navigation">
+            {
+              this.state.categories.map(category => 
+                <a href={category.path} key={category.name}>{category.name}</a>
+              )
+            }
+          </nav>
+        </div>
+      </div>
     );
   }
 }
