@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { upvote, downvote, createPost } from '../actions';
+import { connect } from 'react-redux';
 
 class App extends Component {
   state = {
-    categories: [],
-    posts: []
+    categories: []
   }
 
   componentWillMount() {
@@ -16,7 +17,7 @@ class App extends Component {
 
     fetch(`${serverPath}/posts`, { headers: authorizationHeader })
       .then(res => res.json())
-      .then(res => this.setState({ posts: res }));
+      .then(res => res.forEach(post => this.props.createPost(post), this));
   }
 
   getFormattedDate(unixTime) {
@@ -39,7 +40,7 @@ class App extends Component {
         </div>
         <div className="posts">
           {
-            this.state.posts.map(post => (
+            this.props.posts.map(post => (
               <div className="posts__post" key={post.id}>
                 <div className="posts__post-info">
                   <div>
@@ -49,9 +50,9 @@ class App extends Component {
                   <span className="posts__post-author">Author: {post.author}</span>
                 </div>
                 <div className="posts__votes">
-                  <span>&#129093;</span>
+                  <span onClick={() => this.props.upvote(post)}>&#129093;</span>
                   <span className="posts__vote-score">{post.voteScore}</span>
-                  <span>&#129095;</span>
+                  <span onClick={() => this.props.downvote(post)}>&#129095;</span>
                 </div>
               </div>
             ))
@@ -62,4 +63,16 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return state;
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    upvote: data => dispatch(upvote(data)),
+    downvote: data => dispatch(downvote(data)),
+    createPost: post => dispatch(createPost(post))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

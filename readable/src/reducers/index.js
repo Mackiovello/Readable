@@ -1,36 +1,49 @@
 import {
     UPVOTE,
-    DOWNVOTE
+    DOWNVOTE,
+    CREATE_POST
 } from '../actions';
 
 const inititalState = {
-    posts: [
-        {
-            voteScore: 0
-        }
-    ]
+    posts: []
 }
+    
+const vote = (posts, post, vote) => {
+    return posts.map(p => {
+        if (p.id === post.id) {
+            return {
+                ...p,
+                voteScore: p.voteScore + vote
+            }
+        }
+        return p;
+    })
+} 
 
-function vote(state = inititalState, action) {
-
-    console.log(action);
-    console.log(state);
-
+function posts(state = inititalState, action) {
     const { post } = action;
 
-    if (action.type === UPVOTE) {
-        return {
-            ...state,
-            [post.voteScore]: [post.voteScore] + 1
-        }
-    } else if (action.type === DOWNVOTE) {
-        return {
-            ...state,
-            [post.voteScore]: [post.voteScore] - 1
-        }
-    } else {
-        return state;
+    switch(action.type) {
+        case UPVOTE:
+            return {
+                ...state,
+                posts: vote(state.posts, post, 1)}
+        case DOWNVOTE:
+            return {
+                ...state,
+                posts: vote(state.posts, post, -1)
+            }
+        case CREATE_POST:
+            return {
+                ...state,
+                posts: [
+                    ...state.posts,
+                    post
+                ]
+            }
+        default:
+            return state;
     }
 }
 
-export default vote;
+export default posts;
