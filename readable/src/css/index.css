@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans');
 
+:root {
+  --primary-color: #4db6ac;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -11,7 +15,8 @@ body {
   width: 100vw;
   height: 130px;
   padding-top: 15px;
-  background-color: #4db6ac;
+  background-color: var(--primary-color);
+  box-shadow: 0 1px 3px #999;
 }
 
 .header__headline {
@@ -39,4 +44,63 @@ body {
 
 .header__navigation > a:not(:last-child){
   border-right: 1px solid #333;
+}
+
+.posts {
+  width: 90%;
+  max-width: 600px;
+  margin: 30px auto;
+}
+
+.posts__post {
+  margin: 20px 0;
+  height: 95px;
+  padding: 8px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px #999;
+  border-radius: 3px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.posts__votes {
+  display: flex;
+  flex-direction: column;
+  height: 80px;
+  width: 40px;
+  justify-content: space-around;
+  font-size: 1.6rem;
+  color: var(--primary-color);
+  text-align: center;
+  text-shadow: 0 1px 3px #999;
+  align-self: center;
+}
+
+.posts__vote-score {
+  font-size: 1.1rem;
+  color: #333;
+  text-shadow: none;
+}
+
+.posts__post-title,
+.posts__post-time {
+  margin: 0;
+}
+
+.posts__post-time {
+  font-size: 0.8rem;
+}
+
+.posts__post-title {
+  font-size: 1.15rem;
+}
+
+.posts__post-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.posts__post-author {
+  font-size: 0.9rem;
 }
