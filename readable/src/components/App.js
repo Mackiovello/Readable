@@ -50,9 +50,9 @@ class App extends Component {
                   <span className="posts__post-author">Author: {post.author}</span>
                 </div>
                 <div className="posts__votes">
-                  <span onClick={() => this.props.upvote(post)}>&#129093;</span>
-                  <span className="posts__vote-score">{post.voteScore}</span>
-                  <span onClick={() => this.props.downvote(post)}>&#129095;</span>
+                  <span className="posts__vote-button" onClick={() => this.props.upvote(post)}>&#129093;</span>
+                  <span>{post.voteScore}</span>
+                  <span className="posts__vote-button" onClick={() => this.props.downvote(post)}>&#129095;</span>
                 </div>
               </div>
             ))
