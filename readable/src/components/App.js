@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { upvote, downvote, createPost } from '../actions';
 import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
 
 class App extends Component {
   state = {
