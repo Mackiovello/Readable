@@ -1,6 +1,7 @@
 export const UPVOTE = 'UPVOTE';
 export const DOWNVOTE = 'DOWNVOTE';
 export const CREATE_POST = 'CREATE_POST';
+export const CREATE_CATEGORY = 'CREATE_CATEGORY';
 
 export function upvote(post) {
     return {
@@ -13,6 +14,13 @@ export function downvote(post) {
     return {
         type: DOWNVOTE,
         post
+    }
+}
+
+export function createCategory(category) {
+    return {
+        type: CREATE_CATEGORY,
+        category
     }
 }
 

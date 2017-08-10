@@ -1,11 +1,13 @@
 import {
     UPVOTE,
     DOWNVOTE,
-    CREATE_POST
+    CREATE_POST,
+    CREATE_CATEGORY
 } from '../actions';
 
 const inititalState = {
-    posts: []
+    posts: [],
+    categories: []
 }
     
 const vote = (posts, post, vote) => {
@@ -39,6 +41,14 @@ function posts(state = inititalState, action) {
                 posts: [
                     ...state.posts,
                     post
+                ]
+            }
+        case CREATE_CATEGORY:
+            return {
+                ...state,
+                categories: [
+                    ...state.categories,
+                    action.category
                 ]
             }
         default:
