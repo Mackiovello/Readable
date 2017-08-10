@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
-import Header from './Header';
 import Posts from './Posts';
+import Header from './Header';
+import PostForm from './PostForm';
+import { Switch, Route } from 'react-router-dom';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <Header/>
-        <Posts/>
+        <Switch>
+          <Route exact path="/new" component={PostForm}/>
+          <Route render={() => (
+            <div>
+              <Header/>
+              <Posts/>
+            </div>
+          )}/>
+        </Switch>
         <a className="floating-button"><span>+</span></a>
       </div>
     );
