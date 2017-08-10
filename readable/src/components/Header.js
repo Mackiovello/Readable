@@ -17,6 +17,7 @@ class Header extends Component {
         <div className="header">
           <h1 className="header__headline">Readable</h1>
           <nav className="header__navigation">
+            <a href="/">all</a>
             {
               this.props.categories.map(category => 
                 <a href={category.path} key={category.name}>{category.name}</a>
