@@ -2,19 +2,12 @@ import React, { Component } from 'react';
 import { upvote, downvote, createPost } from '../actions';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
+import Header from './Header';
 
 class App extends Component {
-  state = {
-    categories: []
-  }
-
   componentWillMount() {
     const serverPath = 'http://localhost:5001';
     const authorizationHeader = { 'Authorization': 'myKey' };
-
-    fetch(`${serverPath}/categories`, { headers: authorizationHeader })
-      .then(res => res.json())
-      .then(res => this.setState({ categories: res.categories }));
 
     fetch(`${serverPath}/posts`, { headers: authorizationHeader })
       .then(res => res.json())
@@ -29,16 +22,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div className="header">
-          <h1 className="header__headline">Readable</h1>
-          <nav className="header__navigation">
-            {
-              this.state.categories.map(category => 
-                <a href={category.path} key={category.name}>{category.name}</a>
-              )
-            }
-          </nav>
-        </div>
+        <Header/>
         <div className="posts">
           {
             this.props.posts.map(post => (
