@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Posts from './Posts';
 import Header from './Header';
 import PostForm from './PostForm';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 
 class App extends Component {
   render() {
@@ -14,10 +14,10 @@ class App extends Component {
             <div>
               <Header/>
               <Posts/>
+              <Link to="/new" className="floating-button"><span>+</span></Link>
             </div>
           )}/>
         </Switch>
-        <a className="floating-button"><span>+</span></a>
       </div>
     );
   }
