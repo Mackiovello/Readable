@@ -58,6 +58,7 @@ class App extends Component {
             ))
           }
         </div>
+        <a className="floating-button"><span>+</span></a>
       </div>
     );
   }

@@ -103,3 +103,20 @@ body {
 .posts__post-author {
   font-size: 0.9rem;
 }
+
+.floating-button {
+  background-color: var(--primary-color);
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  box-shadow: 0 2px 10px #999;
+  font-size: 2.5em;
+  color: #333;
+  line-height: 50px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
