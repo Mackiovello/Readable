@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class PostForm extends Component {
   render() {
@@ -10,13 +10,13 @@ class PostForm extends Component {
         <form className="form-card">
           <div className="form-card__text-field">
             <label htmlFor="titleInput">Title</label>
-            <input id="titleInput" type="text"/>
+            <input id="titleInput" type="text" />
           </div>
 
           <div className="form-card__combined_row">
             <div className="form-card__text-field form-card__text-field--large">
               <label htmlFor="authorInput">Author</label>
-              <input id="authorInput" type="text"/>
+              <input id="authorInput" type="text" />
             </div>
 
             <div className="form-card__drop-down">
@@ -32,11 +32,11 @@ class PostForm extends Component {
 
           <div className="form-card__text-field">
             <label htmlFor="bodyInput">Body</label>
-            <textarea id="bodyInput"></textarea>
+            <textarea id="bodyInput" />
           </div>
         </form>
       </div>
-    )
+    );
   }
 }
 
