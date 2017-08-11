@@ -1,7 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans');
 
+* {
+  box-sizing: border-box;
+}
+
 :root {
-  --primary-color: #4db6ac;
+  --primary-color: #29b6f6;
 }
 
 body {
@@ -21,7 +25,10 @@ body {
 }
 
 .header--thin {
-  height: 60px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header__headline {
