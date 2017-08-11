@@ -1,23 +1,12 @@
 import React, { Component } from "react";
 import { Route, withRouter } from "react-router-dom";
-import { upvote, downvote, createPost } from "../actions";
+import { upvote, downvote } from "../actions";
 import { connect } from "react-redux";
 
 class Posts extends Component {
   getFormattedDate(unixTime) {
     const dateObj = new Date(unixTime);
     return `${dateObj.getDate()}-${dateObj.getMonth()}-${dateObj.getFullYear()}`;
-  }
-
-  componentWillMount() {
-    const serverPath = "http://localhost:5001";
-    const authorizationHeader = { Authorization: "myKey" };
-
-    fetch(`${serverPath}/posts`, { headers: authorizationHeader })
-      .then(res => res.json())
-      .then(res =>
-        res.forEach(post => this.props.dispatch(createPost(post)), this)
-      );
   }
 
   getPosts(posts) {
