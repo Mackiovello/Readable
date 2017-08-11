@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Posts from "./Posts";
 import Header from "./Header";
 import PostForm from "./PostForm";
-import { Switch, Route, Link, withRouter } from "react-router-dom";
+import FloatingButton from "./FloatingButton";
+import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { createPost, createCategory } from "../actions";
 
@@ -37,9 +38,7 @@ class App extends Component {
               <div>
                 <Header />
                 <Posts />
-                <Link to="/new" className="floating-button">
-                  <span>+</span>
-                </Link>
+                <FloatingButton path="/new" character="+" />
               </div>}
           />
         </Switch>

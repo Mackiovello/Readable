@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../styles/PostForm.css";
+import FloatingButton from "./FloatingButton";
 
 class PostForm extends Component {
   render() {
