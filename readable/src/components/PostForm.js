@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../styles/PostForm.css";
-import FloatingButton from "./FloatingButton";
 
 class PostForm extends Component {
   render() {
@@ -35,6 +34,11 @@ class PostForm extends Component {
           <div className="form-card__text-field">
             <label htmlFor="bodyInput">Body</label>
             <textarea id="bodyInput" />
+          </div>
+
+          <div className="form-card__buttons">
+            <button className="button">submit</button>
+            <button className="button">cancel</button>
           </div>
         </form>
       </div>

@@ -8,6 +8,10 @@
   border-radius: 3px;
 }
 
+.form-card__buttons {
+  margin: 5px 15px;
+}
+
 .form-card__text-field {
   margin: 5px 15px;
   display: flex;
@@ -17,6 +21,7 @@
 
 .form-card__text-field--large {
   flex-grow: 1;
+  min-width: 120px;
 }
 
 .form-card__text-field input,
