@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import "../styles/PostForm.css";
 import { Field, reduxForm } from "redux-form";
+import { connect } from "react-redux";
 
 class PostForm extends Component {
 
   render() {
-    const { handleSubmit } = this.props;
-    
+    const { handleSubmit, categories } = this.props;
+
     return (
       <div>
         <div className="header header--thin">
@@ -41,10 +42,11 @@ class PostForm extends Component {
                 name="category" 
                 id="categorySelect"
               >
-                <option>option1</option>
-                <option>option2</option>
-                <option>option3</option>
-                <option>option4</option>
+                {
+                  categories.map(category => (
+                    <option key={category.name}>{category.name}</option>
+                  ))
+                }
               </Field>
             </div>
           </div>
@@ -70,4 +72,4 @@ class PostForm extends Component {
 
 export default reduxForm({ 
   form: "postForm" 
-})(PostForm);
+})(connect(state => state)(PostForm));

@@ -28,12 +28,34 @@ class App extends Component {
       );
   }
 
+  // taken from https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript with slight modifications
+  generateId() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+      var r = Math.random() * 16 | 0, v = c === 'x' ? r : ((r & 0x3) | 0x8);
+      return v.toString(16);
+    });
+  }
+
+  handleSubmit({body, author, category, title}) {
+    this.props.dispatch(createPost({
+      body,
+      author,
+      category,
+      title,
+      timestamp: Date.now(),
+      voteScore: 0,
+      id: this.generateId(),
+      deleted: false
+    }));
+  }
+
+
   render() {
     return (
       <div>
         <Switch>
           <Route exact path="/new" render={() => 
-            <PostForm onSubmit={values => console.log(values)}/>} 
+            <PostForm onSubmit={values => this.handleSubmit(values)}/>} 
           />
           <Route
             render={() =>
