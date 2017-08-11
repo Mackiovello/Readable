@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Route, withRouter } from "react-router-dom";
 import { upvote, downvote } from "../actions";
 import { connect } from "react-redux";
+import "../styles/Posts.css";
 
 class Posts extends Component {
   getFormattedDate(unixTime) {
