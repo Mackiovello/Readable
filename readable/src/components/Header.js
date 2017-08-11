@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { createCategory } from "../actions";
 import { connect } from "react-redux";
+import { withRouter, Link } from "react-router-dom";
 
 class Header extends Component {
   componentWillMount() {
@@ -22,11 +23,11 @@ class Header extends Component {
       <div className="header">
         <h1 className="header__headline">Readable</h1>
         <nav className="header__navigation">
-          <a href="/">all</a>
+          <Link to="/">all</Link>
           {this.props.categories.map(category =>
-            <a href={category.path} key={category.name}>
+            <Link to={category.path} key={category.name}>
               {category.name}
-            </a>
+            </Link>
           )}
         </nav>
       </div>
@@ -34,4 +35,4 @@ class Header extends Component {
   }
 }
 
-export default connect(state => state)(Header);
+export default withRouter(connect(state => state)(Header));

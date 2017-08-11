@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import { upvote, downvote, createPost } from "../actions";
 import { connect } from "react-redux";
 
@@ -83,4 +83,4 @@ class Posts extends Component {
   }
 }
 
-export default connect(state => state)(Posts);
+export default withRouter(connect(state => state)(Posts));
