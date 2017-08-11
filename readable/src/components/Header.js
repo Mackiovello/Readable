@@ -9,7 +9,7 @@ class Header extends Component {
 
       fetch(`${serverPath}/categories`, { headers: authorizationHeader })
       .then(res => res.json())
-      .then(res => res.categories.forEach(category => this.props.createCategory(category), this));
+      .then(res => res.categories.forEach(category => this.props.dispatch(createCategory(category)), this));
     }
 
     render() {
@@ -29,14 +29,4 @@ class Header extends Component {
     }
 }
 
-function mapStateToProps(state) {
-  return state;
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    createCategory: category => dispatch(createCategory(category))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(state => state)(Header);

@@ -15,7 +15,7 @@ class Posts extends Component {
 
     fetch(`${serverPath}/posts`, { headers: authorizationHeader })
       .then(res => res.json())
-      .then(res => res.forEach(post => this.props.createPost(post), this));
+      .then(res => res.forEach(post => this.props.dispatch(createPost(post)), this));
   }
 
   getPosts(posts) {
@@ -32,9 +32,9 @@ class Posts extends Component {
               <span className="posts__post-author">Author: {post.author}</span>
             </div>
             <div className="posts__votes">
-              <span className="posts__vote-button" onClick={() => this.props.upvote(post)}>&#129093;</span>
+              <span className="posts__vote-button" onClick={() => this.props.dispatch(upvote(post))}>&#129093;</span>
               <span>{post.voteScore}</span>
-              <span className="posts__vote-button" onClick={() => this.props.downvote(post)}>&#129095;</span>
+              <span className="posts__vote-button" onClick={() => this.props.dispatch(downvote(post))}>&#129095;</span>
             </div>
           </div>
         ))
@@ -60,16 +60,4 @@ class Posts extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return state;
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    upvote: data => dispatch(upvote(data)),
-    downvote: data => dispatch(downvote(data)),
-    createPost: post => dispatch(createPost(post))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Posts);
+export default connect(state => state)(Posts);
