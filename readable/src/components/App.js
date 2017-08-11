@@ -47,6 +47,7 @@ class App extends Component {
       id: this.generateId(),
       deleted: false
     }));
+    this.props.history.push("/");
   }
 
 

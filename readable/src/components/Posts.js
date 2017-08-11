@@ -7,7 +7,7 @@ import "../styles/Posts.css";
 class Posts extends Component {
   getFormattedDate(unixTime) {
     const dateObj = new Date(unixTime);
-    return `${dateObj.getDate()}-${dateObj.getMonth()}-${dateObj.getFullYear()}`;
+    return `${dateObj.getDate()}-${dateObj.getMonth() + 1}-${dateObj.getFullYear()}`;
   }
 
   getPosts(posts) {
