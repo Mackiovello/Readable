@@ -32,7 +32,9 @@ class App extends Component {
     return (
       <div>
         <Switch>
-          <Route exact path="/new" component={PostForm} />
+          <Route exact path="/new" render={() => 
+            <PostForm onSubmit={values => console.log(values)}/>} 
+          />
           <Route
             render={() =>
               <div>
