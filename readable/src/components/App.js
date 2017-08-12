@@ -5,7 +5,7 @@ import PostForm from "./PostForm";
 import FloatingButton from "./FloatingButton";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { createPost, createCategory } from "../actions";
+import { createPostAction, createPost, createCategory } from "../actions";
 
 class App extends Component {
   componentWillMount() {
@@ -15,7 +15,7 @@ class App extends Component {
     fetch(`${serverPath}/posts`, { headers: authorizationHeader })
       .then(res => res.json())
       .then(res =>
-        res.forEach(post => this.props.dispatch(createPost(post)), this)
+        res.forEach(post => this.props.dispatch(createPostAction(post)), this)
       );
 
     fetch(`${serverPath}/categories`, { headers: authorizationHeader })
@@ -43,7 +43,7 @@ class App extends Component {
       category,
       title,
       timestamp: Date.now(),
-      voteScore: 0,
+      voteScore: 1,
       id: this.generateId(),
       deleted: false
     }));

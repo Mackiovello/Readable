@@ -47,7 +47,6 @@ const vote = (post, option, dispatch) => {
   )
 }
 
-
 export function createCategory(category) {
   return {
     type: CREATE_CATEGORY,
@@ -55,27 +54,23 @@ export function createCategory(category) {
   };
 }
 
-export function createPost({
-  author,
-  body,
-  category,
-  deleted,
-  id,
-  timestamp,
-  title,
-  voteScore
-}) {
+export function createPost(post) {
+  return dispatch => {
+    return fetch(`http://localhost:5001/posts`,
+      { 
+        method: "post", 
+        body: JSON.stringify(post),
+        headers: { 
+          Authorization: "myKey", 
+          "Content-Type": "application/json" 
+        }, 
+      }).then(dispatch(createPostAction(post)))
+  }
+}
+
+export function createPostAction(post){
   return {
     type: CREATE_POST,
-    post: {
-      author,
-      body,
-      category,
-      deleted,
-      id,
-      timestamp,
-      title,
-      voteScore
-    }
+    post
   };
 }
