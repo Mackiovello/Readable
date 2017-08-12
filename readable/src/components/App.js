@@ -6,8 +6,8 @@ import FloatingButton from "./FloatingButton";
 import Post from "./Post";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { createPostAction, createPost, createCategory } from "../actions";
-
+import { createCategory } from "../actions/categories";
+import { createPostAction, createPost } from "../actions/posts";
 class App extends Component {
   componentWillMount() {
     const serverPath = "http://localhost:5001";
@@ -70,7 +70,7 @@ class App extends Component {
                 render={() => (
                   <div>
                     <Header />
-                    <Post post={post}/>
+                    <Post history={this.props.history} post={post}/>
                     <FloatingButton path="/" character="&#129120;" />
                   </div>
                 )}

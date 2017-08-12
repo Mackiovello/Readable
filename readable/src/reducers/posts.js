@@ -1,4 +1,4 @@
-import { UPVOTE, DOWNVOTE, CREATE_POST } from "../actions";
+import { UPVOTE, DOWNVOTE, CREATE_POST } from "../actions/posts";
 
 const vote = (posts, post, vote) => {
   return posts.map(p => {

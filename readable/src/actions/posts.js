@@ -1,7 +1,6 @@
 export const UPVOTE = "UPVOTE";
 export const DOWNVOTE = "DOWNVOTE";
 export const CREATE_POST = "CREATE_POST";
-export const CREATE_CATEGORY = "CREATE_CATEGORY";
 
 export function upvote(post) {
   return dispatch => vote(post, "upVote", dispatch);
@@ -45,13 +44,6 @@ const vote = (post, option, dispatch) => {
       }
     }
   )
-}
-
-export function createCategory(category) {
-  return {
-    type: CREATE_CATEGORY,
-    category
-  };
 }
 
 export function createPost(post) {

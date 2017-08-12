@@ -1,4 +1,4 @@
-import { CREATE_CATEGORY } from "../actions";
+import { CREATE_CATEGORY } from "../actions/categories";
 
 function categories(state = [], action) {
   switch (action.type) {
