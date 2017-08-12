@@ -3,13 +3,31 @@
   max-width: 600px;
   background-color: #fff;
   box-shadow: 0 1px 3px #999;
-  padding: 8px;
   border-radius: 4px;
   margin: 30px auto;
 }
 
 .post-card__title {
   font-size: 1.4rem;
-  margin-top: 0;
+  margin: 0;
+  padding: 0.6em 1.4em;
+  box-shadow: 0 1px 4px #ddd;
   font-weight: normal;
+  background-color: #f8f8f8;
+}
+
+.post-card__body {
+  padding: 1.8em;
+  margin: 0;
+  line-height: 1.7em;
+  font-size: 1.05em;
+}
+
+.post-card__footer {
+  background-color: #f8f8f8;
+  box-shadow: 0 -1px 4px #ddd;
+  padding: 0.4em 1.6em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

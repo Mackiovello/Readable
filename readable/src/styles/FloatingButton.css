@@ -1,6 +1,6 @@
 .floating-button {
   background-color: var(--primary-color);
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   right: 20px;
   border-radius: 50%;
