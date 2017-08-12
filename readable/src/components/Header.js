@@ -11,7 +11,7 @@ class Header extends Component {
         <nav className="header__navigation">
           <Link to="/">all</Link>
           {this.props.categories.map(category =>
-            <Link to={category.path} key={category.name}>
+            <Link to={`/${category.path}`} key={category.name}>
               {category.name}
             </Link>
           )}

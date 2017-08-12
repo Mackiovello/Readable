@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, withRouter } from "react-router-dom";
+import { Route, withRouter, Link } from "react-router-dom";
 import { upvote, downvote } from "../actions";
 import { connect } from "react-redux";
 import "../styles/Posts.css";
@@ -15,7 +15,7 @@ class Posts extends Component {
       <div>
         {posts.map(post =>
           <div className="posts__post" key={post.id}>
-            <div className="posts__post-info">
+            <Link to={`/${post.category}/${post.id}`} className="posts__post-info">
               <div>
                 <p className="posts__post-title">
                   {post.title}
@@ -27,7 +27,7 @@ class Posts extends Component {
               <span className="posts__post-author">
                 Author: {post.author}
               </span>
-            </div>
+            </Link>
             <div className="posts__votes">
               <span
                 className="posts__vote-button"

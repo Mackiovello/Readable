@@ -7,22 +7,27 @@
 .posts__post {
   margin: 20px 0;
   height: 95px;
-  padding: 8px;
   background-color: #fff;
   box-shadow: 0 1px 3px #999;
   border-radius: 3px;
   display: flex;
   justify-content: space-between;
+  transition: box-shadow .2s;
+}
+
+.posts__post:hover {
+  box-shadow: 0 3px 5px #ccc;
 }
 
 .posts__votes {
   display: flex;
   flex-direction: column;
-  height: 80px;
-  width: 40px;
+  height: 100%;
+  width: 60px;
   justify-content: space-around;
   text-align: center;
   align-self: center;
+  background-color: #f8f8f8;
 }
 
 .posts__vote-button {
@@ -48,6 +53,10 @@
 
 .posts__post-info {
   display: flex;
+  padding: 8px;
+  width: 100%;
+  text-decoration: none;
+  color: #333;
   flex-direction: column;
   justify-content: space-between;
 }
