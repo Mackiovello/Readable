@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../styles/PostForm.css";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class PostForm extends Component {
 
@@ -62,7 +63,11 @@ class PostForm extends Component {
 
           <div className="form-card__buttons">
             <button className="button" type="submit">submit</button>
-            <button className="button">cancel</button>
+            <Link 
+              to="/"
+              className="button">
+              cancel
+            </Link>
           </div>
         </form>
       </div>

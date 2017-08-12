@@ -25,6 +25,12 @@ body {
   padding: 10px;
   color: #333;
   transition: background-color .2s;
+  font-size: 1rem;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  height: 40px;
+  display: inline-block;
 }
 
 .button:hover {
