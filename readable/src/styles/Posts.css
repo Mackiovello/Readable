@@ -19,25 +19,6 @@
   box-shadow: 0 3px 5px #ccc;
 }
 
-.posts__votes {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 60px;
-  justify-content: space-around;
-  text-align: center;
-  align-self: center;
-  background-color: #f8f8f8;
-}
-
-.posts__vote-button {
-  color: var(--primary-color);
-  text-shadow: 0 1px 3px #999;
-  font-size: 1.8rem;
-  cursor: pointer;
-  user-select: none;
-}
-
 .posts__post-title,
 .posts__post-time {
   margin: 0;

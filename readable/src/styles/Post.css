@@ -8,12 +8,8 @@
 }
 
 .post-card__title {
-  font-size: 1.4rem;
-  margin: 0;
-  padding: 0.6em 1.4em;
-  box-shadow: 0 1px 4px #ddd;
   font-weight: normal;
-  background-color: #f8f8f8;
+  margin-bottom: 10px;
 }
 
 .post-card__body {
@@ -23,11 +19,22 @@
   font-size: 1.05em;
 }
 
-.post-card__footer {
+.post-card__header {
+  margin: 0;
+  padding: 0 0 0 1.4em;
+  box-shadow: 0 1px 4px #ddd;
   background-color: #f8f8f8;
-  box-shadow: 0 -1px 4px #ddd;
-  padding: 0.4em 1.6em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-card__header-info {
+  flex-grow: 1;
+}
+
+.post-card__below-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 0.5em;
 }

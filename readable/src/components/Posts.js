@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Route, withRouter, Link } from "react-router-dom";
-import { upvote, downvote } from "../actions/posts";
 import { connect } from "react-redux";
 import "../styles/Posts.css";
+import Votes from "./Votes";
 
 class Posts extends Component {
   getFormattedDate(unixTime) {
@@ -28,23 +28,7 @@ class Posts extends Component {
                 Author: {post.author}
               </span>
             </Link>
-            <div className="posts__votes">
-              <span
-                className="posts__vote-button"
-                onClick={() => this.props.dispatch(upvote(post))}
-              >
-                &#129093;
-              </span>
-              <span>
-                {post.voteScore}
-              </span>
-              <span
-                className="posts__vote-button"
-                onClick={() => this.props.dispatch(downvote(post))}
-              >
-                &#129095;
-              </span>
-            </div>
+            <Votes post={post}/>
           </div>
         )}
       </div>

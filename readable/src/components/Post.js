@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../styles/Post.css";
 import { deletePost } from "../actions/posts";
 import { connect } from "react-redux";
+import Votes from "./Votes";
 
 class Post extends Component {
   constructor() {
@@ -19,15 +20,20 @@ class Post extends Component {
     return (
       <div>
         <div className="post-card">
-          <h2 className="post-card__title">{title}</h2>
-          <p className="post-card__body">{body}</p>
-          <div className="post-card__footer">
-            <span>{author}</span>
-            <div>
-              <button className="button" onClick={this.deletePost}>delete</button>
-              <button className="button">edit</button>
+          <div className="post-card__header">
+            <div className="post-card__header-info">
+              <h2 className="post-card__title">{title}</h2>
+              <div className="post-card__below-title">
+                <span>{author}</span>
+                <div>
+                  <button className="button" onClick={this.deletePost}>delete</button>
+                  <button className="button">edit</button>
+                </div>
+              </div>
             </div>
+            <Votes post={this.props.post}/>
           </div>
+          <p className="post-card__body">{body}</p>
         </div>
       </div> 
     )
