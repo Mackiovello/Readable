@@ -8,6 +8,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { createCategory } from "../actions/categories";
 import { createPostAction, createPost } from "../actions/posts";
+
 class App extends Component {
   componentWillMount() {
     const serverPath = "http://localhost:5001";

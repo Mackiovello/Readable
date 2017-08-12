@@ -1,6 +1,7 @@
 export const UPVOTE = "UPVOTE";
 export const DOWNVOTE = "DOWNVOTE";
 export const CREATE_POST = "CREATE_POST";
+export const DELETE_POST = "DELETE_POST";
 
 export function upvote(post) {
   return dispatch => vote(post, "upVote", dispatch);
@@ -65,4 +66,19 @@ export function createPostAction(post){
     type: CREATE_POST,
     post
   };
+}
+
+export function deletePost(post) {
+  return dispatch => {
+    return fetch(`http://localhost:5001/posts/${post.id}`, 
+      {
+        method: "delete",
+        headers: { Authorization: "myKey" }
+      }).then(
+        dispatch({
+          type: DELETE_POST,
+          post
+        })
+      )
+  }
 }

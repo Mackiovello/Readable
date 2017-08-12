@@ -13,7 +13,7 @@ class Posts extends Component {
   getPosts(posts) {
     return (
       <div>
-        {posts.map(post =>
+        {posts.filter(post => post.deleted !== true).map(post =>
           <div className="posts__post" key={post.id}>
             <Link to={`/${post.category}/${post.id}`} className="posts__post-info">
               <div>

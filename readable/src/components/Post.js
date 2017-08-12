@@ -1,7 +1,19 @@
 import React, { Component } from "react";
 import "../styles/Post.css";
+import { deletePost } from "../actions/posts";
+import { connect } from "react-redux";
 
-export default class Post extends Component {
+class Post extends Component {
+  constructor() {
+    super();
+    this.deletePost = this.deletePost.bind(this);
+  }
+
+  deletePost() {
+    this.props.dispatch(deletePost(this.props.post));
+    this.props.history.push("/");
+  }
+
   render() {
     const { title, body, author } = this.props.post;
     return (
@@ -12,7 +24,7 @@ export default class Post extends Component {
           <div className="post-card__footer">
             <span>{author}</span>
             <div>
-              <button className="button">delete</button>
+              <button className="button" onClick={this.deletePost}>delete</button>
               <button className="button">edit</button>
             </div>
           </div>
@@ -21,3 +33,5 @@ export default class Post extends Component {
     )
   }
 }
+
+export default connect()(Post);

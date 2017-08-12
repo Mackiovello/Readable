@@ -1,4 +1,4 @@
-import { UPVOTE, DOWNVOTE, CREATE_POST } from "../actions/posts";
+import { UPVOTE, DOWNVOTE, CREATE_POST, DELETE_POST } from "../actions/posts";
 
 const vote = (posts, post, vote) => {
   return posts.map(p => {
@@ -12,18 +12,20 @@ const vote = (posts, post, vote) => {
   });
 };
 
-function posts(state = [], action) {
+function posts(posts = [], action) {
   const { post } = action;
 
   switch (action.type) {
     case UPVOTE:
-      return vote(state, post, 1);
+      return vote(posts, post, 1);
     case DOWNVOTE:
-      return vote(state, post, -1);
+      return vote(posts, post, -1);
     case CREATE_POST:
-      return [...state, post];
+      return [...posts, post];
+    case DELETE_POST:
+      return posts.filter(p => p.id !== post.id);
     default:
-      return state;
+      return posts;
   }
 }
 
