@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 class PostForm extends Component {
-
   render() {
     const { handleSubmit, categories } = this.props;
 
@@ -17,12 +16,7 @@ class PostForm extends Component {
         <form className="form-card" onSubmit={handleSubmit}>
           <div className="form-card__text-field">
             <label htmlFor="titleInput">Title</label>
-            <Field 
-              component="input"
-              name="title" 
-              id="titleInput" 
-              type="text" 
-            />
+            <Field component="input" name="title" id="titleInput" type="text" />
           </div>
 
           <div className="form-card__combined_row">
@@ -31,41 +25,33 @@ class PostForm extends Component {
               <Field
                 component="input"
                 name="author"
-                id="authorInput" 
-                type="text" 
+                id="authorInput"
+                type="text"
               />
             </div>
 
             <div className="form-card__drop-down">
               <label htmlFor="categorySelect">Category</label>
-              <Field
-                component="select"
-                name="category" 
-                id="categorySelect"
-              >
-                {
-                  categories.map(category => (
-                    <option key={category.name}>{category.name}</option>
-                  ))
-                }
+              <Field component="select" name="category" id="categorySelect">
+                {categories.map(category =>
+                  <option key={category.name}>
+                    {category.name}
+                  </option>
+                )}
               </Field>
             </div>
           </div>
 
           <div className="form-card__text-field">
             <label htmlFor="bodyInput">Body</label>
-            <Field 
-              component="textarea"
-              name="body" 
-              id="bodyInput"
-            />
+            <Field component="textarea" name="body" id="bodyInput" />
           </div>
 
           <div className="form-card__buttons">
-            <button className="button" type="submit">submit</button>
-            <Link 
-              to="/"
-              className="button">
+            <button className="button" type="submit">
+              submit
+            </button>
+            <Link to="/" className="button">
               cancel
             </Link>
           </div>
@@ -75,6 +61,6 @@ class PostForm extends Component {
   }
 }
 
-export default reduxForm({ 
-  form: "postForm" 
+export default reduxForm({
+  form: "postForm"
 })(connect(state => state)(PostForm));

@@ -15,14 +15,13 @@ const combinedReducers = combineReducers({
   form: reduxFormReducer,
   posts,
   categories
-})
+});
 
 const store = createStore(
   combinedReducers,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   applyMiddleware(thunk)
 );
-
 
 ReactDOM.render(
   <BrowserRouter>

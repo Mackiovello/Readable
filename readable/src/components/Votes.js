@@ -15,7 +15,9 @@ class Votes extends Component {
         >
           &#129093;
         </span>
-        <span>{post.voteScore}</span>
+        <span>
+          {post.voteScore}
+        </span>
         <span
           className="posts__vote-button"
           onClick={() => dispatch(downvote(post))}
@@ -23,7 +25,7 @@ class Votes extends Component {
           &#129095;
         </span>
       </div>
-    )
+    );
   }
 }
 

@@ -26,42 +26,38 @@ function upvoteAction(post) {
 }
 
 const vote = (post, option, dispatch) => {
-  return fetch(`http://localhost:5001/posts/${post.id}`,
-    { 
-      method: "post", 
-      body: JSON.stringify({ option }),
-      headers: { 
-        Authorization: "myKey", 
-        "Content-Type": "application/json" 
-      }, 
-    }).then(
-    () => {
-      if (option === "upVote") {
-        dispatch(upvoteAction(post));
-      } else if (option === "downVote") {
-        dispatch(downvoteAction(post));
-      } else {
-        throw new Error("option must be 'upVote' or 'downVote'");
-      }
+  return fetch(`http://localhost:5001/posts/${post.id}`, {
+    method: "post",
+    body: JSON.stringify({ option }),
+    headers: {
+      Authorization: "myKey",
+      "Content-Type": "application/json"
     }
-  )
-}
+  }).then(() => {
+    if (option === "upVote") {
+      dispatch(upvoteAction(post));
+    } else if (option === "downVote") {
+      dispatch(downvoteAction(post));
+    } else {
+      throw new Error("option must be 'upVote' or 'downVote'");
+    }
+  });
+};
 
 export function createPost(post) {
   return dispatch => {
-    return fetch(`http://localhost:5001/posts`,
-      { 
-        method: "post", 
-        body: JSON.stringify(post),
-        headers: { 
-          Authorization: "myKey", 
-          "Content-Type": "application/json" 
-        }, 
-      }).then(dispatch(createPostAction(post)))
-  }
+    return fetch(`http://localhost:5001/posts`, {
+      method: "post",
+      body: JSON.stringify(post),
+      headers: {
+        Authorization: "myKey",
+        "Content-Type": "application/json"
+      }
+    }).then(dispatch(createPostAction(post)));
+  };
 }
 
-export function createPostAction(post){
+export function createPostAction(post) {
   return {
     type: CREATE_POST,
     post
@@ -70,15 +66,14 @@ export function createPostAction(post){
 
 export function deletePost(post) {
   return dispatch => {
-    return fetch(`http://localhost:5001/posts/${post.id}`, 
-      {
-        method: "delete",
-        headers: { Authorization: "myKey" }
-      }).then(
-        dispatch({
-          type: DELETE_POST,
-          post
-        })
-      )
-  }
+    return fetch(`http://localhost:5001/posts/${post.id}`, {
+      method: "delete",
+      headers: { Authorization: "myKey" }
+    }).then(
+      dispatch({
+        type: DELETE_POST,
+        post
+      })
+    );
+  };
 }

@@ -5,9 +5,11 @@ import "../styles/FloatingButton.css";
 const FloatingButton = props => {
   return (
     <Link to={props.path} className="floating-button">
-      <span>{props.character}</span>
+      <span>
+        {props.character}
+      </span>
     </Link>
-  )
-}
+  );
+};
 
 export default FloatingButton;

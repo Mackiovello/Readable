@@ -7,7 +7,8 @@ import Votes from "./Votes";
 class Posts extends Component {
   getFormattedDate(unixTime) {
     const dateObj = new Date(unixTime);
-    return `${dateObj.getDate()}-${dateObj.getMonth() + 1}-${dateObj.getFullYear()}`;
+    return `${dateObj.getDate()}-${dateObj.getMonth() +
+      1}-${dateObj.getFullYear()}`;
   }
 
   getPosts(posts) {
@@ -15,7 +16,10 @@ class Posts extends Component {
       <div>
         {posts.filter(post => post.deleted !== true).map(post =>
           <div className="posts__post" key={post.id}>
-            <Link to={`/${post.category}/${post.id}`} className="posts__post-info">
+            <Link
+              to={`/${post.category}/${post.id}`}
+              className="posts__post-info"
+            >
               <div>
                 <p className="posts__post-title">
                   {post.title}
@@ -28,7 +32,7 @@ class Posts extends Component {
                 Author: {post.author}
               </span>
             </Link>
-            <Votes post={post}/>
+            <Votes post={post} />
           </div>
         )}
       </div>
