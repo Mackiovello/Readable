@@ -13,7 +13,7 @@ namespace CoreServer
         public abstract string Author { get; set; }
         public abstract string Body { get; set; }
         public abstract string Category { get; set; }
-        public abstract int Timestamp { get; set; }
+        public abstract DateTime Timestamp { get; set; }
         public abstract int VoteScore { get; set; }
         public abstract bool Deleted { get; set; }
     }

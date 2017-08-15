@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Starcounter.Core;
 using System.Linq;
 using System.Text;
+using System;
 
 namespace CoreServer
 {
@@ -50,6 +51,12 @@ namespace CoreServer
                     {
                         var newPost = Db.Insert<Post>();
                         newPost.Title = "Test title";
+                        newPost.Category = "MyCategory";
+                        newPost.Body = "Body of post";
+                        newPost.Timestamp = DateTime.Now;
+                        newPost.Author = "Author";
+                        newPost.VoteScore = 0;
+                        newPost.Deleted = false;
                         responseBuilder.Append(newPost.Title);
                     }
                     else

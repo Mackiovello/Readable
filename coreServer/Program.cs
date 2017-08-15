@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Starcounter.Core.Hosting;
 using Starcounter.Core.AspNetCore;
 using Starcounter.Core;
+using Starcounter.Core.Bluestar;
 
 namespace CoreServer
 {
@@ -15,8 +16,17 @@ namespace CoreServer
     {
         public static void Main(string[] args)
         {
+            const string database = "ReadableDatabase";
 
-            using (var appHost = new AppHostBuilder().Build())
+            var options = Starcounter.Core.Options.StarcounterOptions.TryOpenExisting(database);
+
+            if (options == null)
+            {
+                Directory.CreateDirectory(database);
+                ScCreateDb.Execute(database);
+            }
+
+            using (var appHost = new AppHostBuilder().UseDatabase(database).Build())
             {
                 var host = new WebHostBuilder()
                     .UseKestrel()
@@ -27,17 +37,6 @@ namespace CoreServer
                     .Build();
 
                 host.Run();
-
-                bool noPosts = Db.SQL<Post>($"SELECT p FROM {nameof(Post)} p").FirstOrDefault() == null;
-
-                if (noPosts)
-                {
-                    Db.Transact(() =>
-                    {
-                        var post = Db.Insert<Post>();
-                        post.Title = "Test title";
-                    });
-                }
             }
         }
     }
