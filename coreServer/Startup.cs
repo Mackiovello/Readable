@@ -8,6 +8,7 @@ using Starcounter.Core;
 using System.Linq;
 using System.Text;
 using System;
+using Newtonsoft.Json;
 
 namespace CoreServer
 {
@@ -45,26 +46,24 @@ namespace CoreServer
 
                 Db.Transact(() =>
                 {
-                    var post = Db.SQL<Post>($"SELECT p FROM CoreServer.Post p").FirstOrDefault();
+                    var posts = Db.SQL<Post>($"SELECT p FROM CoreServer.Post p");
                    
-                    if (post == null)
+                    if (posts.FirstOrDefault() == null)
                     {
                         var newPost = Db.Insert<Post>();
                         newPost.Title = "Test title";
                         newPost.Category = "MyCategory";
                         newPost.Body = "Body of post";
-                        newPost.Timestamp = DateTime.Now;
+                        newPost.Created = DateTime.Now;
                         newPost.Author = "Author";
                         newPost.VoteScore = 0;
-                        newPost.Deleted = false;
-                        responseBuilder.Append(newPost.Title);
+                        newPost.IsDeleted = false;
                     }
-                    else
-                    {
-                        responseBuilder.Append(post.Title);
-                    }   
+
+                    responseBuilder.Append(JsonConvert.SerializeObject(posts));
                 });
 
+                context.Response.ContentType = "application/json";
                 await context.Response.WriteAsync(responseBuilder.ToString());
             });
 
