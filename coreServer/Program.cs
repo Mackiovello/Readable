@@ -26,8 +26,10 @@ namespace CoreServer
                 ScCreateDb.Execute(database);
             }
 
+
             using (var appHost = new AppHostBuilder().UseDatabase(database).Build())
             {
+
                 var host = new WebHostBuilder()
                     .UseKestrel()
                     .UseContentRoot(Directory.GetCurrentDirectory())
@@ -36,8 +38,29 @@ namespace CoreServer
                     .ConfigureServices(services => services.AddStarcounter(appHost))
                     .Build();
 
+                CreateFirstPostIfEmptyDatabase();
+
                 host.Run();
+
             }
+        }
+
+        private static void CreateFirstPostIfEmptyDatabase()
+        {
+            Db.Transact(() =>
+            {
+                bool noPosts = Db.SQL<Post>($"SELECT p FROM {nameof(Post)} p").FirstOrDefault() == null;
+
+                if (noPosts)
+                {
+                    var newPost = Db.Insert<Post>();
+                    newPost.Title = "First post";
+                    newPost.Category = "MyCategory";
+                    newPost.Body = "Body of post";
+                    newPost.Author = "Author";
+                    newPost.Inserted();
+                }
+            });
         }
     }
 }

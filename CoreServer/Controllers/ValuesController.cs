@@ -8,10 +8,10 @@ using Newtonsoft.Json;
 
 namespace CoreServer
 {
-    [Route("api/[controller]")]
+    [Route("posts")]
     public class ValuesController : Controller
     {
-        // GET: api/values
+        // GET: posts
         [HttpGet]
         public string Get()
         {
@@ -21,16 +21,6 @@ namespace CoreServer
             {
                 var posts = Db.SQL<Post>($"SELECT p FROM CoreServer.Post p");
 
-                if (posts.FirstOrDefault() == null)
-                {
-                    var newPost = Db.Insert<Post>();
-                    newPost.Title = "Test title";
-                    newPost.Category = "MyCategory";
-                    newPost.Body = "Body of post";
-                    newPost.Author = "Author";
-                    newPost.Inserted();
-                }
-
                 postJson = JsonConvert.SerializeObject(posts);
             });
 
@@ -38,26 +28,26 @@ namespace CoreServer
             return postJson ?? "There are no posts";
         }
 
-        // GET api/values/5
+        // GET posts/asdgv
         [HttpGet("{id}")]
-        public string Get(int id)
+        public string Get(string id)
         {
             return "value";
         }
 
-        // POST api/values
+        // POST posts
         [HttpPost]
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT api/values/5
+        // PUT posts/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/values/5
+        // DELETE posts/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
