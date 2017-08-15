@@ -11,12 +11,6 @@ using Starcounter.Core;
 
 namespace CoreServer
 {
-    [Database]
-    public abstract class Post
-    {
-        public abstract string Title { get; set; }
-    }
-
     public class Program
     {
         public static void Main(string[] args)
