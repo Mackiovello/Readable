@@ -39,32 +39,6 @@ namespace CoreServer
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.Run(async context =>
-            {
-                string path = context.Request.Path.Value.Substring(1);
-                var responseBuilder = new StringBuilder();
-
-                Db.Transact(() =>
-                {
-                    var posts = Db.SQL<Post>($"SELECT p FROM CoreServer.Post p");
-                   
-                    if (posts.FirstOrDefault() == null)
-                    {
-                        var newPost = Db.Insert<Post>();
-                        newPost.Title = "Test title";
-                        newPost.Category = "MyCategory";
-                        newPost.Body = "Body of post";
-                        newPost.Author = "Author";
-                        newPost.Inserted();
-                    }
-
-                    responseBuilder.Append(JsonConvert.SerializeObject(posts));
-                });
-
-                context.Response.ContentType = "application/json";
-                await context.Response.WriteAsync(responseBuilder.ToString());
-            });
-
             app.UseMvc();
         }
     }
