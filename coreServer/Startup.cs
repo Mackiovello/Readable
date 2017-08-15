@@ -40,22 +40,25 @@ namespace CoreServer
             app.Run(async context =>
             {
                 string path = context.Request.Path.Value.Substring(1);
+                var responseBuilder = new StringBuilder();
 
-                bool noPosts = Db.SQL<Post>($"SELECT p FROM {nameof(Post)} p").FirstOrDefault() == null;
-
-                if (noPosts)
+                Db.Transact(() =>
                 {
-                    Db.Transact(() =>
+                    var post = Db.SQL<Post>($"SELECT p FROM CoreServer.Post p").FirstOrDefault();
+                   
+                    if (post == null)
                     {
-                        var post = Db.Insert<Post>();
-                        post.Title = "Test title";
-                    });
-                }
+                        var newPost = Db.Insert<Post>();
+                        newPost.Title = "Test title";
+                        responseBuilder.Append(newPost.Title);
+                    }
+                    else
+                    {
+                        responseBuilder.Append(post.Title);
+                    }
+                });
 
-                string response = "test";
-                context.Response.ContentLength = response.Length;
-                context.Response.ContentType = "text/plain";
-                await context.Response.WriteAsync(response);
+                await context.Response.WriteAsync(responseBuilder.ToString());
             });
 
             app.UseMvc();
