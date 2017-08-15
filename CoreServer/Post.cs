@@ -10,6 +10,13 @@ namespace CoreServer
     [Database]
     public abstract class Post
     {
+        public virtual void Inserted()
+        {
+            this.Created = DateTimeOffset.Now.ToUnixTimeSeconds();
+            this.IsDeleted = false;
+            this.VoteScore = 0;
+        }
+
         [JsonProperty(PropertyName = "id")]
         public string Id => this.GetObjectID();
         [JsonProperty(PropertyName = "title")]
@@ -21,10 +28,10 @@ namespace CoreServer
         [JsonProperty(PropertyName = "category")]
         public abstract string Category { get; set; }
         [JsonProperty(PropertyName = "timestamp")]
-        public abstract DateTime Created { get; set; }
+        public abstract long Created { get; set; }
         [JsonProperty(PropertyName = "voteScore")]
         public abstract int VoteScore { get; set; }
         [JsonProperty(PropertyName = "deleted")]
-        public abstract bool IsDeleted { get; set; }
+        public virtual bool IsDeleted { get; set; }
     }
 }

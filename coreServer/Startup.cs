@@ -54,10 +54,8 @@ namespace CoreServer
                         newPost.Title = "Test title";
                         newPost.Category = "MyCategory";
                         newPost.Body = "Body of post";
-                        newPost.Created = DateTime.Now;
                         newPost.Author = "Author";
-                        newPost.VoteScore = 0;
-                        newPost.IsDeleted = false;
+                        newPost.Inserted();
                     }
 
                     responseBuilder.Append(JsonConvert.SerializeObject(posts));
