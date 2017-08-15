@@ -1,9 +1,0 @@
-C:\Users\Erlend\Documents\GitHub\Readable\coreServer\bin\Debug\netcoreapp1.1\coreServer.deps.json
-C:\Users\Erlend\Documents\GitHub\Readable\coreServer\bin\Debug\netcoreapp1.1\coreServer.runtimeconfig.json
-C:\Users\Erlend\Documents\GitHub\Readable\coreServer\bin\Debug\netcoreapp1.1\coreServer.runtimeconfig.dev.json
-C:\Users\Erlend\Documents\GitHub\Readable\coreServer\bin\Debug\netcoreapp1.1\coreServer.dll
-C:\Users\Erlend\Documents\GitHub\Readable\coreServer\bin\Debug\netcoreapp1.1\coreServer.pdb
-C:\Users\Erlend\Documents\GitHub\Readable\coreServer\obj\Debug\netcoreapp1.1\coreServer.csprojResolveAssemblyReference.cache
-C:\Users\Erlend\Documents\GitHub\Readable\coreServer\obj\Debug\netcoreapp1.1\coreServer.AssemblyInfo.cs
-C:\Users\Erlend\Documents\GitHub\Readable\coreServer\obj\Debug\netcoreapp1.1\coreServer.dll
-C:\Users\Erlend\Documents\GitHub\Readable\coreServer\obj\Debug\netcoreapp1.1\coreServer.pdb
