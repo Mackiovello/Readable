@@ -55,7 +55,7 @@ namespace CoreServer
                     else
                     {
                         responseBuilder.Append(post.Title);
-                    }
+                    }   
                 });
 
                 await context.Response.WriteAsync(responseBuilder.ToString());
