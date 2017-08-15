@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
+using Starcounter.Core;
+using System.Linq;
+using System.Text;
 
-namespace coreServer
+namespace CoreServer
 {
     public class Startup
     {
@@ -36,6 +36,27 @@ namespace coreServer
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            app.Run(async context =>
+            {
+                string path = context.Request.Path.Value.Substring(1);
+
+                bool noPosts = Db.SQL<Post>($"SELECT p FROM {nameof(Post)} p").FirstOrDefault() == null;
+
+                if (noPosts)
+                {
+                    Db.Transact(() =>
+                    {
+                        var post = Db.Insert<Post>();
+                        post.Title = "Test title";
+                    });
+                }
+
+                string response = "test";
+                context.Response.ContentLength = response.Length;
+                context.Response.ContentType = "text/plain";
+                await context.Response.WriteAsync(response);
+            });
 
             app.UseMvc();
         }
