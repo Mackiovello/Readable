@@ -35,9 +35,10 @@ class App extends Component {
   }
 
   handleEdit(post) {
-    this.props.dispatch(deletePost(post));
-    this.props.dispatch(createPost(post));
-    this.props.history.push("/");
+    const { dispatch, history } = this.props;
+    dispatch(deletePost(post));
+    dispatch(createPost(post));
+    history.push("/");
   }
 
   render() {
@@ -51,7 +52,7 @@ class App extends Component {
             path="/new"
             render={() =>
               <div>
-                <PostForm headerText="Create New Post" onSubmit={values => this.handleSubmit(values)} />
+                <PostForm headerText="Create New Post" onSubmit={values => this.handleSubmit(values)} cancelLink="/"/>
                 <FloatingButton path="/" character="&#129120;" />
               </div>}
           />
@@ -62,7 +63,7 @@ class App extends Component {
               key={post.id}
               render={() => 
                 <div>
-                  <PostForm headerText="Edit Post" initialData={post} onSubmit={values => this.handleEdit(values)}/>
+                  <PostForm headerText="Edit Post" initialData={post} onSubmit={values => this.handleEdit(values)} cancelLink={`/${post.category}/${post.id}`}/>
                   <FloatingButton path={`/${post.category}/${post.id}`} character="&#129120;" />
                 </div>}
             />

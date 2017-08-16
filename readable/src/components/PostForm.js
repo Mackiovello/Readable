@@ -10,7 +10,7 @@ class PostForm extends Component {
   }
 
   render() {
-    const { handleSubmit, categories } = this.props;
+    const { handleSubmit, categories, cancelLink } = this.props;
 
     return (
       <div>
@@ -55,7 +55,7 @@ class PostForm extends Component {
             <button className="button" type="submit">
               submit
             </button>
-            <Link to="/" className="button">
+            <Link to={cancelLink} className="button">
               cancel
             </Link>
           </div>
