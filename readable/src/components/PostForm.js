@@ -15,7 +15,9 @@ class PostForm extends Component {
     return (
       <div>
         <div className="header header--thin">
-          <h1 className="header__headline">{this.props.headerText}</h1>
+          <h1 className="header__headline">
+            {this.props.headerText}
+          </h1>
         </div>
         <form className="form-card" onSubmit={handleSubmit}>
           <div className="form-card__text-field">

@@ -52,7 +52,11 @@ class App extends Component {
             path="/new"
             render={() =>
               <div>
-                <PostForm headerText="Create New Post" onSubmit={values => this.handleSubmit(values)} cancelLink="/"/>
+                <PostForm
+                  headerText="Create New Post"
+                  onSubmit={values => this.handleSubmit(values)}
+                  cancelLink="/"
+                />
                 <FloatingButton path="/" character="&#129120;" />
               </div>}
           />
@@ -61,14 +65,22 @@ class App extends Component {
               exact
               path={`/${post.category}/${post.id}/edit`}
               key={post.id}
-              render={() => 
+              render={() =>
                 <div>
-                  <PostForm headerText="Edit Post" initialData={post} onSubmit={values => this.handleEdit(values)} cancelLink={`/${post.category}/${post.id}`}/>
-                  <FloatingButton path={`/${post.category}/${post.id}`} character="&#129120;" />
+                  <PostForm
+                    headerText="Edit Post"
+                    initialData={post}
+                    onSubmit={values => this.handleEdit(values)}
+                    cancelLink={`/${post.category}/${post.id}`}
+                  />
+                  <FloatingButton
+                    path={`/${post.category}/${post.id}`}
+                    character="&#129120;"
+                  />
                 </div>}
             />
           )}
-          {posts.map(post => 
+          {posts.map(post =>
             <Route
               exact
               path={`/${post.category}/${post.id}`}

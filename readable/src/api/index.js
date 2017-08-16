@@ -2,15 +2,16 @@ const serverPath = "http://localhost:5001";
 const Authorization = "myKey";
 
 export function getPosts() {
-  return fetch(`${serverPath}/posts`, { 
-    headers: { Authorization } 
+  return fetch(`${serverPath}/posts`, {
+    headers: { Authorization }
   }).then(res => res.json());
 }
 
 export function getCategories() {
-  return fetch(`${serverPath}/categories`, { 
-    headers: { Authorization } 
-  }).then(res => res.json())
+  return fetch(`${serverPath}/categories`, {
+    headers: { Authorization }
+  })
+    .then(res => res.json())
     .then(res => res.categories);
 }
 
@@ -22,14 +23,14 @@ export function createDbPost(post) {
       Authorization,
       "Content-Type": "application/json"
     }
-  })
-};
+  });
+}
 
 export function deleteDbPost(postId) {
   return fetch(`${serverPath}/posts/${postId}`, {
     method: "delete",
     headers: { Authorization }
-  })
+  });
 }
 
 export function voteDb(postId, option) {
@@ -40,5 +41,5 @@ export function voteDb(postId, option) {
       Authorization,
       "Content-Type": "application/json"
     }
-  })
+  });
 }

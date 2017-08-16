@@ -35,7 +35,13 @@ class Post extends Component {
                   <button className="button" onClick={this.deletePost}>
                     delete
                   </button>
-                  <button className="button" onClick={() => this.props.history.push(`/${category}/${id}/edit`)}>edit</button>
+                  <button
+                    className="button"
+                    onClick={() =>
+                      this.props.history.push(`/${category}/${id}/edit`)}
+                  >
+                    edit
+                  </button>
                 </div>
               </div>
             </div>

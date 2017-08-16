@@ -19,7 +19,7 @@ const vote = (post, option, dispatch) => {
       dispatch({
         type: option === "upVote" ? UPVOTE : DOWNVOTE,
         post
-      })
+      });
     } else {
       throw new Error("option must be 'upVote' or 'downVote'");
     }
@@ -27,9 +27,10 @@ const vote = (post, option, dispatch) => {
 };
 
 export function initializePosts() {
-  return dispatch => getPosts().then(
-    posts => posts.forEach(post => dispatch(createPostAction(post))
-  , this))
+  return dispatch =>
+    getPosts().then(posts =>
+      posts.forEach(post => dispatch(createPostAction(post)), this)
+    );
 }
 
 export function createPost(post) {
