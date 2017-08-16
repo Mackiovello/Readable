@@ -8,6 +8,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { initializePosts, createPost } from "../actions/posts";
 import { initializeCategories } from "../actions/categories";
+import uuidv1 from "uuid/v1";
 
 class App extends Component {
   componentWillMount() {
@@ -15,15 +16,6 @@ class App extends Component {
 
     dispatch(initializeCategories());
     dispatch(initializePosts());
-  }
-
-  // taken from https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript with slight modifications
-  generateId() {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
-      var r = (Math.random() * 16) | 0,
-        v = c === "x" ? r : (r & 0x3) | 0x8;
-      return v.toString(16);
-    });
   }
 
   handleSubmit({ body, author, category, title }) {
@@ -35,7 +27,7 @@ class App extends Component {
         title,
         timestamp: Date.now(),
         voteScore: 1,
-        id: this.generateId(),
+        id: uuidv1(),
         deleted: false
       })
     );
