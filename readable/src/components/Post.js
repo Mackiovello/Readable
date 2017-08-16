@@ -16,7 +16,9 @@ class Post extends Component {
   }
 
   render() {
-    const { title, body, author } = this.props.post;
+    const { post } = this.props;
+    const { title, body, author, category, id } = post;
+
     return (
       <div>
         <div className="post-card">
@@ -33,7 +35,7 @@ class Post extends Component {
                   <button className="button" onClick={this.deletePost}>
                     delete
                   </button>
-                  <button className="button">edit</button>
+                  <button className="button" onClick={() => this.props.history.push(`/${category}/${id}/edit`)}>edit</button>
                 </div>
               </div>
             </div>

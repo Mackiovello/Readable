@@ -5,13 +5,17 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 class PostForm extends Component {
+  componentDidMount() {
+    this.props.initialData && this.props.initialize(this.props.initialData);
+  }
+
   render() {
     const { handleSubmit, categories } = this.props;
 
     return (
       <div>
         <div className="header header--thin">
-          <h1 className="header__headline">Create New Post</h1>
+          <h1 className="header__headline">{this.props.headerText}</h1>
         </div>
         <form className="form-card" onSubmit={handleSubmit}>
           <div className="form-card__text-field">

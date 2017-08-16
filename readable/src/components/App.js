@@ -6,7 +6,7 @@ import FloatingButton from "./FloatingButton";
 import Post from "./Post";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { initializePosts, createPost } from "../actions/posts";
+import { initializePosts, createPost, deletePost } from "../actions/posts";
 import { initializeCategories } from "../actions/categories";
 import uuidv1 from "uuid/v1";
 
@@ -34,7 +34,15 @@ class App extends Component {
     this.props.history.push("/");
   }
 
+  handleEdit(post) {
+    this.props.dispatch(deletePost(post));
+    this.props.dispatch(createPost(post));
+    this.props.history.push("/");
+  }
+
   render() {
+    const { posts, history } = this.props;
+
     return (
       <div>
         <Switch>
@@ -43,19 +51,31 @@ class App extends Component {
             path="/new"
             render={() =>
               <div>
-                <PostForm onSubmit={values => this.handleSubmit(values)} />
+                <PostForm headerText="Create New Post" onSubmit={values => this.handleSubmit(values)} />
                 <FloatingButton path="/" character="&#129120;" />
               </div>}
           />
-          {this.props.posts.map(post =>
+          {posts.map(post =>
             <Route
               exact
+              path={`/${post.category}/${post.id}/edit`}
               key={post.id}
+              render={() => 
+                <div>
+                  <PostForm headerText="Edit Post" initialData={post} onSubmit={values => this.handleEdit(values)}/>
+                  <FloatingButton path={`/${post.category}/${post.id}`} character="&#129120;" />
+                </div>}
+            />
+          )}
+          {posts.map(post => 
+            <Route
+              exact
               path={`/${post.category}/${post.id}`}
+              key={post.id}
               render={() =>
                 <div>
                   <Header />
-                  <Post history={this.props.history} post={post} />
+                  <Post history={history} post={post} />
                   <FloatingButton path="/" character="&#129120;" />
                 </div>}
             />
