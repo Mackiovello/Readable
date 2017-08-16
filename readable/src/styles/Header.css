@@ -21,21 +21,18 @@
 
 .header__navigation {
   display: flex;
-  background-color: #fff;
-  width: 250px;
-  margin: 0 auto;
-  box-shadow: 0 1px 4px #666;
-  padding: 10px;
-  border-radius: 4px;
+  justify-content: center;
 }
 
 .header__navigation > a {
-  flex-grow: 1;
+  display: inline-block;
+  background-color: #fff;
+  box-shadow: 0 1px 4px #666;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 3px;
+  width: 80px;
   text-align: center;
   color: #333;
   text-decoration: none;
-}
-
-.header__navigation > a:not(:last-child){
-  border-right: 1px solid #333;
 }
