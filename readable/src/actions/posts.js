@@ -1,4 +1,4 @@
-import { createDbPost, voteDb, deleteDbPost } from "../api";
+import { createDbPost, voteDb, deleteDbPost, getPosts } from "../api";
 
 export const UPVOTE = "UPVOTE";
 export const DOWNVOTE = "DOWNVOTE";
@@ -26,11 +26,17 @@ const vote = (post, option, dispatch) => {
   });
 };
 
+export function initializePosts() {
+  return dispatch => getPosts().then(
+    posts => posts.forEach(post => dispatch(createPostAction(post))
+  , this))
+}
+
 export function createPost(post) {
   return dispatch => createDbPost(post).then(dispatch(createPostAction(post)));
 }
 
-export function createPostAction(post) {
+function createPostAction(post) {
   return {
     type: CREATE_POST,
     post

@@ -6,21 +6,15 @@ import FloatingButton from "./FloatingButton";
 import Post from "./Post";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { createCategory } from "../actions/categories";
-import { createPostAction, createPost } from "../actions/posts";
-import { getPosts, getCategories } from "../api";
+import { initializePosts, createPost } from "../actions/posts";
+import { initializeCategories } from "../actions/categories";
 
 class App extends Component {
   componentWillMount() {
     const { dispatch } = this.props;
 
-    getPosts().then(posts =>
-      posts.forEach(post => dispatch(createPostAction(post)), this)
-    );
-
-    getCategories().then(categories => 
-      categories.forEach(category => dispatch(createCategory(category)), this)
-    );
+    dispatch(initializeCategories());
+    dispatch(initializePosts());
   }
 
   // taken from https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript with slight modifications
