@@ -8,26 +8,19 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { createCategory } from "../actions/categories";
 import { createPostAction, createPost } from "../actions/posts";
+import { getPosts, getCategories } from "../api";
 
 class App extends Component {
   componentWillMount() {
-    const serverPath = "http://localhost:5001";
-    const authorizationHeader = { Authorization: "myKey" };
+    const { dispatch } = this.props;
 
-    fetch(`${serverPath}/posts`, { headers: authorizationHeader })
-      .then(res => res.json())
-      .then(res =>
-        res.forEach(post => this.props.dispatch(createPostAction(post)), this)
-      );
+    getPosts().then(posts =>
+      posts.forEach(post => dispatch(createPostAction(post)), this)
+    );
 
-    fetch(`${serverPath}/categories`, { headers: authorizationHeader })
-      .then(res => res.json())
-      .then(res =>
-        res.categories.forEach(
-          category => this.props.dispatch(createCategory(category)),
-          this
-        )
-      );
+    getCategories().then(categories => 
+      categories.forEach(category => dispatch(createCategory(category)), this)
+    );
   }
 
   // taken from https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript with slight modifications
