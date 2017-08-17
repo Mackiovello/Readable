@@ -3,6 +3,7 @@ import "../styles/Post.css";
 import { deletePost } from "../actions/posts";
 import { connect } from "react-redux";
 import Votes from "./Votes";
+import Comments from "./Comments";
 
 class Post extends Component {
   constructor() {
@@ -20,7 +21,7 @@ class Post extends Component {
     const { title, body, author, category, id } = post;
 
     return (
-      <div>
+      <div className="post-wrapper">
         <div className="post-card">
           <div className="post-card__header">
             <div className="post-card__header-info">
@@ -51,6 +52,7 @@ class Post extends Component {
             {body}
           </p>
         </div>
+        <Comments parentId={id}/>
       </div>
     );
   }

@@ -1,10 +1,13 @@
-.post-card {
+.post-wrapper {
   width: 90%;
   max-width: 600px;
+  margin: 30px auto;
+}
+
+.post-card {
   background-color: #fff;
   box-shadow: 0 1px 3px #999;
   border-radius: 4px;
-  margin: 30px auto;
 }
 
 .post-card__title {

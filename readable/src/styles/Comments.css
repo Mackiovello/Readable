@@ -1,0 +1,15 @@
+.comment {
+  background-color: #fff;
+  box-shadow: 0 1px 3px #999;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.comment-body {
+  margin: 0 0 15px 0;
+}
+
+.comment-info {
+  display: flex;
+  justify-content: space-between;
+}

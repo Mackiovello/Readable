@@ -4,14 +4,9 @@ import { connect } from "react-redux";
 import "../styles/Posts.css";
 import Votes from "./Votes";
 import Sorter from "./Sorter";
+import { getFormattedDate } from "../helpers";
 
 class Posts extends Component {
-  getFormattedDate(unixTime) {
-    const dateObj = new Date(unixTime);
-    return `${dateObj.getDate()}-${dateObj.getMonth() +
-      1}-${dateObj.getFullYear()}`;
-  }
-
   getPosts(posts) {
     const { comments } = this.props;
     return (
@@ -27,7 +22,7 @@ class Posts extends Component {
                   {post.title}
                 </p>
                 <p className="posts__post-time">
-                  {this.getFormattedDate(post.timestamp)}
+                  {getFormattedDate(post.timestamp)}
                 </p>
               </div>
               <span className="posts__post-author-comments">
