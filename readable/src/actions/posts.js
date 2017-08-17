@@ -4,6 +4,8 @@ export const UPVOTE = "UPVOTE";
 export const DOWNVOTE = "DOWNVOTE";
 export const CREATE_POST = "CREATE_POST";
 export const DELETE_POST = "DELETE_POST";
+export const SORT_BY_VOTES = "SORT_BY_VOTES";
+export const SORT_BY_DATE = "SORT_BY_DATE";
 
 export function upvote(post) {
   return dispatch => vote(post, "upVote", dispatch);

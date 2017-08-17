@@ -3,6 +3,7 @@ import { Route, withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import "../styles/Posts.css";
 import Votes from "./Votes";
+import Sorter from "./Sorter";
 
 class Posts extends Component {
   getFormattedDate(unixTime) {
@@ -44,6 +45,7 @@ class Posts extends Component {
 
     return (
       <div className="posts">
+        <Sorter />
         {categories.map(category =>
           <Route
             key={category.name}

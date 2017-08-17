@@ -1,4 +1,11 @@
-import { UPVOTE, DOWNVOTE, CREATE_POST, DELETE_POST } from "../actions/posts";
+import { 
+  UPVOTE,
+  DOWNVOTE,
+  CREATE_POST, 
+  DELETE_POST,
+  SORT_BY_DATE,
+  SORT_BY_VOTES
+} from "../actions/posts";
 
 const vote = (posts, post, vote) => {
   return posts.map(p => {
@@ -24,6 +31,10 @@ function posts(posts = [], action) {
       return [...posts, post];
     case DELETE_POST:
       return posts.filter(p => p.id !== post.id);
+    case SORT_BY_DATE:
+      return posts.slice().sort((a, b) => b.timestamp - a.timestamp);
+    case SORT_BY_VOTES:
+      return posts.slice().sort((a, b) => b.voteScore - a.voteScore);
     default:
       return posts;
   }
