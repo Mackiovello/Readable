@@ -1,4 +1,10 @@
-import { createDbPost, voteDb, deleteDbPost, getPosts, getComments } from "../api";
+import {
+  createDbPost,
+  voteDb,
+  deleteDbPost,
+  getPosts,
+  getComments
+} from "../api";
 import { addComment } from "./comments";
 
 export const UPVOTE = "UPVOTE";
@@ -33,11 +39,9 @@ export function initializePosts() {
   return dispatch =>
     getPosts().then(posts =>
       posts.forEach(post => {
-        dispatch(createPostAction(post))
+        dispatch(createPostAction(post));
         getComments(post.id).then(comments =>
-          comments.forEach(comment => 
-            dispatch(addComment(comment))
-          , this) 
+          comments.forEach(comment => dispatch(addComment(comment)), this)
         );
       }, this)
     );

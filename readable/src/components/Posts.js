@@ -13,6 +13,7 @@ class Posts extends Component {
   }
 
   getPosts(posts) {
+    const { comments } = this.props;
     return (
       <div>
         {posts.filter(post => post.deleted !== true).map(post =>
@@ -29,8 +30,17 @@ class Posts extends Component {
                   {this.getFormattedDate(post.timestamp)}
                 </p>
               </div>
-              <span className="posts__post-author">
-                Author: {post.author}
+              <span className="posts__post-author-comments">
+                <span>
+                  Author: {post.author}
+                </span>
+                <span>
+                  {
+                    comments.filter(comment => comment.parentId === post.id)
+                      .length
+                  }{" "}
+                  comments
+                </span>
               </span>
             </Link>
             <Votes post={post} />

@@ -4,9 +4,7 @@ const Authorization = "myKey";
 export function getComments(postId) {
   return fetch(`${serverPath}/posts/${postId}/comments`, {
     headers: { Authorization }
-  }).then(comments => 
-    comments.json()
-  )
+  }).then(comments => comments.json());
 }
 
 export function getPosts() {

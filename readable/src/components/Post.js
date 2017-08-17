@@ -51,7 +51,6 @@ class Post extends Component {
             {body}
           </p>
         </div>
-        
       </div>
     );
   }

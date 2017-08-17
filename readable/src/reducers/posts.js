@@ -1,7 +1,7 @@
-import { 
+import {
   UPVOTE,
   DOWNVOTE,
-  CREATE_POST, 
+  CREATE_POST,
   DELETE_POST,
   SORT_BY_DATE,
   SORT_BY_VOTES

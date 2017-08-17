@@ -42,6 +42,8 @@
   justify-content: space-between;
 }
 
-.posts__post-author {
+.posts__post-author-comments {
+  display: flex;
+  justify-content: space-between;
   font-size: 0.9rem;
 }
