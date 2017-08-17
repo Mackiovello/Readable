@@ -6,6 +6,7 @@ import registerServiceWorker from "./registerServiceWorker";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import posts from "./reducers/posts";
 import categories from "./reducers/categories";
+import comments from "./reducers/comments";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { reducer as reduxFormReducer } from "redux-form";
@@ -14,7 +15,8 @@ import thunk from "redux-thunk";
 const combinedReducers = combineReducers({
   form: reduxFormReducer,
   posts,
-  categories
+  categories,
+  comments
 });
 
 const store = createStore(

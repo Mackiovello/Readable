@@ -1,6 +1,14 @@
 const serverPath = "http://localhost:5001";
 const Authorization = "myKey";
 
+export function getComments(postId) {
+  return fetch(`${serverPath}/posts/${postId}/comments`, {
+    headers: { Authorization }
+  }).then(comments => 
+    comments.json()
+  )
+}
+
 export function getPosts() {
   return fetch(`${serverPath}/posts`, {
     headers: { Authorization }
