@@ -39,8 +39,19 @@ export function deleteDbPost(postId) {
   });
 }
 
-export function voteDb(postId, option) {
+export function votePost(postId, option) {
   return fetch(`${serverPath}/posts/${postId}`, {
+    method: "post",
+    body: JSON.stringify({ option }),
+    headers: {
+      Authorization,
+      "Content-Type": "application/json"
+    }
+  });
+}
+
+export function voteComment(commentId, option) {
+  return fetch(`${serverPath}/comments/${commentId}`, {
     method: "post",
     body: JSON.stringify({ option }),
     headers: {

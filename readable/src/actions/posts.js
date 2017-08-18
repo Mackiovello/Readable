@@ -1,6 +1,6 @@
 import {
   createDbPost,
-  voteDb,
+  votePost,
   deleteDbPost,
   getPosts,
   getComments
@@ -23,7 +23,7 @@ export function downvote(post) {
 }
 
 const vote = (post, option, dispatch) => {
-  return voteDb(post.id, option).then(() => {
+  return votePost(post.id, option).then(() => {
     if (option === "upVote" || option === "downVote") {
       dispatch({
         type: option === "upVote" ? UPVOTE : DOWNVOTE,
