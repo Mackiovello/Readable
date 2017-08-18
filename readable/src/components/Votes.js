@@ -1,26 +1,25 @@
 import React, { Component } from "react";
 import "../styles/Votes.css";
 import { connect } from "react-redux";
-import { upvote, downvote } from "../actions/posts";
 
 class Votes extends Component {
   render() {
-    const { dispatch, post } = this.props;
+    const { dispatch, toVoteOn, upvote, downvote } = this.props;
 
     return (
       <div className="posts__votes">
         <span
           className="posts__vote-button"
-          onClick={() => dispatch(upvote(post))}
+          onClick={() => dispatch(upvote(toVoteOn))}
         >
           &#129093;
         </span>
         <span>
-          {post.voteScore}
+          {toVoteOn.voteScore}
         </span>
         <span
           className="posts__vote-button"
-          onClick={() => dispatch(downvote(post))}
+          onClick={() => dispatch(downvote(toVoteOn))}
         >
           &#129095;
         </span>

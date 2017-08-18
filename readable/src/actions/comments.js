@@ -11,6 +11,14 @@ export function addComment(comment) {
   };
 }
 
+export function upvoteComment(comment) {
+  return dispatch => vote(comment, "upVote", dispatch);
+}
+
+export function downvoteComment(comment) {
+  return dispatch => vote(comment, "downVote", dispatch);
+}
+
 const vote = (comment, option, dispatch) => {
   return voteComment(comment.id, option).then(() => {
     if (option === "upVote" || option === "downVote") {

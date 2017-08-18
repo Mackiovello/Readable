@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "../styles/Comments.css"
 import { connect } from "react-redux";
 import { getFormattedDate } from "../helpers";
+import Votes from "./Votes";
+import { upvoteComment, downvoteComment } from "../actions/comments";
 
 class Comments extends Component {
   render() {
@@ -19,6 +21,11 @@ class Comments extends Component {
               <span>{comment.author}</span>
               <span>{getFormattedDate(comment.timestamp)}</span>
             </div>
+            <Votes
+              toVoteOn={comment}
+              upvote={upvoteComment}
+              downvote={downvoteComment}
+            />
           </div>
         ))}
       </div>

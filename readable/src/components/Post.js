@@ -4,6 +4,7 @@ import { deletePost } from "../actions/posts";
 import { connect } from "react-redux";
 import Votes from "./Votes";
 import Comments from "./Comments";
+import { upvote_post, downvote_post } from "../actions/posts";
 
 class Post extends Component {
   constructor() {
@@ -46,7 +47,11 @@ class Post extends Component {
                 </div>
               </div>
             </div>
-            <Votes post={this.props.post} />
+            <Votes 
+              toVoteOn={this.props.post} 
+              upvote={upvote_post} 
+              downvote={downvote_post}
+            />
           </div>
           <p className="post-card__body">
             {body}
