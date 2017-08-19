@@ -5,6 +5,7 @@ import "../styles/Posts.css";
 import Votes from "./Votes";
 import Sorter from "./Sorter";
 import { getFormattedDate } from "../helpers";
+import { upvotePost, downvotePost } from "../actions/posts";
 
 class Posts extends Component {
   getPosts(posts) {
@@ -38,7 +39,11 @@ class Posts extends Component {
                 </span>
               </span>
             </Link>
-            <Votes post={post} />
+            <Votes 
+              toVoteOn={post}
+              upvote={upvotePost}
+              downvote={downvotePost}
+            />
           </div>
         )}
       </div>

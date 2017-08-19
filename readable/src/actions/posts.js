@@ -14,11 +14,11 @@ export const DELETE_POST = "DELETE_POST";
 export const SORT_BY_VOTES = "SORT_BY_VOTES";
 export const SORT_BY_DATE = "SORT_BY_DATE";
 
-export function upvote_post(post) {
+export function upvotePost(post) {
   return dispatch => vote(post, "upVote", dispatch);
 }
 
-export function downvote_post(post) {
+export function downvotePost(post) {
   return dispatch => vote(post, "downVote", dispatch);
 }
 
