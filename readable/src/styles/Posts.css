@@ -47,3 +47,9 @@
   justify-content: space-between;
   font-size: 0.9rem;
 }
+
+.posts-actions {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
