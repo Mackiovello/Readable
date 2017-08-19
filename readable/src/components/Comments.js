@@ -16,10 +16,12 @@ class Comments extends Component {
       <div>
         {filteredComments.map(comment => (
           <div className="comment" key={comment.id}>
-            <p className="comment-body">{comment.body}</p>
-            <div className="comment-info">
-              <span>{comment.author}</span>
-              <span>{getFormattedDate(comment.timestamp)}</span>
+            <div className="comment-wrapper">
+              <p className="comment-body">{comment.body}</p>
+              <div className="comment-info">
+                <span>{comment.author}</span>
+                <span>{getFormattedDate(comment.timestamp)}</span>
+              </div>
             </div>
             <Votes
               toVoteOn={comment}
