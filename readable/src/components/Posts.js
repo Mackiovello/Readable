@@ -5,7 +5,7 @@ import "../styles/Posts.css";
 import Votes from "./Votes";
 import Sorter from "./Sorter";
 import { getFormattedDate } from "../helpers";
-import { upvotePost, downvotePost } from "../actions/posts";
+import { upvotePost, downvotePost, deletePost } from "../actions/posts";
 import Actions from "./Actions";
 
 class Posts extends Component {
@@ -40,7 +40,11 @@ class Posts extends Component {
                 </span>
               </span>
             </Link>
-            <Actions post={post}/>
+            <Actions 
+              post={post} 
+              editLink={`/${post.category}/${post.id}/edit`}
+              onDelete={() => this.props.dispatch(deletePost(post))}
+            />
             <Votes 
               toVoteOn={post}
               upvote={upvotePost}
