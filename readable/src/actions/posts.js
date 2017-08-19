@@ -1,7 +1,7 @@
 import {
-  createDbPost,
+  createPostInDb,
   votePost,
-  deleteDbPost,
+  deletePostFromDb,
   getPosts,
   getComments
 } from "../api";
@@ -48,7 +48,7 @@ export function initializePosts() {
 }
 
 export function createPost(post) {
-  return dispatch => createDbPost(post).then(dispatch(createPostAction(post)));
+  return dispatch => createPostInDb(post).then(dispatch(createPostAction(post)));
 }
 
 function createPostAction(post) {
@@ -60,7 +60,7 @@ function createPostAction(post) {
 
 export function deletePost(post) {
   return dispatch => {
-    return deleteDbPost(post.id).then(
+    return deletePostFromDb(post.id).then(
       dispatch({
         type: DELETE_POST,
         post

@@ -21,7 +21,7 @@ export function getCategories() {
     .then(res => res.categories);
 }
 
-export function createDbPost(post) {
+export function createPostInDb(post) {
   return fetch(`${serverPath}/posts`, {
     method: "post",
     body: JSON.stringify(post),
@@ -32,7 +32,7 @@ export function createDbPost(post) {
   });
 }
 
-export function deleteDbPost(postId) {
+export function deletePostFromDb(postId) {
   return fetch(`${serverPath}/posts/${postId}`, {
     method: "delete",
     headers: { Authorization }
@@ -58,5 +58,12 @@ export function voteComment(commentId, option) {
       Authorization,
       "Content-Type": "application/json"
     }
+  });
+}
+
+export function deleteCommentFromDb(commentId) {
+  return fetch(`${serverPath}/comments/${commentId}`, {
+    method: "delete",
+    headers: { Authorization }
   });
 }

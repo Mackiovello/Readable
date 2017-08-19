@@ -1,8 +1,9 @@
-import { voteComment } from "../api";
+import { voteComment, deleteCommentFromDb } from "../api";
 
 export const ADD_COMMENT = "ADD_COMMENT";
 export const UPVOTE_COMMENT = "UPVOTE_COMMENT";
 export const DOWNVOTE_COMMENT = "DOWNVOTE_COMMENT";
+export const DELETE_COMMENT = "DELETE_COMMENT";
 
 export function addComment(comment) {
   return {
@@ -31,3 +32,14 @@ const vote = (comment, option, dispatch) => {
     }
   });
 };
+
+export function deleteComment(comment) {
+  return dispatch => {
+    return deleteCommentFromDb(comment.id).then(
+      dispatch({
+        type: DELETE_COMMENT,
+        comment
+      })
+    )
+  }
+}
