@@ -67,3 +67,14 @@ export function deleteCommentFromDb(commentId) {
     headers: { Authorization }
   });
 }
+
+export function createCommentInDb(comment) {
+  return fetch(`${serverPath}/comments`, {
+    method: "post",
+    body: JSON.stringify(comment),
+    headers: {
+      Authorization,
+      "Content-Type": "application/json"
+    }
+  })
+}
