@@ -1,6 +1,17 @@
 const serverPath = "http://localhost:5001";
 const Authorization = "myKey";
 
+const postCall = body => {
+  return {
+    method: "post",
+    body: JSON.stringify(body),
+    headers: {
+      Authorization,
+      "Content-Type": "application/json"
+    }
+  }
+}
+
 export function getComments(postId) {
   return fetch(`${serverPath}/posts/${postId}/comments`, {
     headers: { Authorization }
@@ -22,14 +33,7 @@ export function getCategories() {
 }
 
 export function createPostInDb(post) {
-  return fetch(`${serverPath}/posts`, {
-    method: "post",
-    body: JSON.stringify(post),
-    headers: {
-      Authorization,
-      "Content-Type": "application/json"
-    }
-  });
+  return fetch(`${serverPath}/posts`, postCall(post));
 }
 
 export function deletePostFromDb(postId) {
@@ -40,25 +44,11 @@ export function deletePostFromDb(postId) {
 }
 
 export function votePost(postId, option) {
-  return fetch(`${serverPath}/posts/${postId}`, {
-    method: "post",
-    body: JSON.stringify({ option }),
-    headers: {
-      Authorization,
-      "Content-Type": "application/json"
-    }
-  });
+  return fetch(`${serverPath}/posts/${postId}`, postCall({ option }));
 }
 
 export function voteComment(commentId, option) {
-  return fetch(`${serverPath}/comments/${commentId}`, {
-    method: "post",
-    body: JSON.stringify({ option }),
-    headers: {
-      Authorization,
-      "Content-Type": "application/json"
-    }
-  });
+  return fetch(`${serverPath}/comments/${commentId}`, postCall({ option }));
 }
 
 export function deleteCommentFromDb(commentId) {
@@ -69,12 +59,5 @@ export function deleteCommentFromDb(commentId) {
 }
 
 export function createCommentInDb(comment) {
-  return fetch(`${serverPath}/comments`, {
-    method: "post",
-    body: JSON.stringify(comment),
-    headers: {
-      Authorization,
-      "Content-Type": "application/json"
-    }
-  })
+  return fetch(`${serverPath}/comments`, postCall(comment));
 }
