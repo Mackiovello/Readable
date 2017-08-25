@@ -5,6 +5,7 @@ import PostForm from "./PostForm";
 import CommentForm from "./CommentForm";
 import FloatingButton from "./FloatingButton";
 import Post from "./Post";
+import NewPostPage from "./pages/NewPostPage";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { initializePosts, createPost, deletePost } from "../actions/posts";
@@ -18,22 +19,6 @@ class App extends Component {
 
     dispatch(initializeCategories());
     dispatch(initializePosts());
-  }
-
-  handleSubmit({ body, author, category, title }) {
-    this.props.dispatch(
-      createPost({
-        body,
-        author,
-        category,
-        title,
-        timestamp: Date.now(),
-        voteScore: 1,
-        id: uuidv1(),
-        deleted: false
-      })
-    );
-    this.props.history.push("/");
   }
 
   addComment(parentPost) {
@@ -66,19 +51,7 @@ class App extends Component {
     return (
       <div>
         <Switch>
-          <Route
-            exact
-            path="/new"
-            render={() =>
-              <div>
-                <PostForm
-                  headerText="Create New Post"
-                  onSubmit={values => this.handleSubmit(values)}
-                  cancelLink="/"
-                />
-                <FloatingButton path="/" character="&#129120;" />
-              </div>}
-          />
+          <Route exact path="/new" component={NewPostPage} />
           {posts.map(post =>
             <Route
               exact
