@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Votes from "./Votes";
 import Comments from "./Comments";
 import { upvotePost, downvotePost } from "../actions/posts";
+import { Link } from "react-router-dom";
 
 class Post extends Component {
   constructor() {
@@ -44,6 +45,12 @@ class Post extends Component {
                   >
                     edit
                   </button>
+                  <Link 
+                    to={`/${post.category}/${post.id}/comment`}
+                    className="button"
+                  >
+                    Comment
+                  </Link>
                 </div>
               </div>
             </div>

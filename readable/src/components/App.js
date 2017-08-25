@@ -81,14 +81,6 @@ class App extends Component {
                 </div>}
             />
           )}
-          {comments.map(comment => 
-            <Route
-              exact
-              path={`/comment/${comment.id}/edit`}
-              key={comment.id}
-              render={() => <CommentForm/>}
-            />
-          )}
           {posts.map(post =>
             <Route
               exact
@@ -100,6 +92,31 @@ class App extends Component {
                   <Post history={history} post={post} />
                   <FloatingButton path="/" character="&#129120;" />
                 </div>}
+            />
+          )}
+          {posts.map(post => 
+            <Route
+              exact
+              path={`/${post.category}/${post.id}/comment`}
+              key={post.id}
+              render={() =>
+                <div>
+                  <CommentForm 
+                    headerText="Comment"
+                    cancelLink={`/${post.category}/${post.id}`}
+                  />
+                  <FloatingButton 
+                    path={`/${post.category}/${post.id}`} 
+                    character="&#129120;" 
+                  />
+                </div>} 
+            />)}
+          {comments.map(comment => 
+            <Route
+              exact
+              path={`/comment/${comment.id}/edit`}
+              key={comment.id}
+              render={() => <CommentForm/>}
             />
           )}
           <Route
