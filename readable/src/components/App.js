@@ -9,6 +9,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { initializePosts, createPost, deletePost } from "../actions/posts";
 import { initializeCategories } from "../actions/categories";
+import { createComment } from "../actions/comments";
 import uuidv1 from "uuid/v1";
 
 class App extends Component {
@@ -33,6 +34,23 @@ class App extends Component {
       })
     );
     this.props.history.push("/");
+  }
+
+  addComment(parentPost) {
+    const { body, author } = this.props.form.commentForm.values;
+    this.props.dispatch(
+      createComment({
+        body,
+        author,
+        timestamp: Date.now(),
+        voteScore: 1,
+        id: uuidv1(),
+        parentId: parentPost.id,
+        parentDeleted: false,
+        deleted: false
+      })
+    );
+    this.props.history.push(`/${parentPost.category}/${parentPost.id}`);
   }
 
   handleEdit(post) {
@@ -104,6 +122,8 @@ class App extends Component {
                   <CommentForm 
                     headerText="Comment"
                     cancelLink={`/${post.category}/${post.id}`}
+                    parentId={post.id}
+                    handleComment={() => this.addComment(post)}
                   />
                   <FloatingButton 
                     path={`/${post.category}/${post.id}`} 

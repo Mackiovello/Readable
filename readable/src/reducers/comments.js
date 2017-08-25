@@ -1,5 +1,5 @@
 import { 
-  ADD_COMMENT,
+  CREATE_COMMENT,
   UPVOTE_COMMENT, 
   DOWNVOTE_COMMENT, 
   DELETE_COMMENT 
@@ -22,7 +22,7 @@ function comments(comments = [], action) {
   const { comment } = action;
 
   switch (action.type) {
-    case ADD_COMMENT:
+    case CREATE_COMMENT:
       return [...comments, comment];
     case UPVOTE_COMMENT:
       return vote(comments, comment, 1);

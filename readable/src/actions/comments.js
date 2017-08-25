@@ -1,13 +1,13 @@
-import { voteComment, deleteCommentFromDb } from "../api";
+import { voteComment, deleteCommentFromDb, createCommentInDb } from "../api";
 
-export const ADD_COMMENT = "ADD_COMMENT";
+export const CREATE_COMMENT = "CREATE_COMMENT";
 export const UPVOTE_COMMENT = "UPVOTE_COMMENT";
 export const DOWNVOTE_COMMENT = "DOWNVOTE_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
 
 export function addComment(comment) {
   return {
-    type: ADD_COMMENT,
+    type: CREATE_COMMENT,
     comment
   };
 }
@@ -40,6 +40,14 @@ export function deleteComment(comment) {
         type: DELETE_COMMENT,
         comment
       })
+    )
+  }
+}
+
+export function createComment(comment) {
+  return dispatch => {
+    return createCommentInDb(comment).then(
+      dispatch(addComment())
     )
   }
 }
