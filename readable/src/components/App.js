@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import Posts from "./Posts";
 import Header from "./Header";
-import PostForm from "./PostForm";
 import CommentForm from "./CommentForm";
 import FloatingButton from "./FloatingButton";
 import Post from "./Post";
 import NewPostPage from "./pages/NewPostPage";
+import EditPostPage from "./pages/EditPostPage";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { initializePosts, createPost, deletePost } from "../actions/posts";
+import { initializePosts } from "../actions/posts";
 import { initializeCategories } from "../actions/categories";
 import { createComment } from "../actions/comments";
 import uuidv1 from "uuid/v1";
@@ -38,13 +38,6 @@ class App extends Component {
     this.props.history.push(`/${parentPost.category}/${parentPost.id}`);
   }
 
-  handleEdit(post) {
-    const { dispatch, history } = this.props;
-    dispatch(deletePost(post));
-    dispatch(createPost(post));
-    history.push("/");
-  }
-
   render() {
     const { posts, history, comments } = this.props;
 
@@ -57,19 +50,7 @@ class App extends Component {
               exact
               path={`/${post.category}/${post.id}/edit`}
               key={post.id}
-              render={() =>
-                <div>
-                  <PostForm
-                    headerText="Edit Post"
-                    initialData={post}
-                    onSubmit={values => this.handleEdit(values)}
-                    cancelLink={`/${post.category}/${post.id}`}
-                  />
-                  <FloatingButton
-                    path={`/${post.category}/${post.id}`}
-                    character="&#129120;"
-                  />
-                </div>}
+              render={() => <EditPostPage post={post} />}
             />
           )}
           {posts.map(post =>
