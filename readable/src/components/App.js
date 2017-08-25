@@ -6,12 +6,11 @@ import FloatingButton from "./FloatingButton";
 import Post from "./Post";
 import NewPostPage from "./pages/NewPostPage";
 import EditPostPage from "./pages/EditPostPage";
+import NewCommentPage from "./pages/NewCommentPage";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { initializePosts } from "../actions/posts";
 import { initializeCategories } from "../actions/categories";
-import { createComment } from "../actions/comments";
-import uuidv1 from "uuid/v1";
 
 class App extends Component {
   componentWillMount() {
@@ -19,23 +18,6 @@ class App extends Component {
 
     dispatch(initializeCategories());
     dispatch(initializePosts());
-  }
-
-  addComment(parentPost) {
-    const { body, author } = this.props.form.commentForm.values;
-    this.props.dispatch(
-      createComment({
-        body,
-        author,
-        timestamp: Date.now(),
-        voteScore: 1,
-        id: uuidv1(),
-        parentId: parentPost.id,
-        parentDeleted: false,
-        deleted: false
-      })
-    );
-    this.props.history.push(`/${parentPost.category}/${parentPost.id}`);
   }
 
   render() {
@@ -71,19 +53,7 @@ class App extends Component {
               exact
               path={`/${post.category}/${post.id}/comment`}
               key={post.id}
-              render={() =>
-                <div>
-                  <CommentForm 
-                    headerText="Comment"
-                    cancelLink={`/${post.category}/${post.id}`}
-                    parentId={post.id}
-                    handleComment={() => this.addComment(post)}
-                  />
-                  <FloatingButton 
-                    path={`/${post.category}/${post.id}`} 
-                    character="&#129120;" 
-                  />
-                </div>} 
+              render={() => <NewCommentPage post={post} />} 
             />)}
           {comments.map(comment => 
             <Route
