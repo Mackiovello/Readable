@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Posts from "./Posts";
 import Header from "./Header";
 import PostForm from "./PostForm";
+import CommentForm from "./CommentForm";
 import FloatingButton from "./FloatingButton";
 import Post from "./Post";
 import { Switch, Route, withRouter } from "react-router-dom";
@@ -42,7 +43,7 @@ class App extends Component {
   }
 
   render() {
-    const { posts, history } = this.props;
+    const { posts, history, comments } = this.props;
 
     return (
       <div>
@@ -78,6 +79,14 @@ class App extends Component {
                     character="&#129120;"
                   />
                 </div>}
+            />
+          )}
+          {comments.map(comment => 
+            <Route
+              exact
+              path={`/comment/${comment.id}/edit`}
+              key={comment.id}
+              render={() => <CommentForm/>}
             />
           )}
           {posts.map(post =>
