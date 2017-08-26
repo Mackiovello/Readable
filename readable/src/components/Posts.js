@@ -40,12 +40,12 @@ class Posts extends Component {
                 </span>
               </span>
             </Link>
-            <Actions 
-              post={post} 
+            <Actions
+              post={post}
               editLink={`/${post.category}/${post.id}/edit`}
               onDelete={() => this.props.dispatch(deletePost(post))}
             />
-            <Votes 
+            <Votes
               toVoteOn={post}
               upvote={upvotePost}
               downvote={downvotePost}

@@ -48,7 +48,8 @@ export function initializePosts() {
 }
 
 export function createPost(post) {
-  return dispatch => createPostInDb(post).then(dispatch(createPostAction(post)));
+  return dispatch =>
+    createPostInDb(post).then(dispatch(createPostAction(post)));
 }
 
 function createPostAction(post) {

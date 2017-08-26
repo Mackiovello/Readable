@@ -3,11 +3,10 @@ import CommentForm from "../CommentForm";
 import FloatingButton from "../FloatingButton";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import uuidv1 from "uuid/v1"; 
+import uuidv1 from "uuid/v1";
 import { createComment } from "../../actions/comments";
 
 class NewCommentPage extends Component {
-
   addComment(parentPost) {
     const { body, author } = this.props.form.commentForm.values;
     this.props.dispatch(
@@ -30,18 +29,18 @@ class NewCommentPage extends Component {
 
     return (
       <div>
-        <CommentForm 
+        <CommentForm
           headerText="Comment"
           cancelLink={`/${post.category}/${post.id}`}
           parentId={post.id}
           handleComment={() => this.addComment(post)}
         />
-        <FloatingButton 
-          path={`/${post.category}/${post.id}`} 
-          character="&#129120;" 
+        <FloatingButton
+          path={`/${post.category}/${post.id}`}
+          character="&#129120;"
         />
       </div>
-    )
+    );
   }
 }
 

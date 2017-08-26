@@ -45,7 +45,7 @@ class Post extends Component {
                   >
                     edit
                   </button>
-                  <Link 
+                  <Link
                     to={`/${post.category}/${post.id}/comment`}
                     className="button"
                   >
@@ -54,9 +54,9 @@ class Post extends Component {
                 </div>
               </div>
             </div>
-            <Votes 
-              toVoteOn={this.props.post} 
-              upvote={upvotePost} 
+            <Votes
+              toVoteOn={this.props.post}
+              upvote={upvotePost}
               downvote={downvotePost}
             />
           </div>
@@ -64,7 +64,7 @@ class Post extends Component {
             {body}
           </p>
         </div>
-        <Comments parentId={id}/>
+        <Comments parentId={id} />
       </div>
     );
   }

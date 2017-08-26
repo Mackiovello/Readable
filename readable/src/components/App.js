@@ -48,19 +48,20 @@ class App extends Component {
                 </div>}
             />
           )}
-          {posts.map(post => 
+          {posts.map(post =>
             <Route
               exact
               path={`/${post.category}/${post.id}/comment`}
               key={post.id}
-              render={() => <NewCommentPage post={post} />} 
-            />)}
-          {comments.map(comment => 
+              render={() => <NewCommentPage post={post} />}
+            />
+          )}
+          {comments.map(comment =>
             <Route
               exact
               path={`/comment/${comment.id}/edit`}
               key={comment.id}
-              render={() => <CommentForm/>}
+              render={() => <CommentForm />}
             />
           )}
           <Route

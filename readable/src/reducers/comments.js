@@ -1,8 +1,8 @@
-import { 
+import {
   CREATE_COMMENT,
-  UPVOTE_COMMENT, 
-  DOWNVOTE_COMMENT, 
-  DELETE_COMMENT 
+  UPVOTE_COMMENT,
+  DOWNVOTE_COMMENT,
+  DELETE_COMMENT
 } from "../actions/comments";
 
 const vote = (comments, comment, vote) => {
@@ -16,7 +16,6 @@ const vote = (comments, comment, vote) => {
     return c;
   });
 };
-
 
 function comments(comments = [], action) {
   const { comment } = action;

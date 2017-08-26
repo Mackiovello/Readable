@@ -29,7 +29,7 @@ class EditPostPage extends Component {
           character="&#129120;"
         />
       </div>
-    )
+    );
   }
 }
 

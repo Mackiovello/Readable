@@ -32,7 +32,7 @@ class NewPostPage extends Component {
         />
         <FloatingButton path="/" character="&#129120;" />
       </div>
-    )
+    );
   }
 }
 

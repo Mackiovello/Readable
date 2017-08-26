@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../styles/Comments.css"
+import "../styles/Comments.css";
 import { connect } from "react-redux";
 import { getFormattedDate } from "../helpers";
 import Votes from "./Votes";
@@ -8,24 +8,31 @@ import { deleteComment } from "../actions/comments";
 
 class Comments extends Component {
   render() {
-    const { comments, parentId } = this.props; 
-    const filteredComments = parentId ? 
-      comments.filter(comment => comment.parentId === parentId) :
-      comments;
+    const { comments, parentId } = this.props;
+    const filteredComments = parentId
+      ? comments.filter(comment => comment.parentId === parentId)
+      : comments;
 
     return (
       <div>
-        {filteredComments.map(comment => (
+        {filteredComments.map(comment =>
           <div className="comment" key={comment.id}>
             <div className="comment-wrapper">
-              <p className="comment-body">{comment.body}</p>
+              <p className="comment-body">
+                {comment.body}
+              </p>
               <div className="comment-info">
-                <span>{comment.author}</span>
-                <span>{getFormattedDate(comment.timestamp)}</span>
+                <span>
+                  {comment.author}
+                </span>
+                <span>
+                  {getFormattedDate(comment.timestamp)}
+                </span>
               </div>
-              <button 
+              <button
                 onClick={() => this.props.dispatch(deleteComment(comment))}
-                className="button">
+                className="button"
+              >
                 delete
               </button>
             </div>
@@ -35,9 +42,9 @@ class Comments extends Component {
               downvote={downvoteComment}
             />
           </div>
-        ))}
+        )}
       </div>
-    )
+    );
   }
 }
 

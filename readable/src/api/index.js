@@ -9,8 +9,8 @@ const postCall = body => {
       Authorization,
       "Content-Type": "application/json"
     }
-  }
-}
+  };
+};
 
 export function getComments(postId) {
   return fetch(`${serverPath}/posts/${postId}/comments`, {
