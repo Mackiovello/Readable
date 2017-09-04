@@ -6,7 +6,7 @@ import { withRouter, Link } from "react-router-dom";
 
 class CommentForm extends Component {
   render() {
-    const { cancelLink, handleComment } = this.props;
+    const { cancelLink, handleSubmit } = this.props;
 
     return (
       <div>
@@ -15,7 +15,7 @@ class CommentForm extends Component {
             {this.props.headerText}
           </h1>
         </div>
-        <form className="form-card" onSubmit={handleComment}>
+        <form className="form-card" onSubmit={handleSubmit}>
           <div className="form-card__text-field">
             <label htmlFor="authorInput">Author</label>
             <Field

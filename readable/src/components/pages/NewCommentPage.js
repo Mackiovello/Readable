@@ -7,20 +7,18 @@ import uuidv1 from "uuid/v1";
 import { createComment } from "../../actions/comments";
 
 class NewCommentPage extends Component {
-  addComment(parentPost) {
-    const { body, author } = this.props.form.commentForm.values;
-    this.props.dispatch(
-      createComment({
-        body,
-        author,
-        timestamp: Date.now(),
-        voteScore: 1,
-        id: uuidv1(),
-        parentId: parentPost.id,
-        parentDeleted: false,
-        deleted: false
-      })
-    );
+  addComment({ body, author }, parentPost) {
+    const comment = {
+      body,
+      author,
+      timestamp: Date.now(),
+      voteScore: 1,
+      id: uuidv1(),
+      parentId: parentPost.id,
+      parentDeleted: false,
+      deleted: false
+    }
+    this.props.dispatch(createComment(comment));
     this.props.history.push(`/${parentPost.category}/${parentPost.id}`);
   }
 
@@ -33,7 +31,7 @@ class NewCommentPage extends Component {
           headerText="Comment"
           cancelLink={`/${post.category}/${post.id}`}
           parentId={post.id}
-          handleComment={() => this.addComment(post)}
+          onSubmit={values => this.addComment(values, post)}
         />
         <FloatingButton
           path={`/${post.category}/${post.id}`}

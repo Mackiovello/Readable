@@ -46,6 +46,6 @@ export function deleteComment(comment) {
 
 export function createComment(comment) {
   return dispatch => {
-    return createCommentInDb(comment).then(dispatch(addComment()));
+    return createCommentInDb(comment).then(dispatch(addComment(comment)));
   };
 }
