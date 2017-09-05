@@ -41,7 +41,6 @@ class Posts extends Component {
               </span>
             </Link>
             <Actions
-              post={post}
               editLink={`/${post.category}/${post.id}/edit`}
               onDelete={() => this.props.dispatch(deletePost(post))}
             />

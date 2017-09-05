@@ -5,6 +5,7 @@ import { getFormattedDate } from "../helpers";
 import Votes from "./Votes";
 import { upvoteComment, downvoteComment } from "../actions/comments";
 import { deleteComment } from "../actions/comments";
+import Actions from "./Actions";
 
 class Comments extends Component {
   render() {
@@ -29,13 +30,11 @@ class Comments extends Component {
                   {getFormattedDate(comment.timestamp)}
                 </span>
               </div>
-              <button
-                onClick={() => this.props.dispatch(deleteComment(comment))}
-                className="button"
-              >
-                delete
-              </button>
             </div>
+            <Actions 
+              editLink="/"
+              onDelete={() => this.props.dispatch(deleteComment(comment))}
+            />
             <Votes
               toVoteOn={comment}
               upvote={upvoteComment}
