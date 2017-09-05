@@ -5,6 +5,10 @@ import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 
 class CommentForm extends Component {
+  componentDidMount() {
+    this.props.initialData && this.props.initialize(this.props.initialData);
+  }
+
   render() {
     const { cancelLink, handleSubmit } = this.props;
 

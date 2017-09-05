@@ -32,7 +32,7 @@ class Comments extends Component {
               </div>
             </div>
             <Actions 
-              editLink="/"
+              editLink={`/comment/${comment.id}/edit`}
               onDelete={() => this.props.dispatch(deleteComment(comment))}
             />
             <Votes

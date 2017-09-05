@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import Posts from "./Posts";
 import Header from "./Header";
-import CommentForm from "./CommentForm";
 import FloatingButton from "./FloatingButton";
 import Post from "./Post";
 import NewPostPage from "./pages/NewPostPage";
 import EditPostPage from "./pages/EditPostPage";
 import NewCommentPage from "./pages/NewCommentPage";
+import EditCommentPage from "./pages/EditCommentPage";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { initializePosts } from "../actions/posts";
@@ -61,7 +61,7 @@ class App extends Component {
               exact
               path={`/comment/${comment.id}/edit`}
               key={comment.id}
-              render={() => <CommentForm />}
+              render={() => <EditCommentPage comment={comment} />}
             />
           )}
           <Route
