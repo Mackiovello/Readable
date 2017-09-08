@@ -32,7 +32,7 @@ class Post extends Component {
               </h2>
               <div className="post-card__below-title">
                 <span>
-                  {author}
+                  {author} - {this.props.comments.filter(comment => comment.parentId === post.id).length} comments
                 </span>
                 <div>
                   <button className="button" onClick={this.deletePost}>
@@ -70,4 +70,4 @@ class Post extends Component {
   }
 }
 
-export default connect()(Post);
+export default connect(state => state)(Post);
