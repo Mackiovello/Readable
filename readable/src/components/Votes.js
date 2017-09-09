@@ -1,31 +1,27 @@
-import React, { Component } from "react";
+import React from "react";
 import "../styles/Votes.css";
 import { connect } from "react-redux";
 
-class Votes extends Component {
-  render() {
-    const { dispatch, toVoteOn, upvote, downvote } = this.props;
-
-    return (
-      <div className="posts__votes">
-        <span
-          className="posts__vote-button"
-          onClick={() => dispatch(upvote(toVoteOn))}
-        >
-          &#129093;
-        </span>
-        <span>
-          {toVoteOn.voteScore}
-        </span>
-        <span
-          className="posts__vote-button"
-          onClick={() => dispatch(downvote(toVoteOn))}
-        >
-          &#129095;
-        </span>
-      </div>
-    );
-  }
+function Votes({ dispatch, toVoteOn, upvote, downvote }) {
+  return (
+    <div className="posts__votes">
+      <span
+        className="posts__vote-button"
+        onClick={() => dispatch(upvote(toVoteOn))}
+      >
+        &#129093;
+      </span>
+      <span>
+        {toVoteOn.voteScore}
+      </span>
+      <span
+        className="posts__vote-button"
+        onClick={() => dispatch(downvote(toVoteOn))}
+      >
+        &#129095;
+      </span>
+    </div>
+  );
 }
 
-export default connect()(Votes);
+export default connect(null)(Votes);

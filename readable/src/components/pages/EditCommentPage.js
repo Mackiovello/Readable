@@ -7,9 +7,8 @@ import { withRouter } from "react-router-dom";
 
 class EditCommentPage extends Component {
   handleEdit(comment, parentLink) {
-    const { dispatch, history } = this.props;
-    dispatch(deleteComment(comment));
-    dispatch(createComment(comment));
+    const { history, updateComment } = this.props;
+    updateComment(comment);
     history.push(parentLink);
   }
 
@@ -35,4 +34,19 @@ class EditCommentPage extends Component {
   }
 }
 
-export default withRouter(connect(state => state)(EditCommentPage));
+function mapStateToProps({ posts }) {
+  return { posts };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateComment: comment => {
+      dispatch(deleteComment(comment));
+      dispatch(createComment(comment));
+    }
+  }
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps
+)(EditCommentPage));

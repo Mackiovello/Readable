@@ -5,12 +5,12 @@ import "../styles/Posts.css";
 import Votes from "./Votes";
 import Sorter from "./Sorter";
 import { getFormattedDate } from "../helpers";
-import { upvotePost, downvotePost, deletePost } from "../actions/posts";
+import { upvotePost, downvotePost, deletePost as deletePostAction } from "../actions/posts";
 import Actions from "./Actions";
 
 class Posts extends Component {
   getPosts(posts) {
-    const { comments } = this.props;
+    const { comments, deletePost } = this.props;
     return (
       <div>
         {posts.filter(post => post.deleted !== true).map(post =>
@@ -42,7 +42,7 @@ class Posts extends Component {
             </Link>
             <Actions
               editLink={`/${post.category}/${post.id}/edit`}
-              onDelete={() => this.props.dispatch(deletePost(post))}
+              onDelete={() => deletePost(post)}
             />
             <Votes
               toVoteOn={post}
@@ -78,4 +78,18 @@ class Posts extends Component {
   }
 }
 
-export default withRouter(connect(state => state)(Posts));
+function mapStateToProps({ categories, comments, posts }) {
+  return { categories, comments, posts };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    deletePost: post => dispatch(deletePostAction(post))
+  }
+}
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Posts));

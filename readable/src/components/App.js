@@ -15,10 +15,7 @@ import { initializeCategories } from "../actions/categories";
 
 class App extends Component {
   componentWillMount() {
-    const { dispatch } = this.props;
-
-    dispatch(initializeCategories());
-    dispatch(initializePosts());
+    this.props.initialize();
   }
 
   render() {
@@ -63,13 +60,13 @@ class App extends Component {
               path={`/${post.category}/${post.id}/comment`}
               key={post.id}
               render={() => post.deleted ? 
-                <NewCommentPage post={post} /> : (
+                 (
                   <div>
                     <Header />
                     <NotFound />
                     <FloatingButton path="/" character="&#129120;" />
                   </div>
-                )}
+                ): <NewCommentPage post={post} />}
             />
           )}
           {comments.map(comment =>
@@ -94,4 +91,21 @@ class App extends Component {
   }
 }
 
-export default withRouter(connect(state => state)(App));
+function mapStateToProps({ posts, comments }) {
+  return { posts, comments }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    initialize: () => {
+      dispatch(initializeCategories());
+      dispatch(initializePosts());
+    }
+  }
+}
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App));

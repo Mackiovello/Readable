@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "../styles/PostForm.css";
 import { Field, reduxForm } from "redux-form";
-import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 
 class CommentForm extends Component {
@@ -51,4 +50,4 @@ class CommentForm extends Component {
 
 export default reduxForm({
   form: "commentForm"
-})(withRouter(connect(state => state)(CommentForm)));
+})(withRouter(CommentForm));

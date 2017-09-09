@@ -1,25 +1,20 @@
 import React, { Component } from "react";
 import "../styles/Post.css";
-import { deletePost } from "../actions/posts";
 import { connect } from "react-redux";
 import Votes from "./Votes";
 import Comments from "./Comments";
-import { upvotePost, downvotePost } from "../actions/posts";
+import { upvotePost, downvotePost, deletePost as deletePostAction } from "../actions/posts";
 import { Link } from "react-router-dom";
 
 class Post extends Component {
-  constructor() {
-    super();
-    this.deletePost = this.deletePost.bind(this);
-  }
-
   deletePost() {
-    this.props.dispatch(deletePost(this.props.post));
-    this.props.history.push("/");
+    const { deletePost, post, history } = this.props;
+    deletePost(post);
+    history.push("/");
   }
 
   render() {
-    const { post } = this.props;
+    const { post, history, comments } = this.props;
     const { title, body, author, category, id } = post;
 
     return (
@@ -32,7 +27,7 @@ class Post extends Component {
               </h2>
               <div className="post-card__below-title">
                 <span>
-                  {author} - {this.props.comments.filter(comment => comment.parentId === post.id).length} comments
+                  {author} - {comments.filter(comment => comment.parentId === post.id).length} comments
                 </span>
                 <div>
                   <button className="button" onClick={this.deletePost}>
@@ -41,7 +36,7 @@ class Post extends Component {
                   <button
                     className="button"
                     onClick={() =>
-                      this.props.history.push(`/${category}/${id}/edit`)}
+                      history.push(`/${category}/${id}/edit`)}
                   >
                     edit
                   </button>
@@ -70,4 +65,17 @@ class Post extends Component {
   }
 }
 
-export default connect(state => state)(Post);
+function mapStateToProps({ comments }) {
+  return { comments };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    deletePost: post => dispatch(deletePostAction(post))
+  }
+}
+
+export default connect(
+  mapStateToProps, 
+  mapDispatchToProps
+)(Post);

@@ -6,17 +6,18 @@ import { Link } from "react-router-dom";
 
 class PostForm extends Component {
   componentDidMount() {
-    this.props.initialData && this.props.initialize(this.props.initialData);
+    const { initialData, initialize } = this.props
+    initialData && initialize(initialData);
   }
 
   render() {
-    const { handleSubmit, categories, cancelLink } = this.props;
+    const { handleSubmit, categories, cancelLink, headerText } = this.props;
 
     return (
       <div>
         <div className="header header--thin">
           <h1 className="header__headline">
-            {this.props.headerText}
+            {headerText}
           </h1>
         </div>
         <form className="form-card" onSubmit={handleSubmit}>
@@ -67,6 +68,12 @@ class PostForm extends Component {
   }
 }
 
+function mapStateToProps({ categories }) {
+  return { categories };
+}
+
 export default reduxForm({
   form: "postForm"
-})(connect(state => state)(PostForm));
+})(connect(
+  mapStateToProps
+)(PostForm));

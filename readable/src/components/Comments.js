@@ -3,13 +3,12 @@ import "../styles/Comments.css";
 import { connect } from "react-redux";
 import { getFormattedDate } from "../helpers";
 import Votes from "./Votes";
-import { upvoteComment, downvoteComment } from "../actions/comments";
-import { deleteComment } from "../actions/comments";
+import { deleteComment as deleteCommentAction, upvoteComment, downvoteComment } from "../actions/comments";
 import Actions from "./Actions";
 
 class Comments extends Component {
   render() {
-    const { comments, parentId } = this.props;
+    const { comments, parentId, deleteComment } = this.props;
     const filteredComments = parentId
       ? comments.filter(comment => comment.parentId === parentId)
       : comments;
@@ -33,7 +32,7 @@ class Comments extends Component {
             </div>
             <Actions 
               editLink={`/comment/${comment.id}/edit`}
-              onDelete={() => this.props.dispatch(deleteComment(comment))}
+              onDelete={() => deleteComment(comment)}
             />
             <Votes
               toVoteOn={comment}
@@ -47,4 +46,17 @@ class Comments extends Component {
   }
 }
 
-export default connect(state => state)(Comments);
+function mapStateToProps({ comments }) {
+  return { comments };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    deleteComment: comment => dispatch(deleteCommentAction(comment))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Comments);

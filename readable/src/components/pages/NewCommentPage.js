@@ -4,7 +4,7 @@ import FloatingButton from "../FloatingButton";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import uuidv1 from "uuid/v1";
-import { createComment } from "../../actions/comments";
+import { createComment as createCommentAction } from "../../actions/comments";
 
 class NewCommentPage extends Component {
   addComment({ body, author }, parentPost) {
@@ -18,7 +18,7 @@ class NewCommentPage extends Component {
       parentDeleted: false,
       deleted: false
     }
-    this.props.dispatch(createComment(comment));
+    this.props.createComment(comment);
     this.props.history.push(`/${parentPost.category}/${parentPost.id}`);
   }
 
@@ -42,4 +42,14 @@ class NewCommentPage extends Component {
   }
 }
 
-export default withRouter(connect(state => state)(NewCommentPage));
+function mapDispatchToProps(dispatch) {
+  return {
+    createComment: comment => dispatch(createCommentAction(comment)) 
+  }
+}
+
+export default withRouter(
+  connect(
+    null, 
+    mapDispatchToProps
+)(NewCommentPage));

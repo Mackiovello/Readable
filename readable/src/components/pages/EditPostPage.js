@@ -7,9 +7,8 @@ import { withRouter } from "react-router-dom";
 
 class EditPostPage extends Component {
   handleEdit(post) {
-    const { dispatch, history } = this.props;
-    dispatch(deletePost(post));
-    dispatch(createPost(post));
+    const { history, updatePost } = this.props;
+    updatePost(post);
     history.push("/");
   }
 
@@ -33,4 +32,13 @@ class EditPostPage extends Component {
   }
 }
 
-export default withRouter(connect(state => state)(EditPostPage));
+function mapDispatchToProps(dispatch) {
+  return {
+    updatePost: post => {
+      dispatch(deletePost(post));
+      dispatch(createPost(post));
+    }
+  };
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(EditPostPage));
