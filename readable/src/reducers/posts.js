@@ -5,7 +5,7 @@ import {
   DELETE_POST,
   SORT_BY_DATE,
   SORT_BY_VOTES
-} from "../actions/posts";
+} from "../actions/types";
 
 const vote = (posts, post, vote) => {
   return posts.map(p => {

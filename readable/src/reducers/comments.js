@@ -3,7 +3,7 @@ import {
   UPVOTE_COMMENT,
   DOWNVOTE_COMMENT,
   DELETE_COMMENT
-} from "../actions/comments";
+} from "../actions/types";
 
 const vote = (comments, comment, vote) => {
   return comments.map(c => {

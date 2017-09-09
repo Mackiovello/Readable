@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/Sorter.css";
-import { SORT_BY_DATE, SORT_BY_VOTES } from "../actions/posts";
+import { SORT_BY_DATE, SORT_BY_VOTES } from "../actions/types";
 import { connect } from "react-redux";
 
 function Sorter({ sortByVotes, sortByDate }) {

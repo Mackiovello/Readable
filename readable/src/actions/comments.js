@@ -1,9 +1,5 @@
 import { voteComment, deleteCommentFromDb, createCommentInDb } from "../api";
-
-export const CREATE_COMMENT = "CREATE_COMMENT";
-export const UPVOTE_COMMENT = "UPVOTE_COMMENT";
-export const DOWNVOTE_COMMENT = "DOWNVOTE_COMMENT";
-export const DELETE_COMMENT = "DELETE_COMMENT";
+import { CREATE_COMMENT, UPVOTE_COMMENT, DOWNVOTE_COMMENT, DELETE_COMMENT } from "./types";
 
 export function addComment(comment) {
   return {

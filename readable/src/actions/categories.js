@@ -1,7 +1,5 @@
 import { getCategories } from "../api";
-
-export const CREATE_CATEGORY = "CREATE_CATEGORY";
-export const CREATE_CATEGORIES = "CREATE_CATEGORIES";
+import { CREATE_CATEGORY } from "./types";
 
 export function initializeCategories() {
   return dispatch =>

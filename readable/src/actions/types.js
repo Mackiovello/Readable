@@ -1,0 +1,12 @@
+export const UPVOTE = "UPVOTE";
+export const DOWNVOTE = "DOWNVOTE";
+export const CREATE_POST = "CREATE_POST";
+export const DELETE_POST = "DELETE_POST";
+export const SORT_BY_VOTES = "SORT_BY_VOTES";
+export const SORT_BY_DATE = "SORT_BY_DATE";
+export const CREATE_COMMENT = "CREATE_COMMENT";
+export const UPVOTE_COMMENT = "UPVOTE_COMMENT";
+export const DOWNVOTE_COMMENT = "DOWNVOTE_COMMENT";
+export const DELETE_COMMENT = "DELETE_COMMENT";
+export const CREATE_CATEGORY = "CREATE_CATEGORY";
+export const CREATE_CATEGORIES = "CREATE_CATEGORIES";

@@ -6,13 +6,7 @@ import {
   getComments
 } from "../api";
 import { addComment } from "./comments";
-
-export const UPVOTE = "UPVOTE";
-export const DOWNVOTE = "DOWNVOTE";
-export const CREATE_POST = "CREATE_POST";
-export const DELETE_POST = "DELETE_POST";
-export const SORT_BY_VOTES = "SORT_BY_VOTES";
-export const SORT_BY_DATE = "SORT_BY_DATE";
+import { UPVOTE, DOWNVOTE, CREATE_POST, DELETE_POST } from "./types";
 
 export function upvotePost(post) {
   return dispatch => vote(post, "upVote", dispatch);
