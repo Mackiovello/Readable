@@ -7,7 +7,7 @@ class Header extends Component {
   render() {
     return (
       <div className="header">
-        <h1 className="header__headline">Readable</h1>
+        <h1 className="header__headline"><Link to="/">Readable</Link></h1>
         <nav className="header__navigation">
           <Link to="/">all</Link>
           {this.props.categories.map(category =>

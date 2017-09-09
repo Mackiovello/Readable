@@ -19,6 +19,11 @@
   margin-top: 0;
 }
 
+.header__headline > a {
+  text-decoration: none;
+  color: #333;
+}
+
 .header__navigation {
   display: flex;
   justify-content: center;
