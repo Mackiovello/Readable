@@ -28,12 +28,20 @@ class App extends Component {
       <div>
         <Switch>
           <Route exact path="/new" component={NewPostPage} />
-          {posts.map(post =>
+          {posts.map(post => 
             <Route
               exact
               path={`/${post.category}/${post.id}/edit`}
               key={post.id}
-              render={() => <EditPostPage post={post} />}
+              render={() => 
+                post.deleted ? (
+                  <div>
+                    <Header />
+                    <NotFound />
+                    <FloatingButton path="/" character="&#129120;" />
+                  </div>
+                ) : <EditPostPage post={post} />
+              }
             />
           )}
           {posts.map(post => 
@@ -54,7 +62,14 @@ class App extends Component {
               exact
               path={`/${post.category}/${post.id}/comment`}
               key={post.id}
-              render={() => <NewCommentPage post={post} />}
+              render={() => post.deleted ? 
+                <NewCommentPage post={post} /> : (
+                  <div>
+                    <Header />
+                    <NotFound />
+                    <FloatingButton path="/" character="&#129120;" />
+                  </div>
+                )}
             />
           )}
           {comments.map(comment =>
