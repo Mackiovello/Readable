@@ -7,6 +7,7 @@ import NewPostPage from "./pages/NewPostPage";
 import EditPostPage from "./pages/EditPostPage";
 import NewCommentPage from "./pages/NewCommentPage";
 import EditCommentPage from "./pages/EditCommentPage";
+import NotFound from "./NotFound";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { initializePosts } from "../actions/posts";
@@ -35,7 +36,7 @@ class App extends Component {
               render={() => <EditPostPage post={post} />}
             />
           )}
-          {posts.map(post =>
+          {posts.map(post => 
             <Route
               exact
               path={`/${post.category}/${post.id}`}
@@ -43,7 +44,7 @@ class App extends Component {
               render={() =>
                 <div>
                   <Header />
-                  <Post history={history} post={post} />
+                  {post.deleted ? <NotFound /> : <Post history={history} post={post} />}
                   <FloatingButton path="/" character="&#129120;" />
                 </div>}
             />
