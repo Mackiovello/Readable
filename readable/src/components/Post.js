@@ -7,6 +7,11 @@ import { upvotePost, downvotePost, deletePost as deletePostAction } from "../act
 import { Link } from "react-router-dom";
 
 class Post extends Component {
+  constructor() {
+    super();
+    this.deletePost = this.deletePost.bind(this);
+  }
+
   deletePost() {
     const { deletePost, post, history } = this.props;
     deletePost(post);
