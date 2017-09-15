@@ -3,7 +3,11 @@ import "../styles/Comments.css";
 import { connect } from "react-redux";
 import { getFormattedDate } from "../helpers";
 import Votes from "./Votes";
-import { deleteComment as deleteCommentAction, upvoteComment, downvoteComment } from "../actions/comments";
+import {
+  deleteComment as deleteCommentAction,
+  upvoteComment,
+  downvoteComment
+} from "../actions/comments";
 import Actions from "./Actions";
 
 class Comments extends Component {
@@ -30,7 +34,7 @@ class Comments extends Component {
                 </span>
               </div>
             </div>
-            <Actions 
+            <Actions
               editLink={`/comment/${comment.id}/edit`}
               onDelete={() => deleteComment(comment)}
             />
@@ -53,10 +57,7 @@ function mapStateToProps({ comments }) {
 function mapDispatchToProps(dispatch) {
   return {
     deleteComment: comment => dispatch(deleteCommentAction(comment))
-  }
+  };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Comments);
+export default connect(mapStateToProps, mapDispatchToProps)(Comments);

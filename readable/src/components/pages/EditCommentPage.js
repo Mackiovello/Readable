@@ -14,7 +14,9 @@ class EditCommentPage extends Component {
 
   render() {
     const { comment } = this.props;
-    const parent = this.props.posts.filter(post => post.id === comment.parentId)[0];
+    const parent = this.props.posts.filter(
+      post => post.id === comment.parentId
+    )[0];
     const parentLink = `/${parent.category}/${parent.id}`;
 
     return (
@@ -25,10 +27,7 @@ class EditCommentPage extends Component {
           onSubmit={values => this.handleEdit(values, parentLink)}
           cancelLink={parentLink}
         />
-        <FloatingButton
-          path={parentLink}
-          character="&#129120;"
-        />
+        <FloatingButton path={parentLink} character="&#129120;" />
       </div>
     );
   }
@@ -44,9 +43,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(deleteComment(comment));
       dispatch(createComment(comment));
     }
-  }
+  };
 }
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps
-)(EditCommentPage));
+  connect(mapStateToProps, mapDispatchToProps)(EditCommentPage)
+);

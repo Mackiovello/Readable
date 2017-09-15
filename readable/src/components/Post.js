@@ -3,7 +3,11 @@ import "../styles/Post.css";
 import { connect } from "react-redux";
 import Votes from "./Votes";
 import Comments from "./Comments";
-import { upvotePost, downvotePost, deletePost as deletePostAction } from "../actions/posts";
+import {
+  upvotePost,
+  downvotePost,
+  deletePost as deletePostAction
+} from "../actions/posts";
 import { Link } from "react-router-dom";
 
 class Post extends Component {
@@ -32,7 +36,12 @@ class Post extends Component {
               </h2>
               <div className="post-card__below-title">
                 <span>
-                  {author} - {comments.filter(comment => comment.parentId === post.id).length} comments
+                  {author} -{" "}
+                  {
+                    comments.filter(comment => comment.parentId === post.id)
+                      .length
+                  }{" "}
+                  comments
                 </span>
                 <div>
                   <button className="button" onClick={this.deletePost}>
@@ -40,8 +49,7 @@ class Post extends Component {
                   </button>
                   <button
                     className="button"
-                    onClick={() =>
-                      history.push(`/${category}/${id}/edit`)}
+                    onClick={() => history.push(`/${category}/${id}/edit`)}
                   >
                     edit
                   </button>
@@ -77,10 +85,7 @@ function mapStateToProps({ comments }) {
 function mapDispatchToProps(dispatch) {
   return {
     deletePost: post => dispatch(deletePostAction(post))
-  }
+  };
 }
 
-export default connect(
-  mapStateToProps, 
-  mapDispatchToProps
-)(Post);
+export default connect(mapStateToProps, mapDispatchToProps)(Post);

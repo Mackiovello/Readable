@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 class PostForm extends Component {
   componentDidMount() {
-    const { initialData, initialize } = this.props
+    const { initialData, initialize } = this.props;
     initialData && initialize(initialData);
   }
 
@@ -74,6 +74,4 @@ function mapStateToProps({ categories }) {
 
 export default reduxForm({
   form: "postForm"
-})(connect(
-  mapStateToProps
-)(PostForm));
+})(connect(mapStateToProps)(PostForm));

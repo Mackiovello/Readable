@@ -1,5 +1,10 @@
 import { voteComment, deleteCommentFromDb, createCommentInDb } from "../api";
-import { CREATE_COMMENT, UPVOTE_COMMENT, DOWNVOTE_COMMENT, DELETE_COMMENT } from "./types";
+import {
+  CREATE_COMMENT,
+  UPVOTE_COMMENT,
+  DOWNVOTE_COMMENT,
+  DELETE_COMMENT
+} from "./types";
 
 export function addComment(comment) {
   return {

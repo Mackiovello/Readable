@@ -6,7 +6,9 @@ import "../styles/Header.css";
 function Header({ categories }) {
   return (
     <div className="header">
-      <h1 className="header__headline"><Link to="/">Readable</Link></h1>
+      <h1 className="header__headline">
+        <Link to="/">Readable</Link>
+      </h1>
       <nav className="header__navigation">
         <Link to="/">all</Link>
         {categories.map(category =>

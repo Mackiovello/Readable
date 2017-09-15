@@ -5,7 +5,11 @@ import "../styles/Posts.css";
 import Votes from "./Votes";
 import Sorter from "./Sorter";
 import { getFormattedDate } from "../helpers";
-import { upvotePost, downvotePost, deletePost as deletePostAction } from "../actions/posts";
+import {
+  upvotePost,
+  downvotePost,
+  deletePost as deletePostAction
+} from "../actions/posts";
 import Actions from "./Actions";
 
 class Posts extends Component {
@@ -85,11 +89,7 @@ function mapStateToProps({ categories, comments, posts }) {
 function mapDispatchToProps(dispatch) {
   return {
     deletePost: post => dispatch(deletePostAction(post))
-  }
+  };
 }
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Posts));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Posts));

@@ -25,23 +25,22 @@ class App extends Component {
       <div>
         <Switch>
           <Route exact path="/new" component={NewPostPage} />
-          {posts.map(post => 
+          {posts.map(post =>
             <Route
               exact
               path={`/${post.category}/${post.id}/edit`}
               key={post.id}
-              render={() => 
-                post.deleted ? (
-                  <div>
-                    <Header />
-                    <NotFound />
-                    <FloatingButton path="/" character="&#129120;" />
-                  </div>
-                ) : <EditPostPage post={post} />
-              }
+              render={() =>
+                post.deleted
+                  ? <div>
+                      <Header />
+                      <NotFound />
+                      <FloatingButton path="/" character="&#129120;" />
+                    </div>
+                  : <EditPostPage post={post} />}
             />
           )}
-          {posts.map(post => 
+          {posts.map(post =>
             <Route
               exact
               path={`/${post.category}/${post.id}`}
@@ -49,7 +48,9 @@ class App extends Component {
               render={() =>
                 <div>
                   <Header />
-                  {post.deleted ? <NotFound /> : <Post history={history} post={post} />}
+                  {post.deleted
+                    ? <NotFound />
+                    : <Post history={history} post={post} />}
                   <FloatingButton path="/" character="&#129120;" />
                 </div>}
             />
@@ -59,14 +60,14 @@ class App extends Component {
               exact
               path={`/${post.category}/${post.id}/comment`}
               key={post.id}
-              render={() => post.deleted ? 
-                 (
-                  <div>
-                    <Header />
-                    <NotFound />
-                    <FloatingButton path="/" character="&#129120;" />
-                  </div>
-                ): <NewCommentPage post={post} />}
+              render={() =>
+                post.deleted
+                  ? <div>
+                      <Header />
+                      <NotFound />
+                      <FloatingButton path="/" character="&#129120;" />
+                    </div>
+                  : <NewCommentPage post={post} />}
             />
           )}
           {comments.map(comment =>
@@ -92,7 +93,7 @@ class App extends Component {
 }
 
 function mapStateToProps({ posts, comments }) {
-  return { posts, comments }
+  return { posts, comments };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -101,11 +102,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(initializeCategories());
       dispatch(initializePosts());
     }
-  }
+  };
 }
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

@@ -17,7 +17,7 @@ class NewCommentPage extends Component {
       parentId: parentPost.id,
       parentDeleted: false,
       deleted: false
-    }
+    };
     this.props.createComment(comment);
     this.props.history.push(`/${parentPost.category}/${parentPost.id}`);
   }
@@ -44,12 +44,8 @@ class NewCommentPage extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createComment: comment => dispatch(createCommentAction(comment)) 
-  }
+    createComment: comment => dispatch(createCommentAction(comment))
+  };
 }
 
-export default withRouter(
-  connect(
-    null, 
-    mapDispatchToProps
-)(NewCommentPage));
+export default withRouter(connect(null, mapDispatchToProps)(NewCommentPage));
