@@ -1,18 +1,18 @@
 import React from "react";
-import "../styles/Sorter.css";
 import { SORT_BY_DATE, SORT_BY_VOTES } from "../actions/types";
 import { connect } from "react-redux";
+import { SorterCard } from "./StyledComponents";
 
 function Sorter({ sortByVotes, sortByDate }) {
   return (
-    <div className="sorter-card">
+    <SorterCard>
       <button className="button" onClick={sortByVotes}>
         Sort by votes
       </button>
       <button className="button" onClick={sortByDate}>
         Sort by date
       </button>
-    </div>
+    </SorterCard>
   );
 }
 

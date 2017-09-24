@@ -21,3 +21,10 @@ export const CommentInfo = styled.div`
   justify-content: space-between;
   font-size: 0.9em;
 `;
+
+export const SorterCard = styled.div`
+  background-color: #fff;
+  box-shadow: 0 1px 3px #999;
+  display: flex;
+  justify-content: space-around;
+`
