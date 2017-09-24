@@ -20,4 +20,4 @@ export const CommentInfo = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 0.9em;
-`
+`;

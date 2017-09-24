@@ -20,7 +20,7 @@ function Comments({ comments, parentId, deleteComment }) {
       {filteredComments.map(comment =>
         <Comment key={comment.id}>
           <CommentWrapper>
-            <p style={{margin: "0 0 15px 0"}}>
+            <p style={{ margin: "0 0 15px 0" }}>
               {comment.body}
             </p>
             <CommentInfo>
@@ -47,8 +47,11 @@ function Comments({ comments, parentId, deleteComment }) {
   );
 }
 
-export default connect(({ comments }) => ({ comments }), dispatch => {
-  return {
-    deleteComment: comment => dispatch(deleteCommentAction(comment))
+export default connect(
+  ({ comments }) => ({ comments }),
+  dispatch => {
+    return {
+      deleteComment: comment => dispatch(deleteCommentAction(comment))
+    };
   }
-})(Comments);
+)(Comments);
