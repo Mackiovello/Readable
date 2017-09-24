@@ -88,4 +88,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post);
+export default connect(
+  ({ comments }) => ({ comments }),
+  dispatch => ({ deletePost: post => dispatch(deletePostAction(post)) })
+)(Post);

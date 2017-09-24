@@ -16,11 +16,7 @@ function Sorter({ sortByVotes, sortByDate }) {
   );
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    sortByVotes: () => dispatch({ type: SORT_BY_VOTES }),
-    sortByDate: () => dispatch({ type: SORT_BY_DATE })
-  };
-}
-
-export default connect(null, mapDispatchToProps)(Sorter);
+export default connect(null, dispatch => ({
+  sortByVotes: () => dispatch({ type: SORT_BY_VOTES }),
+  sortByDate: () => dispatch({ type: SORT_BY_DATE })
+}))(Sorter);

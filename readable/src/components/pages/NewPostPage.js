@@ -35,10 +35,8 @@ class NewPostPage extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+export default connect(null, dispatch => {
   return {
-    createPost: post => dispatch(createPostAction(post))
-  };
-}
-
-export default connect(null, mapDispatchToProps)(NewPostPage);
+    createPost: post => dispatch(createPostAction(post))    
+  }
+})(NewPostPage);

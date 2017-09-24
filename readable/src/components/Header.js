@@ -21,8 +21,4 @@ function Header({ categories }) {
   );
 }
 
-function mapStateToProps({ categories }) {
-  return { categories };
-}
-
-export default connect(mapStateToProps)(Header);
+export default connect(({ categories }) => ({ categories }))(Header);

@@ -42,10 +42,9 @@ class NewCommentPage extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    createComment: comment => dispatch(createCommentAction(comment))
-  };
-}
-
-export default withRouter(connect(null, mapDispatchToProps)(NewCommentPage));
+export default withRouter(connect(null,
+   dispatch => {
+     return {
+      createComment: comment => dispatch(createCommentAction(comment))
+     }
+   })(NewCommentPage));

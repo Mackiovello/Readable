@@ -92,17 +92,14 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ posts, comments }) {
-  return { posts, comments };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    initialize: () => {
-      dispatch(initializeCategories());
-      dispatch(initializePosts());
-    }
-  };
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(
+  connect(
+    ({ posts, comments }) => ({ posts, comments }),
+    dispatch => ({
+      initialize: () => {
+        dispatch(initializeCategories());
+        dispatch(initializePosts());
+      }
+    })
+  )(App)
+);

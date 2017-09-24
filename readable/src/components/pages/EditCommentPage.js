@@ -33,10 +33,6 @@ class EditCommentPage extends Component {
   }
 }
 
-function mapStateToProps({ posts }) {
-  return { posts };
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     updateComment: comment => {
@@ -47,5 +43,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(EditCommentPage)
+  connect(({ posts }) => ({ posts }), dispatch => ({
+    updateComment: comment => {
+      dispatch(deleteComment(comment));
+      dispatch(createComment(comment));
+    }
+  }))(EditCommentPage)
 );

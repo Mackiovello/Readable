@@ -68,10 +68,6 @@ class PostForm extends Component {
   }
 }
 
-function mapStateToProps({ categories }) {
-  return { categories };
-}
-
 export default reduxForm({
   form: "postForm"
-})(connect(mapStateToProps)(PostForm));
+})(connect(({ categories }) => ({ categories }))(PostForm));
