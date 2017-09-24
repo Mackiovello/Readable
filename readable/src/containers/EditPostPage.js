@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import PostForm from "../PostForm";
-import FloatingButton from "../FloatingButton";
+import PostForm from "../components/PostForm";
+import FloatingButton from "../components/FloatingButton";
 import { connect } from "react-redux";
-import { createPost, deletePost } from "../../actions/posts";
+import { createPost, deletePost } from "../actions/posts";
 import { withRouter } from "react-router-dom";
 
 class EditPostPage extends Component {
@@ -32,13 +32,11 @@ class EditPostPage extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
+export default withRouter(
+  connect(null, dispatch => ({
     updatePost: post => {
       dispatch(deletePost(post));
       dispatch(createPost(post));
     }
-  };
-}
-
-export default withRouter(connect(null, mapDispatchToProps)(EditPostPage));
+  }))(EditPostPage)
+);
