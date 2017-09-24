@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "../styles/Post.css";
 import { connect } from "react-redux";
-import Votes from "./Votes";
-import Comments from "./Comments";
+import Votes from "../components/Votes";
+import Comments from "../components/Comments";
 import {
   upvotePost,
   downvotePost,
