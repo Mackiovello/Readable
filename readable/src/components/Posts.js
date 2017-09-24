@@ -82,12 +82,6 @@ class Posts extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    deletePost: post => dispatch(deletePostAction(post))
-  };
-}
-
 export default withRouter(
   connect(
     ({ categories, comments, posts }) => ({ categories, comments, posts }),

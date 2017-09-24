@@ -78,16 +78,6 @@ class Post extends Component {
   }
 }
 
-function mapStateToProps({ comments }) {
-  return { comments };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    deletePost: post => dispatch(deletePostAction(post))
-  };
-}
-
 export default connect(
   ({ comments }) => ({ comments }),
   dispatch => ({ deletePost: post => dispatch(deletePostAction(post)) })
