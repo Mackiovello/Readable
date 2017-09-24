@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "../styles/Comments.css";
 import { connect } from "react-redux";
 import { getFormattedDate } from "../helpers";
 import Votes from "./Votes";
@@ -9,6 +8,7 @@ import {
   downvoteComment
 } from "../actions/comments";
 import Actions from "./Actions";
+import { Comment, CommentWrapper, CommentInfo } from "./StyledComponents";
 
 class Comments extends Component {
   render() {
@@ -20,20 +20,20 @@ class Comments extends Component {
     return (
       <div>
         {filteredComments.map(comment =>
-          <div className="comment" key={comment.id}>
-            <div className="comment-wrapper">
-              <p className="comment-body">
+          <Comment key={comment.id}>
+            <CommentWrapper>
+              <p style={{margin: "0 0 15px 0"}}>
                 {comment.body}
               </p>
-              <div className="comment-info">
+              <CommentInfo>
                 <span>
                   {comment.author}
                 </span>
                 <span>
                   {getFormattedDate(comment.timestamp)}
                 </span>
-              </div>
-            </div>
+              </CommentInfo>
+            </CommentWrapper>
             <Actions
               editLink={`/comment/${comment.id}/edit`}
               onDelete={() => deleteComment(comment)}
@@ -43,7 +43,7 @@ class Comments extends Component {
               upvote={upvoteComment}
               downvote={downvoteComment}
             />
-          </div>
+          </Comment>
         )}
       </div>
     );
