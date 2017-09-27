@@ -14,5 +14,6 @@ namespace ReadableApi.Models
         public string Category { get; set; }
         public int VoteScore { get; set; }
         public bool Deleted { get; set; }
+        public int Id { get; set; }
     }
 }

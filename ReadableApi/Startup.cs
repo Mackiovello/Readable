@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using ReadableApi.DatabaseAccess;
+using ReadableApi.Models;
 
 namespace ReadableApi
 {
@@ -16,6 +18,7 @@ namespace ReadableApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddTransient<IDatabaseReader<Post>, InMemoryPostsRetriever>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
