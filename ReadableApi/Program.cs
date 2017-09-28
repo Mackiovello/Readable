@@ -17,7 +17,7 @@ namespace ReadableApi
     {
         public static void Main(string[] args)
         {
-            const string databaseName = "defaultDatabase";
+            const string databaseName = "default";
 
             if (!Starcounter.Core.Options.StarcounterOptions.TryOpenExisting(databaseName))
             {
@@ -28,7 +28,7 @@ namespace ReadableApi
             using (var appHost = new AppHostBuilder().UseDatabase(databaseName).Build())
             {
                 BuildWebHost(args, appHost).Run();
-            }
+            };
         }
 
         public static IWebHost BuildWebHost(string[] args, IAppHost appHost) =>
