@@ -11,6 +11,6 @@ namespace ReadableApi.DatabaseAccess
 
         List<T> GetAll();
 
-        T GetById(int id);
+        T GetById(ulong id);
     }
 }

@@ -1,13 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="runtime.native.Starcounter.Bluestar" Version="2.4.0-*" />
+    <PackageReference Include="runtime.native.Starcounter.Bluestar" Version="2.4.0-develop-9444" />
     <PackageReference Include="Starcounter.Core.AspNetCore" Version="0.6.0" />
   </ItemGroup>
 </Project>

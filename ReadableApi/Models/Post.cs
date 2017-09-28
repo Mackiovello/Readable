@@ -1,19 +1,29 @@
-﻿using System;
+﻿using Starcounter.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ReadableApi.Models
 {
-    public class Post
+    [Database]
+    public abstract class Post
     {
-        public DateTime Timestamp { get; set; }
-        public string Title { get; set; }
-        public string Body { get; set; }
-        public string Author { get; set; }
-        public string Category { get; set; }
-        public int VoteScore { get; set; }
-        public bool Deleted { get; set; }
-        public int Id { get; set; }
+        internal protected Post()
+        {
+            Timestamp = DateTime.Now;
+            Id = this.GetObjectNo();
+            Deleted = false;
+            VoteScore = 0;
+        }
+
+        public abstract DateTime Timestamp { get; set; }
+        public abstract string Title { get; set; }
+        public abstract string Body { get; set; }
+        public abstract string Author { get; set; }
+        public abstract string Category { get; set; }
+        public abstract int VoteScore { get; set; }
+        public abstract bool Deleted { get; set; }
+        public abstract ulong Id { get; set; }
     }
 }

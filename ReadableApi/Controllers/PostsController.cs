@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ReadableApi.DatabaseAccess;
 using ReadableApi.Models;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Starcounter.Core;
 
 namespace ReadableApi.Controllers
 {
@@ -23,7 +22,7 @@ namespace ReadableApi.Controllers
         [HttpGet]
         public IActionResult GetAllPosts()
         {
-            return Ok(_postsRetriever.GetAll());
+            return Ok(_postsRetriever.GetFirst());
         }
     }
 }
