@@ -117,3 +117,4 @@ UpgradeLog*.XML
 node_modules
 
 dist/*
+/ReadableApi/defaultDatabase

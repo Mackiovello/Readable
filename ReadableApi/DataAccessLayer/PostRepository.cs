@@ -41,24 +41,37 @@ namespace ReadableApi.DataAccessLayer
             });
         }
 
-        public void Insert(PostDto entity)
+        public PostDto Insert(PostDto post)
         {
-            throw new NotImplementedException();
+            return Db.Transact(() =>
+            {
+                var newPost = Db.Insert<Post>();
+                newPost.Author = post.Author;
+                newPost.Body = post.Body;
+                newPost.Category = post.Category;
+                newPost.Title = post.Title;
+                return Mapper.Map<PostDto>(newPost);
+            });
         }
 
-        public void Update(PostDto entity)
+        public void Update(PostDto post)
         {
-            throw new NotImplementedException();
+            Db.Transact(() =>
+            {
+                var updatedPost = Db.FromId<Post>(post.Id);
+                updatedPost.Title = post.Title ?? updatedPost.Title;
+                updatedPost.Author = post.Author ?? updatedPost.Author;
+                updatedPost.Body = post.Body ?? updatedPost.Body;
+                updatedPost.Category = post.Category ?? updatedPost.Category;
+                updatedPost.VoteScore = post.VoteScore ?? updatedPost.VoteScore; 
+            });
         }
 
         public PostDto GetById(ulong id)
         {
             return Db.Transact(() =>
             {
-                var post = Db.SQL<Post>($"SELECT p FROM {typeof(Post)} p")
-                    .FirstOrDefault(p => p.Id == id);
-
-                return Mapper.Map<PostDto>(post);
+                return Mapper.Map<PostDto>(Db.FromId<Post>(id));
             });
         }
     }

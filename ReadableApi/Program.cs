@@ -17,7 +17,7 @@ namespace ReadableApi
     {
         public static void Main(string[] args)
         {
-            const string databaseName = "default";
+            const string databaseName = "defaultDatabase";
 
             if (!Starcounter.Core.Options.StarcounterOptions.TryOpenExisting(databaseName))
             {

@@ -22,7 +22,7 @@ namespace ReadableApi.Models
         public abstract string Body { get; set; }
         public abstract string Author { get; set; }
         public abstract string Category { get; set; }
-        public abstract int VoteScore { get; set; }
+        public abstract int? VoteScore { get; set; }
         public abstract bool Deleted { get; set; }
         public abstract ulong Id { get; set; }
     }
