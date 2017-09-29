@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using ReadableApi.DatabaseAccess;
+﻿using Microsoft.AspNetCore.Mvc;
+using ReadableApi.DataAccessLayer;
 using ReadableApi.Models;
-using Starcounter.Core;
 
 namespace ReadableApi.Controllers
 {
     [Route("api/[controller]")]
     public class PostsController : Controller
     {
-        private IDatabaseReader<Post> _postsRetriever;
+        private IDatabaseReader<PostDto> _postsRetriever;
 
-        public PostsController(IDatabaseReader<Post> postsRetriever)
+        public PostsController(IDatabaseReader<PostDto> postsRetriever)
         {
             _postsRetriever = postsRetriever;
         }

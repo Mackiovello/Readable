@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Starcounter.Core;
 using System;
+using AutoMapper;
 
-namespace ReadableApi.DatabaseAccess
+namespace ReadableApi.DataAccessLayer
 {
-    public class InMemoryPostsRetriever : IDatabaseReader<Post>
+    public class InMemoryPostsRetriever : IDatabaseReader<PostDto>
     {
         public InMemoryPostsRetriever()
         {
@@ -31,22 +32,23 @@ namespace ReadableApi.DatabaseAccess
             }
         }
 
-        public Post GetFirst()
+        public PostDto GetFirst()
         {
-            var post = Db.Transact(
-                () => Db.SQL<Post>($"SELECT p FROM {typeof(Post)} p")
-                .FirstOrDefault()
-            );
+            var post = Db.Transact(() => 
+            {
+                var firstPost = Db.SQL<Post>($"SELECT p FROM {typeof(Post)} p").FirstOrDefault();
+                return Mapper.Map<PostDto>(firstPost);
+            });
 
             return post;
         }
 
-        public List<Post> GetAll()
+        public List<PostDto> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Post GetById(ulong id)
+        public PostDto GetById(ulong id)
         {
             throw new NotImplementedException();
         }
