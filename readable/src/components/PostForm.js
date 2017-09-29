@@ -3,6 +3,7 @@ import "../styles/PostForm.css";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import Header from "./Header";
 
 class PostForm extends Component {
   componentDidMount() {
@@ -15,11 +16,7 @@ class PostForm extends Component {
 
     return (
       <div>
-        <div className="header header--thin">
-          <h1 className="header__headline">
-            {headerText}
-          </h1>
-        </div>
+        <Header thin headerText={headerText} />
         <form className="form-card" onSubmit={handleSubmit}>
           <div className="form-card__text-field">
             <label htmlFor="titleInput">Title</label>

@@ -1,27 +1,46 @@
 import React from "react";
-import "../styles/Votes.css";
 import { connect } from "react-redux";
+import styled from "styled-components";
 
 function Votes({ dispatch, toVoteOn, upvote, downvote }) {
   return (
-    <div className="posts__votes">
-      <span
+    <Wrapper>
+      <VoteButton
         className="posts__vote-button"
         onClick={() => dispatch(upvote(toVoteOn))}
       >
         &#129093;
-      </span>
+      </VoteButton>
       <span>
         {toVoteOn.voteScore}
       </span>
-      <span
+      <VoteButton
         className="posts__vote-button"
         onClick={() => dispatch(downvote(toVoteOn))}
       >
         &#129095;
-      </span>
-    </div>
+      </VoteButton>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 60px;
+  justify-content: space-around;
+  text-align: center;
+  align-self: center;
+  background-color: #f8f8f8;
+`;
+
+const VoteButton = styled.span`
+  color: var(--primary-color);
+  text-shadow: 0 1px 3px #999;
+  font-size: 1.8rem;
+  cursor: pointer;
+  user-select: none;
+`;
 
 export default connect(null)(Votes);

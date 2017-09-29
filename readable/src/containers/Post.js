@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "../styles/Post.css";
 import { connect } from "react-redux";
 import Votes from "../components/Votes";
 import Comments from "../components/Comments";
@@ -9,6 +8,7 @@ import {
   deletePost as deletePostAction
 } from "../actions/posts";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 class Post extends Component {
   constructor() {
@@ -27,14 +27,14 @@ class Post extends Component {
     const { title, body, author, category, id } = post;
 
     return (
-      <div className="post-wrapper">
-        <div className="post-card">
-          <div className="post-card__header">
-            <div className="post-card__header-info">
-              <h2 className="post-card__title">
+      <Wrapper>
+        <Card>
+          <CardHeader>
+            <div style={{ flexGrow: "1" }}>
+              <CardTitle>
                 {title}
-              </h2>
-              <div className="post-card__below-title">
+              </CardTitle>
+              <CardBelowTitle>
                 <span>
                   {author} -{" "}
                   {
@@ -60,23 +60,63 @@ class Post extends Component {
                     Comment
                   </Link>
                 </div>
-              </div>
+              </CardBelowTitle>
             </div>
             <Votes
               toVoteOn={this.props.post}
               upvote={upvotePost}
               downvote={downvotePost}
             />
-          </div>
-          <p className="post-card__body">
+          </CardHeader>
+          <CardBody>
             {body}
-          </p>
-        </div>
+          </CardBody>
+        </Card>
         <Comments parentId={id} />
-      </div>
+      </Wrapper>
     );
   }
 }
+
+const Wrapper = styled.div`
+  width: 90%;
+  max-width: 600px;
+  margin: 30px auto;
+`;
+
+const Card = styled.div`
+  background-color: #fff;
+  box-shadow: 0 1px 3px #999;
+  border-radius: 4px;
+`;
+
+const CardTitle = styled.h2`
+  font-weight: normal;
+  margin-bottom: 10px;
+`;
+
+const CardBody = styled.p`
+  padding: 1.8em;
+  margin: 0;
+  line-height: 1.7em;
+  font-size: 1.05em;
+`;
+
+const CardHeader = styled.div`
+  margin: 0;
+  padding: 0 0 0 1.4em;
+  box-shadow: 0 1px 4px #ddd;
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const CardBelowTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5em;
+`;
 
 export default connect(
   ({ comments }) => ({ comments }),

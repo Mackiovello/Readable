@@ -1,24 +1,80 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import "../styles/Header.css";
+import styled from "styled-components";
 
-function Header({ categories }) {
+function Header({ categories, thin, headerText }) {
   return (
-    <div className="header">
-      <h1 className="header__headline">
-        <Link to="/">Readable</Link>
-      </h1>
-      <nav className="header__navigation">
-        <Link to="/">all</Link>
-        {categories.map(category =>
-          <Link to={`/${category.path}`} key={category.name}>
-            {category.name}
-          </Link>
-        )}
-      </nav>
+    <div>
+      {thin
+        ? <ThinHeader>
+            <Headline>
+              {headerText}
+            </Headline>
+          </ThinHeader>
+        : <FatHeader>
+            <Headline>
+              <HeadlineLink to="/">Readable</HeadlineLink>
+            </Headline>
+            <Navigation>
+              <NavigationLink to="/">all</NavigationLink>
+              {categories.map(category =>
+                <NavigationLink to={`/${category.path}`} key={category.name}>
+                  {category.name}
+                </NavigationLink>
+              )}
+            </Navigation>
+          </FatHeader>}
     </div>
   );
 }
+
+const ThinHeader = styled.div`
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  padding-top: 15px;
+  background-color: var(--primary-color);
+  box-shadow: 0 1px 3px #999;
+`;
+
+const FatHeader = styled.div`
+  width: 100vw;
+  height: 130px;
+  padding-top: 15px;
+  background-color: var(--primary-color);
+  box-shadow: 0 1px 3px #999;
+`;
+
+const Headline = styled.h1`
+  text-align: center;
+  font-weight: lighter;
+  margin-top: 0;
+`;
+
+const HeadlineLink = styled(Link)`
+  text-decoration: none;
+  color: #333;
+`;
+
+const Navigation = styled.nav`
+  display: flex;
+  justify-content: center;
+`;
+
+const NavigationLink = styled(Link)`
+  display: inline-block;
+  background-color: #fff;
+  box-shadow: 0 1px 4px #666;
+  border-radius: 4px;
+  padding: 8px 4px;
+  margin: 3px;
+  width: 65px;
+  text-align: center;
+  color: #333;
+  text-decoration: none;
+`;
 
 export default connect(({ categories }) => ({ categories }))(Header);

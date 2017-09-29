@@ -27,4 +27,4 @@ export const SorterCard = styled.div`
   box-shadow: 0 1px 3px #999;
   display: flex;
   justify-content: space-around;
-`
+`;
