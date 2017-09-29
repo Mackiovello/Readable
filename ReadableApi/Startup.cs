@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using ReadableApi.DataAccessLayer;
 using ReadableApi.Models;
-using Starcounter.Core.AspNetCore;
 using AutoMapper;
+using ReadableApi.Models.Data;
 
 namespace ReadableApi
 {
@@ -17,10 +11,10 @@ namespace ReadableApi
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<Post, PostDto>());
-
             services.AddMvc();
             services.AddTransient<IRepository<PostDto>, PostRepository>();
+            services.AddSingleton<IDatabase, Database>();
+            services.AddAutoMapper(cfg => cfg.CreateMap<Post, PostDto>());
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

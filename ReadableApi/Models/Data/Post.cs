@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ReadableApi.Models
+namespace ReadableApi.Models.Data
 {
     [Database]
-    public abstract class Post
+    public abstract class Post : IPersistent
     {
         internal protected Post()
         {

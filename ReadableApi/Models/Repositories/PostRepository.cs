@@ -1,27 +1,37 @@
 ﻿using ReadableApi.Models;
 using System.Collections.Generic;
 using System.Linq;
-using Starcounter.Core;
-using System;
+using ReadableApi.Models.Data;
 using AutoMapper;
 
-namespace ReadableApi.DataAccessLayer
+namespace ReadableApi.Models
 {
     public class PostRepository : IRepository<PostDto>
     {
-        public PostRepository()
+        private IDatabase _db;
+        private IMapper _mapper;
+
+        public PostRepository(IDatabase database, IMapper mapper)
+        {
+            _db = database;
+            _mapper = mapper;
+
+            CreateDummyDataIfNoData();
+        }
+
+        private void CreateDummyDataIfNoData()
         {
             if (GetAll().FirstOrDefault() == null)
             {
-                Db.Transact(() =>
+                _db.Transact(() =>
                 {
-                    var firstPost = Db.Insert<Post>();
+                    var firstPost = _db.Insert<Post>();
                     firstPost.Author = "Gandalf";
                     firstPost.Title = "There and Back Again";
                     firstPost.Body = "This is a long long story about a Hobbit...";
                     firstPost.Category = "Fantasy";
 
-                    var secondPost = Db.Insert<Post>();
+                    var secondPost = _db.Insert<Post>();
                     secondPost.Author = "Sam";
                     secondPost.Title = "No More Volcanoes";
                     secondPost.Body = "I'm done dude, seriously. No more volcanoes.";
@@ -34,31 +44,31 @@ namespace ReadableApi.DataAccessLayer
 
         public IEnumerable<PostDto> GetAll()
         {
-            return Db.Transact(() =>
+            return _db.Transact(() =>
             {
-                var posts = Db.SQL<Post>($"SELECT p FROM {typeof(Post)} p");
-                return Mapper.Map<IEnumerable<PostDto>>(posts);
+                var posts = _db.SQL<Post>($"SELECT p FROM {typeof(Post)} p");
+                return _mapper.Map<IEnumerable<Post>, IEnumerable<PostDto>>(posts);
             });
         }
 
         public PostDto Insert(PostDto post)
         {
-            return Db.Transact(() =>
+            return _db.Transact(() =>
             {
-                var newPost = Db.Insert<Post>();
+                var newPost = _db.Insert<Post>();
                 newPost.Author = post.Author;
                 newPost.Body = post.Body;
                 newPost.Category = post.Category;
                 newPost.Title = post.Title;
-                return Mapper.Map<PostDto>(newPost);
+                return _mapper.Map<Post, PostDto>(newPost);
             });
         }
 
         public void Update(PostDto post)
         {
-            Db.Transact(() =>
+            _db.Transact(() =>
             {
-                var updatedPost = Db.FromId<Post>(post.Id);
+                var updatedPost = _db.FromId<Post>(post.Id);
                 updatedPost.Title = post.Title ?? updatedPost.Title;
                 updatedPost.Author = post.Author ?? updatedPost.Author;
                 updatedPost.Body = post.Body ?? updatedPost.Body;
@@ -69,9 +79,9 @@ namespace ReadableApi.DataAccessLayer
 
         public PostDto GetById(ulong id)
         {
-            return Db.Transact(() =>
+            return _db.Transact(() =>
             {
-                return Mapper.Map<PostDto>(Db.FromId<Post>(id));
+                return _mapper.Map<Post, PostDto>(_db.FromId<Post>(id));
             });
         }
     }

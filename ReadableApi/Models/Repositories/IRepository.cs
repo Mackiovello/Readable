@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ReadableApi.DataAccessLayer
+namespace ReadableApi.Models
 {
     public interface IRepository<T>
     {

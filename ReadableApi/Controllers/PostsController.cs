@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ReadableApi.DataAccessLayer;
 using ReadableApi.Models;
 
 namespace ReadableApi.Controllers
