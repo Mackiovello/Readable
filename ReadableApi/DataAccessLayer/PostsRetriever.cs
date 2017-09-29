@@ -7,11 +7,11 @@ using AutoMapper;
 
 namespace ReadableApi.DataAccessLayer
 {
-    public class InMemoryPostsRetriever : IDatabaseReader<PostDto>
+    public class PostRepository : IRepository<PostDto>
     {
-        public InMemoryPostsRetriever()
+        public PostRepository()
         {
-            if (GetFirst() == null)
+            if (GetAll().FirstOrDefault() == null)
             {
                 Db.Transact(() =>
                 {
@@ -32,25 +32,34 @@ namespace ReadableApi.DataAccessLayer
             }
         }
 
-        public PostDto GetFirst()
+        public IEnumerable<PostDto> GetAll()
         {
-            var post = Db.Transact(() => 
+            return Db.Transact(() =>
             {
-                var firstPost = Db.SQL<Post>($"SELECT p FROM {typeof(Post)} p").FirstOrDefault();
-                return Mapper.Map<PostDto>(firstPost);
+                var posts = Db.SQL<Post>($"SELECT p FROM {typeof(Post)} p");
+                return Mapper.Map<IEnumerable<PostDto>>(posts);
             });
-
-            return post;
         }
 
-        public List<PostDto> GetAll()
+        public void Insert(PostDto entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(PostDto entity)
         {
             throw new NotImplementedException();
         }
 
         public PostDto GetById(ulong id)
         {
-            throw new NotImplementedException();
+            return Db.Transact(() =>
+            {
+                var post = Db.SQL<Post>($"SELECT p FROM {typeof(Post)} p")
+                    .FirstOrDefault(p => p.Id == id);
+
+                return Mapper.Map<PostDto>(post);
+            });
         }
     }
 }

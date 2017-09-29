@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 
 namespace ReadableApi.DataAccessLayer
 {
-    public interface IDatabaseReader<T>
+    public interface IRepository<T>
     {
-        T GetFirst();
-
-        List<T> GetAll();
+        IEnumerable<T> GetAll();
 
         T GetById(ulong id);
+
+        void Insert(T entity);
+
+        void Update(T entity);
     }
 }

@@ -7,17 +7,17 @@ namespace ReadableApi.Controllers
     [Route("api/[controller]")]
     public class PostsController : Controller
     {
-        private IDatabaseReader<PostDto> _postsRetriever;
+        private IRepository<PostDto> _postsRepository;
 
-        public PostsController(IDatabaseReader<PostDto> postsRetriever)
+        public PostsController(IRepository<PostDto> postsRepository)
         {
-            _postsRetriever = postsRetriever;
+            _postsRepository = postsRepository;
         }
 
         [HttpGet]
         public IActionResult GetAllPosts()
         {
-            return Ok(_postsRetriever.GetFirst());
+            return Ok(_postsRepository.GetAll());
         }
     }
 }

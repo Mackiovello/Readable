@@ -20,7 +20,7 @@ namespace ReadableApi
             Mapper.Initialize(cfg => cfg.CreateMap<Post, PostDto>());
 
             services.AddMvc();
-            services.AddTransient<IDatabaseReader<PostDto>, InMemoryPostsRetriever>();
+            services.AddTransient<IRepository<PostDto>, PostRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
