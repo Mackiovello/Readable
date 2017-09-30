@@ -14,5 +14,6 @@ namespace ReadableApi.Models.Data
         string Category { get; set; }
         int? VoteScore { get; set; }
         bool Deleted { get; set; }
+        ulong Id { get; }
     }
 }

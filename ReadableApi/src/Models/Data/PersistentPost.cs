@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ReadableApi.Models.Data
 {
     [Database]
-    public abstract class PersistentPost : IPersistent
+    public abstract class PersistentPost : IPost, IPersistent
     {
         internal protected PersistentPost()
         {

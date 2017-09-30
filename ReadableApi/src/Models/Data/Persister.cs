@@ -35,7 +35,7 @@ namespace ReadableApi.Models.Data
         {
             _db.Transact(() =>
             {
-                var persistentPost = _db.FromId<PersistentPost>(persistentId);
+                var persistentPost = _db.FromId<TPerm>(persistentId);
                 _mapper.Map(toUpdateFrom, persistentPost);
             });
         }

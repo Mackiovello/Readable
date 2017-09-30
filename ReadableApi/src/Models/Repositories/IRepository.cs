@@ -1,18 +1,20 @@
-﻿using System;
+﻿using ReadableApi.Models.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ReadableApi.Models
 {
-    public interface IRepository<T>
+    public interface IRepository<TTemp> 
+        where TTemp : class, IPersistable
     {
-        IEnumerable<T> GetAll();
+        IEnumerable<TTemp> GetAll();
 
-        T GetById(ulong id);
+        TTemp GetById(ulong id);
 
-        T Insert(T entity);
+        TTemp Insert(TTemp entity);
 
-        void Update(T entity, ulong id);
+        void Update(TTemp entity, ulong id);
     }
 }
