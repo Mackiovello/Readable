@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ReadableApi.Models;
+using ReadableApi.Models.Data;
 
 namespace ReadableApi.Controllers
 {
     [Route("api/posts")]
     public class PostsController : Controller
     {
-        private IRepository<PostDto> _postsRepository;
+        private IRepository<InMemoryPost> _postsRepository;
 
-        public PostsController(IRepository<PostDto> postsRepository)
+        public PostsController(IRepository<InMemoryPost> postsRepository)
         {
             _postsRepository = postsRepository;
         }
@@ -31,12 +32,12 @@ namespace ReadableApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] PostDto post)
+        public IActionResult Create([FromBody] InMemoryPost post)
         {
             if (post == null)
                 return BadRequest();
 
-            PostDto newPost = _postsRepository.Insert(post);
+            InMemoryPost newPost = _postsRepository.Insert(post);
 
             return CreatedAtRoute(
                 routeName: "GetById", 
@@ -45,15 +46,16 @@ namespace ReadableApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update([FromBody] PostDto post, ulong id)
+        public IActionResult Update([FromBody] InMemoryPost post, ulong id)
         {
             if (post == null)
                 return BadRequest();
 
-            if (_postsRepository.TryUpdate(post, id))
-                return NoContent();
+            if (_postsRepository.GetById(id) == null)
+                return NotFound();
 
-            return NotFound();
+            _postsRepository.Update(post, id);
+            return NoContent();
         }
     }
 }

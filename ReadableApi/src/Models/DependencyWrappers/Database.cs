@@ -8,6 +8,11 @@ namespace ReadableApi.Models
 {
     public class Database : IDatabase
     {
+        public IEnumerable<T> GetAll<T>()
+        {
+            return Db.SQL<T>($"SELECT a FROM {typeof(T)} a");
+        }
+
         public T FromId<T>(ulong id)
         {
             return Db.FromId<T>(id);

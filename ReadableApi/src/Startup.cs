@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ReadableApi.Models;
 using AutoMapper;
 using ReadableApi.Models.Data;
+using ReadableApi.Models.Data.Interfaces;
 
 namespace ReadableApi
 {
@@ -12,14 +13,15 @@ namespace ReadableApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddTransient<IRepository<PostDto>, PostRepository>();
+            services.AddTransient<IRepository<InMemoryPost>, PostRepository>();
             services.AddSingleton<IDatabase, Database>();
             services.AddTransient<IPersister, Persister>();
+            services.AddTransient<IDbReader<InMemoryPost>, DbReader<InMemoryPost, PersistentPost>>();
             services.AddAutoMapper(cfg => 
             {
-                cfg.CreateMap<PersistentPost, PostDto>();
-                cfg.CreateMap<InMemoryPost, PersistentPost>();
-                cfg.CreateMap<PostDto, PersistentPost>();
+                cfg.CreateMap<PersistentPost, InMemoryPost>();
+                cfg.CreateMap<InMemoryPost, PersistentPost>()
+                    .ForAllMembers(opt => opt.Condition((src, dest, sourceMember) => sourceMember != null));
             });
         }
 

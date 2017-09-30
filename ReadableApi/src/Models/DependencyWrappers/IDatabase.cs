@@ -11,6 +11,8 @@ namespace ReadableApi.Models
 
         T FromId<T>(ulong id);
 
+        IEnumerable<T> GetAll<T>();
+
         IEnumerable<T> SQL<T>(string query, params object[] values);
 
         IEnumerable<T> SQL<T>(string query);

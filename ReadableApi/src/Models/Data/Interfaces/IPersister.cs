@@ -10,5 +10,9 @@ namespace ReadableApi.Models.Data
         void MakePersistent<TPerm, TTemp>(TTemp toPerist)
             where TPerm : class, IPersistent
             where TTemp : class, IPersistable;
+
+        void PersistentUpdate<TPerm, TTemp>(TTemp toUpdateFrom, ulong persistentId)
+            where TPerm : class, IPersistent
+            where TTemp : class, IPersistable;
     }
 }

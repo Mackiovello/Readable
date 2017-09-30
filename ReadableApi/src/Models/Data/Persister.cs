@@ -28,5 +28,16 @@ namespace ReadableApi.Models.Data
                 _mapper.Map(toPersist, persistentObject);
             });
         }
+
+        public void PersistentUpdate<TPerm, TTemp>(TTemp toUpdateFrom, ulong persistentId)
+            where TPerm : class, IPersistent
+            where TTemp : class, IPersistable
+        {
+            _db.Transact(() =>
+            {
+                var persistentPost = _db.FromId<PersistentPost>(persistentId);
+                _mapper.Map(toUpdateFrom, persistentPost);
+            });
+        }
     }
 }
