@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 namespace ReadableApi.Models.Data
 {
     [Database]
-    public abstract class Post : IPersistent
+    public abstract class PersistentPost : IPersistent
     {
-        internal protected Post()
+        internal protected PersistentPost()
         {
             Timestamp = DateTime.Now;
-            Id = this.GetObjectNo();
             Deleted = false;
             VoteScore = 0;
         }
@@ -24,6 +23,6 @@ namespace ReadableApi.Models.Data
         public abstract string Category { get; set; }
         public abstract int? VoteScore { get; set; }
         public abstract bool Deleted { get; set; }
-        public abstract ulong Id { get; set; }
+        public ulong Id => this.GetObjectNo();
     }
 }

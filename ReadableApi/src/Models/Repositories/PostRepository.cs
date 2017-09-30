@@ -10,11 +10,13 @@ namespace ReadableApi.Models
     {
         private IDatabase _db;
         private IMapper _mapper;
+        private IPersister _persister;
 
-        public PostRepository(IDatabase database, IMapper mapper)
+        public PostRepository(IDatabase database, IMapper mapper, IPersister persister)
         {
             _db = database;
             _mapper = mapper;
+            _persister = persister;
 
             CreateDummyDataIfNoData();
         }
@@ -23,21 +25,20 @@ namespace ReadableApi.Models
         {
             if (GetAll().FirstOrDefault() == null)
             {
-                _db.Transact(() =>
+                _persister.MakePersistent<PersistentPost, InMemoryPost>(new InMemoryPost
                 {
-                    var firstPost = _db.Insert<Post>();
-                    firstPost.Author = "Gandalf";
-                    firstPost.Title = "There and Back Again";
-                    firstPost.Body = "This is a long long story about a Hobbit...";
-                    firstPost.Category = "Fantasy";
+                    Author = "Gandalf",
+                    Title = "There and Back Again",
+                    Body = "This is a long long story about a Hobbit...",
+                    Category = "Fantasy",
+                });
 
-                    var secondPost = _db.Insert<Post>();
-                    secondPost.Author = "Sam";
-                    secondPost.Title = "No More Volcanoes";
-                    secondPost.Body = "I'm done dude, seriously. No more volcanoes.";
-                    secondPost.Category = "Fantasy";
-
-                    return new List<Post>() { firstPost, secondPost };
+                _persister.MakePersistent<PersistentPost, InMemoryPost>(new InMemoryPost
+                {
+                    Author = "Sam",
+                    Title = "No More Volcanoes",
+                    Body = "I'm done dude, seriously. No more volcanoes.",
+                    Category = "Fantasy"
                 });
             }
         }
@@ -46,29 +47,23 @@ namespace ReadableApi.Models
         {
             return _db.Transact(() =>
             {
-                var posts = _db.SQL<Post>($"SELECT p FROM {typeof(Post)} p");
-                return _mapper.Map<IEnumerable<Post>, IEnumerable<PostDto>>(posts);
+                var posts = _db.SQL<PersistentPost>($"SELECT p FROM {typeof(PersistentPost)} p");
+                return _mapper.Map<IEnumerable<PersistentPost>, IEnumerable<PostDto>>(posts);
             });
         }
 
         public PostDto Insert(PostDto post)
         {
-            return _db.Transact(() =>
-            {
-                var newPost = _db.Insert<Post>();
-                newPost.Author = post.Author;
-                newPost.Body = post.Body;
-                newPost.Category = post.Category;
-                newPost.Title = post.Title;
-                return _mapper.Map<Post, PostDto>(newPost);
-            });
+            _persister.MakePersistent<PersistentPost, PostDto>(post);
+
+            return post;
         }
 
         public bool TryUpdate(PostDto post, ulong id)
         {
             return _db.Transact(() =>
             {
-                var updatedPost = _db.FromId<Post>(id);
+                var updatedPost = _db.FromId<PersistentPost>(id);
 
                 if (updatedPost == null)
                     return false;
@@ -87,7 +82,7 @@ namespace ReadableApi.Models
         {
             return _db.Transact(() =>
             {
-                return _mapper.Map<Post, PostDto>(_db.FromId<Post>(id));
+                return _mapper.Map<PersistentPost, PostDto>(_db.FromId<PersistentPost>(id));
             });
         }
     }

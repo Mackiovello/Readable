@@ -14,7 +14,13 @@ namespace ReadableApi
             services.AddMvc();
             services.AddTransient<IRepository<PostDto>, PostRepository>();
             services.AddSingleton<IDatabase, Database>();
-            services.AddAutoMapper(cfg => cfg.CreateMap<Post, PostDto>());
+            services.AddTransient<IPersister, Persister>();
+            services.AddAutoMapper(cfg => 
+            {
+                cfg.CreateMap<PersistentPost, PostDto>();
+                cfg.CreateMap<InMemoryPost, PersistentPost>();
+                cfg.CreateMap<PostDto, PersistentPost>();
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
