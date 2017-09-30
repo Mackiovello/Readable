@@ -13,6 +13,6 @@ namespace ReadableApi.Models
 
         T Insert(T entity);
 
-        void Update(T entity);
+        bool TryUpdate(T entity, ulong id);
     }
 }

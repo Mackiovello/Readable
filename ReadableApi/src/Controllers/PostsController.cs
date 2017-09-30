@@ -22,18 +22,38 @@ namespace ReadableApi.Controllers
         [HttpGet("{id}", Name = "GetById")]
         public IActionResult GetById(ulong id)
         {
-            return Ok(_postsRepository.GetById(id));
+            var post = _postsRepository.GetById(id);
+
+            if (post == null)
+                return NotFound();
+
+            return Ok(post);
         }
 
         [HttpPost]
         public IActionResult Create([FromBody] PostDto post)
         {
+            if (post == null)
+                return BadRequest();
+
             PostDto newPost = _postsRepository.Insert(post);
 
             return CreatedAtRoute(
                 routeName: "GetById", 
                 routeValues: new { id = newPost.Id },
                 value: newPost);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update([FromBody] PostDto post, ulong id)
+        {
+            if (post == null)
+                return BadRequest();
+
+            if (_postsRepository.TryUpdate(post, id))
+                return NoContent();
+
+            return NotFound();
         }
     }
 }

@@ -13,11 +13,7 @@ namespace ReadableApi
         {
             const string databaseName = "defaultDatabase";
 
-            if (!Starcounter.Core.Options.StarcounterOptions.TryOpenExisting(databaseName))
-            {
-                Directory.CreateDirectory(databaseName);
-                Starcounter.Core.Bluestar.ScCreateDb.Execute(databaseName);
-            }
+            CreateDatabase(databaseName);
 
             using (var appHost = new AppHostBuilder().UseDatabase(databaseName).Build())
             {
@@ -30,5 +26,14 @@ namespace ReadableApi
                 .UseStartup<Startup>()
                 .ConfigureServices(s => s.AddStarcounter(appHost))
                 .Build();
+
+        private static void CreateDatabase(string databaseName)
+        {
+            if (Starcounter.Core.Options.StarcounterOptions.TryOpenExisting(databaseName))
+                return;
+
+            Directory.CreateDirectory(databaseName);
+            Starcounter.Core.Bluestar.ScCreateDb.Execute(databaseName);
+        }
     }
 }

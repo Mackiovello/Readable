@@ -64,16 +64,22 @@ namespace ReadableApi.Models
             });
         }
 
-        public void Update(PostDto post)
+        public bool TryUpdate(PostDto post, ulong id)
         {
-            _db.Transact(() =>
+            return _db.Transact(() =>
             {
-                var updatedPost = _db.FromId<Post>(post.Id);
+                var updatedPost = _db.FromId<Post>(id);
+
+                if (updatedPost == null)
+                    return false;
+
                 updatedPost.Title = post.Title ?? updatedPost.Title;
                 updatedPost.Author = post.Author ?? updatedPost.Author;
                 updatedPost.Body = post.Body ?? updatedPost.Body;
                 updatedPost.Category = post.Category ?? updatedPost.Category;
-                updatedPost.VoteScore = post.VoteScore ?? updatedPost.VoteScore; 
+                updatedPost.VoteScore = post.VoteScore ?? updatedPost.VoteScore;
+
+                return true;
             });
         }
 
