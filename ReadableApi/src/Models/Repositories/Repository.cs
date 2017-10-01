@@ -9,29 +9,29 @@ namespace ReadableApi.Models
         where TTemp: class, IPersistable
         where TPerm: class, IPersistent
     {
-        private IPersister _persister;
-        private IDbReader<TTemp> _dbReader;
+        private IDbWriter<TPerm, TTemp> writer;
+        private IDbReader<TTemp> reader;
 
-        public Repository(IPersister persister, IDbReader<TTemp> dbReader)
+        public Repository(IDbWriter<TPerm, TTemp> dbWriter, IDbReader<TTemp> dbReader)
         {
-            _persister = persister;
-            _dbReader = dbReader;
+            writer = dbWriter;
+            reader = dbReader;
         }
 
-        public IEnumerable<TTemp> GetAll() => _dbReader.All();
+        public IEnumerable<TTemp> GetAll() => reader.All();
 
         public TTemp Insert(TTemp post)
         {
-            _persister.MakePersistent<TPerm, TTemp>(post);
+            writer.Write(post);
 
             return post;
         }
 
         public void Update(TTemp post, ulong id)
         {
-            _persister.PersistentUpdate<TPerm, TTemp>(post, id);
+            writer.Write(post, id);
         }
 
-        public TTemp GetById(ulong id) => _dbReader.ById(id);
+        public TTemp GetById(ulong id) => reader.ById(id);
     }
 }

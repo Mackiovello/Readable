@@ -17,16 +17,22 @@ namespace ReadableApi.Test
 {
     public class HandlesPosts
     {
+        private Mock<IDbReader<InMemoryPost>> MockReader => 
+            new Mock<IDbReader<InMemoryPost>>();
+
+        private Mock<IDbWriter<PersistentPost, InMemoryPost>> MockWriter => 
+            new Mock<IDbWriter<PersistentPost, InMemoryPost>>();
+
         [Fact]
         public void GettingAllPosts_WithPostsInDatabase_ReturnsAllPosts()
         {
             // Arrange
             var posts = PostsFactory();
-            var mockDbReader = new Mock<IDbReader<InMemoryPost>>();
-            mockDbReader
+            var mockReader = MockReader;
+            mockReader
                 .Setup(reader => reader.All())
                 .Returns(posts);
-            var controller = ControllerFactory(mockDbReader.Object);
+            var controller = ControllerFactory(mockReader, MockWriter);
 
             // Act
             var result = controller.GetAll() as OkObjectResult;
@@ -40,10 +46,10 @@ namespace ReadableApi.Test
         {
             // Arrange
             ulong id = 5;
-            var mockDbReader = new Mock<IDbReader<InMemoryPost>>();
-            mockDbReader.Setup(reader => 
+            var mockReader = MockReader;
+            mockReader.Setup(reader => 
                 reader.ById(id)).Returns((InMemoryPost)null);
-            var controller = ControllerFactory(mockDbReader.Object);
+            var controller = ControllerFactory(mockReader, MockWriter);
 
             // Act
             var result = controller.GetById(id);
@@ -59,10 +65,10 @@ namespace ReadableApi.Test
             // Arrange
             ulong id = 5;
             var post = new InMemoryPost { Id = id };
-            var mockDbReader = new Mock<IDbReader<InMemoryPost>>();
-            mockDbReader.Setup(reader =>
+            var mockReader = MockReader;
+            mockReader.Setup(reader =>
                 reader.ById(id)).Returns(post);
-            var controller = ControllerFactory(mockDbReader.Object);
+            var controller = ControllerFactory(mockReader, MockWriter);
 
             // Act
             var result = controller.GetById(id) as OkObjectResult;
@@ -76,7 +82,7 @@ namespace ReadableApi.Test
         public void CreatingPost_WithNullAsBody_ReturnsBadRequest()
         {
             // Arrange
-            var controller = ControllerFactory();
+            var controller = ControllerFactory(MockReader, MockWriter);
 
             // Act
             var result = controller.Create(null);
@@ -89,17 +95,15 @@ namespace ReadableApi.Test
         public void CreatingPost_WithCompleteBody_IsPersisted()
         {
             // Arrange
-            var mockPersister = new Mock<IPersister>();
-            var controller = ControllerFactory(mockPersister.Object);
+            var mockWriter = MockWriter;
+            var controller = ControllerFactory(MockReader, mockWriter);
             var post = PostsFactory().First();
 
             // Act
             var result = controller.Create(post);
 
             // Assert
-            mockPersister.Verify(p => 
-                p.MakePersistent<PersistentPost, InMemoryPost>(post),
-                Times.Once);
+            mockWriter.Verify(p => p.Write(post), Times.Once);
             Assert.IsType<CreatedAtRouteResult>(result);
         }
 
@@ -108,7 +112,7 @@ namespace ReadableApi.Test
         public void UpdatingPost_WithNullAsBody_ReturnsBadRequest()
         {
             // Arrange
-            var controller = ControllerFactory();
+            var controller = ControllerFactory(MockReader, MockWriter);
 
             // Act
             var result = controller.Update(post: null, id: 5);
@@ -124,9 +128,9 @@ namespace ReadableApi.Test
             // Arrange
             ulong id = 6;
             var post = PostsFactory().First();
-            var mockDbReader = new Mock<IDbReader<InMemoryPost>>();
-            mockDbReader.Setup(reader => reader.ById(5)).Returns((InMemoryPost)null);
-            var controller = ControllerFactory(mockDbReader.Object);
+            var mockReader = MockReader;
+            mockReader.Setup(reader => reader.ById(5)).Returns((InMemoryPost)null);
+            var controller = ControllerFactory(mockReader, MockWriter);
 
             // Act
             var result = controller.Update(post, id);
@@ -142,56 +146,25 @@ namespace ReadableApi.Test
             // Arrange
             ulong id = 5;
             var post = PostsFactory().First();
-            var mockPersister = new Mock<IPersister>();
-            var mockDbReader = new Mock<IDbReader<InMemoryPost>>();
-            mockDbReader.Setup(reader => reader.ById(id)).Returns(post);
-            var controller = ControllerFactory(mockDbReader.Object, mockPersister.Object);
+            var mockWriter = MockWriter;
+            var mockReader = MockReader;
+            mockReader.Setup(reader => reader.ById(id)).Returns(post);
+            var controller = ControllerFactory(mockReader, mockWriter);
 
             // Act
             var result = controller.Update(post, id: 5);
 
             // Assert
-            mockPersister.Verify(p => 
-                p.PersistentUpdate<PersistentPost, InMemoryPost>(post, id), Times.Once);
+            mockWriter.Verify(p => p.Write(post, id), Times.Once);
             Assert.IsType<NoContentResult>(result);
         }
 
-        private PostsController ControllerFactory()
-        {
-            var mockPersister = new Mock<IPersister>().Object;
-            var mockDbReader = new Mock<IDbReader<InMemoryPost>>().Object;
-            var repository = new Repository<InMemoryPost, PersistentPost>(
-                mockPersister, mockDbReader);
-
-            return new PostsController(repository);
-        }
-
         private PostsController ControllerFactory(
-            IPersister mockPersister)
-        {
-            var mockDbReader = new Mock<IDbReader<InMemoryPost>>();
-            var repository = new Repository<InMemoryPost, PersistentPost>(
-                mockPersister, mockDbReader.Object);
-
-            return new PostsController(repository);
-        }
-
-        private PostsController ControllerFactory(
-            IDbReader<InMemoryPost> mockDbReader)
-        {
-            var mockPersister = new Mock<IPersister>();
-            var repository = new Repository<InMemoryPost, PersistentPost>(
-                mockPersister.Object, mockDbReader);
-
-            return new PostsController(repository);
-        }
-
-        private PostsController ControllerFactory(
-            IDbReader<InMemoryPost> mockDbReader,
-            IPersister mockPersister)
+            Mock<IDbReader<InMemoryPost>> mockReader,
+            Mock<IDbWriter<PersistentPost, InMemoryPost>> mockWriter)
         {
             var repository = new Repository<InMemoryPost, PersistentPost>(
-                mockPersister, mockDbReader);
+                mockWriter.Object, mockReader.Object);
 
             return new PostsController(repository);
         }

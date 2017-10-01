@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace ReadableApi.Models.Data
 {
-    public class Persister : IPersister
+    public class DbWriter<TPerm, TTemp> : IDbWriter<TPerm, TTemp>
+        where TPerm : class, IPersistent
+        where TTemp : class, IPersistable
     {
         private IDatabase _db;
         private IMapper _mapper;
 
-        public Persister(IDatabase database, IMapper mapper)
+        public DbWriter(IDatabase database, IMapper mapper)
         {
             _db = database;
             _mapper = mapper;
         }
 
-        public void MakePersistent<TPerm, TTemp>(TTemp toPersist) 
-            where TPerm : class, IPersistent
-            where TTemp : class, IPersistable
+        public void Write(TTemp toPersist) 
         {
             _db.Transact(() =>
             {
@@ -29,9 +29,7 @@ namespace ReadableApi.Models.Data
             });
         }
 
-        public void PersistentUpdate<TPerm, TTemp>(TTemp toUpdateFrom, ulong persistentId)
-            where TPerm : class, IPersistent
-            where TTemp : class, IPersistable
+        public void Write(TTemp toUpdateFrom, ulong persistentId)
         {
             _db.Transact(() =>
             {
