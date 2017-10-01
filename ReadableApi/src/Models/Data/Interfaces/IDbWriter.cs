@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace ReadableApi.Models.Data
 {
-    public interface IDbWriter<TPerm, TTemp>
+    public interface IDbWriter
     {
-        void Write(TTemp toPerist);
+        void Write(IPersistable toPerist);
 
-        void Write(TTemp toUpdateFrom, ulong persistentId);
+        void Write(IPersistable toUpdateFrom, ulong persistentId);
     }
 }

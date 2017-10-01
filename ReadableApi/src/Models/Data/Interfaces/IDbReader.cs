@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace ReadableApi.Models.Data.Interfaces
 {
-    public interface IDbReader<TTemp>
+    public interface IDbReader
     {
-        TTemp ById(ulong id);
+        IPersistable ById(ulong id);
 
-        IEnumerable<TTemp> All();
+        IEnumerable<IPersistable> All();
     }
 }

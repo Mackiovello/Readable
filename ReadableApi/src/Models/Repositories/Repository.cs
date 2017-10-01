@@ -9,16 +9,16 @@ namespace ReadableApi.Models
         where TTemp: class, IPersistable
         where TPerm: class, IPersistent
     {
-        private IDbWriter<TPerm, TTemp> writer;
-        private IDbReader<TTemp> reader;
+        private IDbWriter writer;
+        private IDbReader reader;
 
-        public Repository(IDbWriter<TPerm, TTemp> dbWriter, IDbReader<TTemp> dbReader)
+        public Repository(IDbWriter dbWriter, IDbReader dbReader)
         {
             writer = dbWriter;
             reader = dbReader;
         }
 
-        public IEnumerable<TTemp> GetAll() => reader.All();
+        public IEnumerable<TTemp> GetAll() => (IEnumerable<TTemp>)reader.All();
 
         public TTemp Insert(TTemp post)
         {
@@ -32,6 +32,6 @@ namespace ReadableApi.Models
             writer.Write(post, id);
         }
 
-        public TTemp GetById(ulong id) => reader.ById(id);
+        public TTemp GetById(ulong id) => (TTemp)reader.ById(id);
     }
 }

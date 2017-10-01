@@ -7,5 +7,6 @@ namespace ReadableApi.Models.Data
 {
     public interface IPersistent
     {
+        IPersistable InMemoryInstance { get; }
     }
 }

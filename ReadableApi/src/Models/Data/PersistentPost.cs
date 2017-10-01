@@ -16,6 +16,18 @@ namespace ReadableApi.Models.Data
             VoteScore = 0;
         }
 
+        public IPersistable InMemoryInstance => new InMemoryPost()
+        {
+            Timestamp = Timestamp,
+            Title = Title,
+            Body = Body,
+            Author = Author,
+            Category = Category,
+            VoteScore = VoteScore,
+            Deleted = Deleted,
+            Id = Id
+        };
+
         public abstract DateTime Timestamp { get; set; }
         public abstract string Title { get; set; }
         public abstract string Body { get; set; }

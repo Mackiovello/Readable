@@ -15,8 +15,8 @@ namespace ReadableApi
             services.AddMvc();
             services.AddTransient<IRepository<InMemoryPost>, Repository<InMemoryPost, PersistentPost>>();
             services.AddSingleton<IDatabase, Database>();
-            services.AddTransient<IDbWriter<PersistentPost, InMemoryPost>, DbWriter<PersistentPost, InMemoryPost>>();
-            services.AddTransient<IDbReader<InMemoryPost>, DbReader<InMemoryPost, PersistentPost>>();
+            services.AddTransient<IDbWriter, DbWriter<PersistentPost>>();
+            services.AddTransient<IDbReader, DbReader<PersistentPost>>();
             services.AddAutoMapper(cfg => 
             {
                 cfg.CreateMap<PersistentPost, InMemoryPost>();

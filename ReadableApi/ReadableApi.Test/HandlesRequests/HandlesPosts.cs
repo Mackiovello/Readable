@@ -17,11 +17,11 @@ namespace ReadableApi.Test
 {
     public class HandlesPosts
     {
-        private Mock<IDbReader<InMemoryPost>> MockReader => 
-            new Mock<IDbReader<InMemoryPost>>();
+        private Mock<IDbReader> MockReader => 
+            new Mock<IDbReader>();
 
-        private Mock<IDbWriter<PersistentPost, InMemoryPost>> MockWriter => 
-            new Mock<IDbWriter<PersistentPost, InMemoryPost>>();
+        private Mock<IDbWriter> MockWriter => 
+            new Mock<IDbWriter>();
 
         [Fact]
         public void GettingAllPosts_WithPostsInDatabase_ReturnsAllPosts()
@@ -160,8 +160,8 @@ namespace ReadableApi.Test
         }
 
         private PostsController ControllerFactory(
-            Mock<IDbReader<InMemoryPost>> mockReader,
-            Mock<IDbWriter<PersistentPost, InMemoryPost>> mockWriter)
+            Mock<IDbReader> mockReader,
+            Mock<IDbWriter> mockWriter)
         {
             var repository = new Repository<InMemoryPost, PersistentPost>(
                 mockWriter.Object, mockReader.Object);

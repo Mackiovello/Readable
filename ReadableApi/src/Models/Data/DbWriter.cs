@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
 using Starcounter.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ReadableApi.Models.Data
 {
-    public class DbWriter<TPerm, TTemp> : IDbWriter<TPerm, TTemp>
+    public class DbWriter<TPerm> : IDbWriter
         where TPerm : class, IPersistent
-        where TTemp : class, IPersistable
     {
         private IDatabase _db;
         private IMapper _mapper;
@@ -20,7 +15,7 @@ namespace ReadableApi.Models.Data
             _mapper = mapper;
         }
 
-        public void Write(TTemp toPersist) 
+        public void Write(IPersistable toPersist) 
         {
             _db.Transact(() =>
             {
@@ -29,7 +24,7 @@ namespace ReadableApi.Models.Data
             });
         }
 
-        public void Write(TTemp toUpdateFrom, ulong persistentId)
+        public void Write(IPersistable toUpdateFrom, ulong persistentId)
         {
             _db.Transact(() =>
             {
