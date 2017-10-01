@@ -7,7 +7,7 @@ namespace ReadableApi.Models
 {
     public class Repository<TTemp, TPerm> : IRepository<TTemp>
         where TTemp: class, IPersistable
-        where TPerm: class, IPersistent
+        where TPerm: class, IPersistent<TTemp>
     {
         private IDbWriter writer;
         private IDbReader reader;
@@ -22,14 +22,14 @@ namespace ReadableApi.Models
 
         public TTemp Insert(TTemp post)
         {
-            writer.Write(post);
+            writer.CreatePersistentObject(post);
 
             return post;
         }
 
         public void Update(TTemp post, ulong id)
         {
-            writer.Write(post, id);
+            writer.UpdatePersistentObject(post, id);
         }
 
         public TTemp GetById(ulong id) => (TTemp)reader.ById(id);

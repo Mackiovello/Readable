@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace ReadableApi.Models.Data
 {
-    public interface IPersistent
+    public interface IPersistent<T>
     {
-        IPersistable InMemoryInstance { get; }
+        T InMemoryInstance { get; }
+        Action<T> Update { get; }
+        Action<T> Instantiate { get; }
     }
 }

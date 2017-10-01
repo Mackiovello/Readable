@@ -7,8 +7,8 @@ namespace ReadableApi.Models.Data
 {
     public interface IDbWriter
     {
-        void Write(IPersistable toPerist);
+        void CreatePersistentObject(IPersistable toPerist);
 
-        void Write(IPersistable toUpdateFrom, ulong persistentId);
+        void UpdatePersistentObject(IPersistable toUpdateFrom, ulong persistentId);
     }
 }

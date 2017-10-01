@@ -8,15 +8,13 @@ using System.Threading.Tasks;
 namespace ReadableApi.Models.Data
 {
     public class DbReader<T> : IDbReader
-        where T : class, IPersistent
+        where T : class, IPersistent<IPersistable>
     {
         private IDatabase _db;
-        private IMapper _mapper;
 
-        public DbReader(IDatabase db, IMapper mapper)
+        public DbReader(IDatabase db)
         {
             _db = db;
-            _mapper = mapper;
         }
 
         public IEnumerable<IPersistable> All()

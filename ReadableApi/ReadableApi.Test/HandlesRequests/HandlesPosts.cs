@@ -103,7 +103,7 @@ namespace ReadableApi.Test
             var result = controller.Create(post);
 
             // Assert
-            mockWriter.Verify(p => p.Write(post), Times.Once);
+            mockWriter.Verify(p => p.CreatePersistentObject(post), Times.Once);
             Assert.IsType<CreatedAtRouteResult>(result);
         }
 
@@ -155,7 +155,7 @@ namespace ReadableApi.Test
             var result = controller.Update(post, id: 5);
 
             // Assert
-            mockWriter.Verify(p => p.Write(post, id), Times.Once);
+            mockWriter.Verify(p => p.UpdatePersistentObject(post, id), Times.Once);
             Assert.IsType<NoContentResult>(result);
         }
 

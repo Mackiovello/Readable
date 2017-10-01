@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ReadableApi.Models.Data
 {
-    public interface IPost : IPersistable
+    public interface IPost
     {
         DateTime Timestamp { get; set; }
         string Title { get; set; }
@@ -13,7 +13,7 @@ namespace ReadableApi.Models.Data
         string Author { get; set; }
         string Category { get; set; }
         int? VoteScore { get; set; }
-        bool Deleted { get; set; }
+        bool? Deleted { get; set; }
         ulong Id { get; }
     }
 }

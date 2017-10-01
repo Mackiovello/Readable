@@ -9,7 +9,7 @@ namespace ReadableApi.Models.Data
     public class InMemoryPost : IPost, IPersistable
     {
         public InMemoryPost()
-        {
+        { 
             Timestamp = DateTime.Now;
             Deleted = false;
             VoteScore = 0;
@@ -21,7 +21,7 @@ namespace ReadableApi.Models.Data
         public string Author { get; set; }
         public string Category { get; set; }
         public int? VoteScore { get; set; }
-        public bool Deleted { get; set; }
+        public bool? Deleted { get; set; }
         public ulong Id { get; set; }
     }
 }
