@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\ReadableApi.csproj" />
+    <ProjectReference Include="..\src\ReadableApi.csproj" />
   </ItemGroup>
 
 </Project>
