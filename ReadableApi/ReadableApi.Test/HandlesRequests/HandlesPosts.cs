@@ -163,7 +163,7 @@ namespace ReadableApi.Test
             Mock<IDbReader> mockReader,
             Mock<IDbWriter> mockWriter)
         {
-            var repository = new Repository<InMemoryPost, PersistentPost>(
+            var repository = new Repository<InMemoryPost>(
                 mockWriter.Object, mockReader.Object);
 
             return new PostsController(repository);

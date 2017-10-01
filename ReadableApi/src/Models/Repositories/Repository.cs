@@ -5,9 +5,8 @@ using ReadableApi.Models.Data.Interfaces;
 
 namespace ReadableApi.Models
 {
-    public class Repository<TTemp, TPerm> : IRepository<TTemp>
-        where TTemp: class, IPersistable
-        where TPerm: class, IPersistent<TTemp>
+    public class Repository<T> : IRepository<T>
+        where T: class, IPersistable
     {
         private IDbWriter writer;
         private IDbReader reader;
@@ -18,20 +17,20 @@ namespace ReadableApi.Models
             reader = dbReader;
         }
 
-        public IEnumerable<TTemp> GetAll() => (IEnumerable<TTemp>)reader.All();
+        public IEnumerable<T> GetAll() => (IEnumerable<T>)reader.All();
 
-        public TTemp Insert(TTemp post)
+        public T Insert(T post)
         {
             writer.CreatePersistentObject(post);
 
             return post;
         }
 
-        public void Update(TTemp post, ulong id)
+        public void Update(T post, ulong id)
         {
             writer.UpdatePersistentObject(post, id);
         }
 
-        public TTemp GetById(ulong id) => (TTemp)reader.ById(id);
+        public T GetById(ulong id) => (T)reader.ById(id);
     }
 }
