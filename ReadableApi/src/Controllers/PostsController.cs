@@ -7,9 +7,9 @@ namespace ReadableApi.Controllers
     [Route("api/posts")]
     public class PostsController : Controller
     {
-        private IRepository<InMemoryPost> _postsRepository;
+        private IRepository<Post> _postsRepository;
 
-        public PostsController(IRepository<InMemoryPost> postsRepository)
+        public PostsController(IRepository<Post> postsRepository)
         {
             _postsRepository = postsRepository;
         }
@@ -32,12 +32,12 @@ namespace ReadableApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] InMemoryPost post)
+        public IActionResult Create([FromBody] Post post)
         {
             if (post == null)
                 return BadRequest();
 
-            InMemoryPost newPost = _postsRepository.Insert(post);
+            Post newPost = _postsRepository.Insert(post);
 
             return CreatedAtRoute(
                 routeName: "GetById", 
@@ -46,7 +46,7 @@ namespace ReadableApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update([FromBody] InMemoryPost post, ulong id)
+        public IActionResult Update([FromBody] Post post, ulong id)
         {
             if (post == null)
                 return BadRequest();

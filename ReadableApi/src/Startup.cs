@@ -13,7 +13,7 @@ namespace ReadableApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddTransient<IRepository<InMemoryPost>, Repository<InMemoryPost>>();
+            services.AddTransient<IRepository<Post>, Repository<Post>>();
             services.AddSingleton<IDatabase, Database>();
             services.AddTransient<IDbWriter, DbWriter<IPersistent<IPersistable>>>();
             services.AddTransient<IDbReader, DbReader<IPersistent<IPersistable>>>();

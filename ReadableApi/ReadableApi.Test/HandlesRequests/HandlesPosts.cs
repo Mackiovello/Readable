@@ -48,7 +48,7 @@ namespace ReadableApi.Test
             ulong id = 5;
             var mockReader = MockReader;
             mockReader.Setup(reader => 
-                reader.ById(id)).Returns((InMemoryPost)null);
+                reader.ById(id)).Returns((Post)null);
             var controller = ControllerFactory(mockReader, MockWriter);
 
             // Act
@@ -64,7 +64,7 @@ namespace ReadableApi.Test
         {
             // Arrange
             ulong id = 5;
-            var post = new InMemoryPost { Id = id };
+            var post = new Post { Id = id };
             var mockReader = MockReader;
             mockReader.Setup(reader =>
                 reader.ById(id)).Returns(post);
@@ -129,7 +129,7 @@ namespace ReadableApi.Test
             ulong id = 6;
             var post = PostsFactory().First();
             var mockReader = MockReader;
-            mockReader.Setup(reader => reader.ById(5)).Returns((InMemoryPost)null);
+            mockReader.Setup(reader => reader.ById(5)).Returns((Post)null);
             var controller = ControllerFactory(mockReader, MockWriter);
 
             // Act
@@ -163,17 +163,17 @@ namespace ReadableApi.Test
             Mock<IDbReader> mockReader,
             Mock<IDbWriter> mockWriter)
         {
-            var repository = new Repository<InMemoryPost>(
+            var repository = new Repository<Post>(
                 mockWriter.Object, mockReader.Object);
 
             return new PostsController(repository);
         }
 
-        private IEnumerable<InMemoryPost> PostsFactory()
+        private IEnumerable<Post> PostsFactory()
         {
-            return new InMemoryPost[]
+            return new Post[]
             {
-                new InMemoryPost
+                new Post
                 {
                     Author = "Gandalf",
                     Title = "A book",
@@ -184,7 +184,7 @@ namespace ReadableApi.Test
                     Id = 4,
                     Timestamp = new DateTime(2017, 11, 20)
                 },
-                new InMemoryPost
+                new Post
                 {
                     Author = "Sam",
                     Title = "No way",
