@@ -1,29 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ReadableApi.Models;
-using ReadableApi.Models.Data;
+using System.Linq;
 
 namespace ReadableApi.Controllers
 {
     [Route("api/posts")]
     public class PostsController : Controller
     {
-        private IRepository<Post> _postsRepository;
-
-        public PostsController(IRepository<Post> postsRepository)
-        {
-            _postsRepository = postsRepository;
-        }
-
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_postsRepository.GetAll());
+            var posts = Post.GetAll();
+
+            var dtos = posts.Select(p => p.Dto);
+
+            return Ok(dtos);
+        }
+
+        [HttpPost("create")]
+        public IActionResult CreateFirst()
+        {
+            new Post()
+            {
+                Author = "Someone",
+                Title = "Something Happened",
+                Category = "Fantasy",
+                Body = "Some text"
+            };
+
+            return NoContent();
         }
 
         [HttpGet("{id}", Name = "GetById")]
         public IActionResult GetById(ulong id)
         {
-            var post = _postsRepository.GetById(id);
+            var post = Post.GetById(id).Dto;
 
             if (post == null)
                 return NotFound();
@@ -37,12 +48,10 @@ namespace ReadableApi.Controllers
             if (post == null)
                 return BadRequest();
 
-            Post newPost = _postsRepository.Insert(post);
-
             return CreatedAtRoute(
                 routeName: "GetById", 
-                routeValues: new { id = newPost.Id },
-                value: newPost);
+                routeValues: new { id = post.Id },
+                value: post);
         }
 
         [HttpPut("{id}")]
@@ -51,10 +60,10 @@ namespace ReadableApi.Controllers
             if (post == null)
                 return BadRequest();
 
-            if (_postsRepository.GetById(id) == null)
+            if (Post.GetById(id) == null)
                 return NotFound();
 
-            _postsRepository.Update(post, id);
+            //_postsRepository.Update(post, id);
             return NoContent();
         }
     }

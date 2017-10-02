@@ -1,201 +1,198 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Moq;
-using Moq.Language;
-using Moq.Language.Flow;
-using ReadableApi.Controllers;
-using ReadableApi.Models;
-using ReadableApi.Models.Data;
-using ReadableApi.Models.Data.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
-using Xunit;
-using System.Linq;
+﻿//using Microsoft.AspNetCore.Mvc;
+//using Moq;
+//using Moq.Language;
+//using Moq.Language.Flow;
+//using ReadableApi.Controllers;
+//using ReadableApi.Models;
+//using ReadableApi.Models.Data;
+//using ReadableApi.Models.Data.Interfaces;
+//using System;
+//using System.Collections.Generic;
+//using System.Linq.Expressions;
+//using System.Text;
+//using Xunit;
+//using System.Linq;
 
-namespace ReadableApi.Test
-{
-    public class HandlesPosts
-    {
-        private Mock<IDbReader> MockReader => 
-            new Mock<IDbReader>();
+//namespace ReadableApi.Test
+//{
+//    public class HandlesPosts
+//    {
+//        private Mock<IDbReader> MockReader => 
+//            new Mock<IDbReader>();
 
-        private Mock<IDbWriter> MockWriter => 
-            new Mock<IDbWriter>();
+//        [Fact]
+//        public void GettingAllPosts_WithPostsInDatabase_ReturnsAllPosts()
+//        {
+//            // Arrange
+//            var posts = PostsFactory();
+//            var mockReader = MockReader;
+//            mockReader
+//                .Setup(reader => reader.All())
+//                .Returns(posts);
+//            var controller = ControllerFactory(mockReader, MockWriter);
 
-        [Fact]
-        public void GettingAllPosts_WithPostsInDatabase_ReturnsAllPosts()
-        {
-            // Arrange
-            var posts = PostsFactory();
-            var mockReader = MockReader;
-            mockReader
-                .Setup(reader => reader.All())
-                .Returns(posts);
-            var controller = ControllerFactory(mockReader, MockWriter);
+//            // Act
+//            var result = controller.GetAll() as OkObjectResult;
 
-            // Act
-            var result = controller.GetAll() as OkObjectResult;
+//            // Assert
+//            Assert.Equal(posts, result.Value);
+//        }
 
-            // Assert
-            Assert.Equal(posts, result.Value);
-        }
+//        [Fact]
+//        public void GettingPostByID_WithNonExistingID_ReturnsNotFound()
+//        {
+//            // Arrange
+//            ulong id = 5;
+//            var mockReader = MockReader;
+//            mockReader.Setup(reader => 
+//                reader.ById(id)).Returns((Post)null);
+//            var controller = ControllerFactory(mockReader, MockWriter);
 
-        [Fact]
-        public void GettingPostByID_WithNonExistingID_ReturnsNotFound()
-        {
-            // Arrange
-            ulong id = 5;
-            var mockReader = MockReader;
-            mockReader.Setup(reader => 
-                reader.ById(id)).Returns((Post)null);
-            var controller = ControllerFactory(mockReader, MockWriter);
+//            // Act
+//            var result = controller.GetById(id);
 
-            // Act
-            var result = controller.GetById(id);
-
-            // Assert
-            Assert.IsType<NotFoundResult>(result);
-        }
+//            // Assert
+//            Assert.IsType<NotFoundResult>(result);
+//        }
 
 
-        [Fact]
-        public void GettingPostByID_WithExistingID_ReturnsPost()
-        {
-            // Arrange
-            ulong id = 5;
-            var post = new Post { Id = id };
-            var mockReader = MockReader;
-            mockReader.Setup(reader =>
-                reader.ById(id)).Returns(post);
-            var controller = ControllerFactory(mockReader, MockWriter);
+//        [Fact]
+//        public void GettingPostByID_WithExistingID_ReturnsPost()
+//        {
+//            // Arrange
+//            ulong id = 5;
+//            var post = new Post { Id = id };
+//            var mockReader = MockReader;
+//            mockReader.Setup(reader =>
+//                reader.ById(id)).Returns(post);
+//            var controller = ControllerFactory(mockReader, MockWriter);
 
-            // Act
-            var result = controller.GetById(id) as OkObjectResult;
+//            // Act
+//            var result = controller.GetById(id) as OkObjectResult;
 
-            // Assert
-            Assert.Equal(post, result.Value);
-        }
-
-
-        [Fact]
-        public void CreatingPost_WithNullAsBody_ReturnsBadRequest()
-        {
-            // Arrange
-            var controller = ControllerFactory(MockReader, MockWriter);
-
-            // Act
-            var result = controller.Create(null);
-
-            // Assert
-            Assert.IsType<BadRequestResult>(result);
-        }
-
-        [Fact]
-        public void CreatingPost_WithCompleteBody_IsPersisted()
-        {
-            // Arrange
-            var mockWriter = MockWriter;
-            var controller = ControllerFactory(MockReader, mockWriter);
-            var post = PostsFactory().First();
-
-            // Act
-            var result = controller.Create(post);
-
-            // Assert
-            mockWriter.Verify(p => p.CreatePersistentObject(post), Times.Once);
-            Assert.IsType<CreatedAtRouteResult>(result);
-        }
+//            // Assert
+//            Assert.Equal(post, result.Value);
+//        }
 
 
-        [Fact]
-        public void UpdatingPost_WithNullAsBody_ReturnsBadRequest()
-        {
-            // Arrange
-            var controller = ControllerFactory(MockReader, MockWriter);
+//        [Fact]
+//        public void CreatingPost_WithNullAsBody_ReturnsBadRequest()
+//        {
+//            // Arrange
+//            var controller = ControllerFactory(MockReader, MockWriter);
 
-            // Act
-            var result = controller.Update(post: null, id: 5);
+//            // Act
+//            var result = controller.Create(null);
 
-            // Assert
-            Assert.IsType<BadRequestResult>(result);
-        }
+//            // Assert
+//            Assert.IsType<BadRequestResult>(result);
+//        }
 
+//        [Fact]
+//        public void CreatingPost_WithCompleteBody_IsPersisted()
+//        {
+//            // Arrange
+//            var mockWriter = MockWriter;
+//            var controller = ControllerFactory(MockReader, mockWriter);
+//            var post = PostsFactory().First();
 
-        [Fact]
-        public void UpdatingPost_ThatIsNonExistent_ReturnsNotFound()
-        {
-            // Arrange
-            ulong id = 6;
-            var post = PostsFactory().First();
-            var mockReader = MockReader;
-            mockReader.Setup(reader => reader.ById(5)).Returns((Post)null);
-            var controller = ControllerFactory(mockReader, MockWriter);
+//            // Act
+//            var result = controller.Create(post);
 
-            // Act
-            var result = controller.Update(post, id);
-
-            // Assert
-            Assert.IsType<NotFoundResult>(result);
-        }
+//            // Assert
+//            mockWriter.Verify(p => p.CreatePersistentObject(post), Times.Once);
+//            Assert.IsType<CreatedAtRouteResult>(result);
+//        }
 
 
-        [Fact]
-        public void UpdatingPost_WithCorrectBodyAndID_IsPersisted()
-        {
-            // Arrange
-            ulong id = 5;
-            var post = PostsFactory().First();
-            var mockWriter = MockWriter;
-            var mockReader = MockReader;
-            mockReader.Setup(reader => reader.ById(id)).Returns(post);
-            var controller = ControllerFactory(mockReader, mockWriter);
+//        [Fact]
+//        public void UpdatingPost_WithNullAsBody_ReturnsBadRequest()
+//        {
+//            // Arrange
+//            var controller = ControllerFactory(MockReader, MockWriter);
 
-            // Act
-            var result = controller.Update(post, id: 5);
+//            // Act
+//            var result = controller.Update(post: null, id: 5);
 
-            // Assert
-            mockWriter.Verify(p => p.UpdatePersistentObject(post, id), Times.Once);
-            Assert.IsType<NoContentResult>(result);
-        }
+//            // Assert
+//            Assert.IsType<BadRequestResult>(result);
+//        }
 
-        private PostsController ControllerFactory(
-            Mock<IDbReader> mockReader,
-            Mock<IDbWriter> mockWriter)
-        {
-            var repository = new Repository<Post>(
-                mockWriter.Object, mockReader.Object);
 
-            return new PostsController(repository);
-        }
+//        [Fact]
+//        public void UpdatingPost_ThatIsNonExistent_ReturnsNotFound()
+//        {
+//            // Arrange
+//            ulong id = 6;
+//            var post = PostsFactory().First();
+//            var mockReader = MockReader;
+//            mockReader.Setup(reader => reader.ById(5)).Returns((Post)null);
+//            var controller = ControllerFactory(mockReader, MockWriter);
 
-        private IEnumerable<Post> PostsFactory()
-        {
-            return new Post[]
-            {
-                new Post
-                {
-                    Author = "Gandalf",
-                    Title = "A book",
-                    Body = "Tons of text",
-                    Category = "Crime",
-                    Deleted = false,
-                    VoteScore = 0,
-                    Id = 4,
-                    Timestamp = new DateTime(2017, 11, 20)
-                },
-                new Post
-                {
-                    Author = "Sam",
-                    Title = "No way",
-                    Body = "Tons of letters",
-                    Category = "Romance",
-                    Deleted = false,
-                    VoteScore = 2,
-                    Id = 5,
-                    Timestamp = new DateTime(2016, 11, 20)
-                }
-            };
-        }
-    }
-}
+//            // Act
+//            var result = controller.Update(post, id);
+
+//            // Assert
+//            Assert.IsType<NotFoundResult>(result);
+//        }
+
+
+//        [Fact]
+//        public void UpdatingPost_WithCorrectBodyAndID_IsPersisted()
+//        {
+//            // Arrange
+//            ulong id = 5;
+//            var post = PostsFactory().First();
+//            var mockWriter = MockWriter;
+//            var mockReader = MockReader;
+//            mockReader.Setup(reader => reader.ById(id)).Returns(post);
+//            var controller = ControllerFactory(mockReader, mockWriter);
+
+//            // Act
+//            var result = controller.Update(post, id: 5);
+
+//            // Assert
+//            mockWriter.Verify(p => p.UpdatePersistentObject(post, id), Times.Once);
+//            Assert.IsType<NoContentResult>(result);
+//        }
+
+//        private PostsController ControllerFactory(
+//            Mock<IDbReader> mockReader,
+//            Mock<IDbWriter> mockWriter)
+//        {
+//            var repository = new Repository<Post>(
+//                mockWriter.Object, mockReader.Object);
+
+//            return new PostsController(repository);
+//        }
+
+//        private IEnumerable<Post> PostsFactory()
+//        {
+//            return new Post[]
+//            {
+//                new Post
+//                {
+//                    Author = "Gandalf",
+//                    Title = "A book",
+//                    Body = "Tons of text",
+//                    Category = "Crime",
+//                    Deleted = false,
+//                    VoteScore = 0,
+//                    Id = 4,
+//                    Timestamp = new DateTime(2017, 11, 20)
+//                },
+//                new Post
+//                {
+//                    Author = "Sam",
+//                    Title = "No way",
+//                    Body = "Tons of letters",
+//                    Category = "Romance",
+//                    Deleted = false,
+//                    VoteScore = 2,
+//                    Id = 5,
+//                    Timestamp = new DateTime(2016, 11, 20)
+//                }
+//            };
+//        }
+//    }
+//}

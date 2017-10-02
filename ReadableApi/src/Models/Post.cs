@@ -10,6 +10,7 @@ namespace ReadableApi.Models
     public class Post
     {
         private PersistentPost PersistentPost;
+        public PostDto Dto => Db.Transact(() => Mapper.Map<PostDto>(this.PersistentPost));
 
         public Post()
         {
@@ -20,6 +21,13 @@ namespace ReadableApi.Models
                 PersistentPost.Deleted = false;
                 PersistentPost.VoteScore = 0;
             });
+        }
+
+        private Post(PersistentPost persistentPost)
+        {
+            // Should be wrapped in a transaction
+            // Figure how to do nested transactions properly
+            PersistentPost = persistentPost;
         }
 
         public DateTime Timestamp => Db.Transact(() => PersistentPost.Timestamp);
@@ -61,5 +69,62 @@ namespace ReadableApi.Models
         }
 
         public ulong Id => Db.Transact(() => PersistentPost.GetObjectNo());
+
+        public static IEnumerable<Post> GetAll()
+        {
+            return Db.Transact(() =>
+            {
+                // Problem: Post can't be serialized, have to create DTO
+                var persistentPosts = Db.SQL<PersistentPost>($"SELECT p FROM {typeof(PersistentPost)} p");
+                var post = new Post(persistentPosts.FirstOrDefault());
+                var posts = ConvertToPosts(persistentPosts);
+                return posts;
+            });
+        }
+
+        private static IEnumerable<Post> ConvertToPosts(IEnumerable<PersistentPost> persistentPosts)
+        {
+            IList<Post> posts = new List<Post>();
+            foreach (var post in persistentPosts)
+                posts.Add(new Post(post));
+
+            return posts;
+        }
+
+        public static Post GetById(ulong id)
+        {
+            return Db.Transact(() =>
+            {
+                var persistentPost = Db.FromId<PersistentPost>(id);
+
+                // TODO: use the null object pattern instead to avoid passing null
+                if (persistentPost == null)
+                    return null;
+
+                return new Post(persistentPost);
+            });
+        }
+
+        public static IEnumerable<PostDto> GetAllDto()
+        {
+            return Db.Transact(() =>
+            {
+                var persistentPosts = Db.SQL<PersistentPost>($"SELECT p FROM {typeof(PersistentPost)} p");
+                return Mapper.Map<IEnumerable<PostDto>>(persistentPosts);
+            });
+        }
+
+        public static PostDto GetDtoById(ulong id)
+        {
+            return Db.Transact(() =>
+            {
+                var persistentPost = Db.FromId<PersistentPost>(id);
+
+                if (persistentPost == null)
+                    return null;
+
+                return Mapper.Map<PostDto>(persistentPost);
+            });
+        }
     }
 }

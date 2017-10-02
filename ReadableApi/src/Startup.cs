@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using ReadableApi.Models;
 using AutoMapper;
-using ReadableApi.Models.Data;
-using ReadableApi.Models.Data.Interfaces;
+using ReadableApi.Models;
 
 namespace ReadableApi
 {
@@ -13,10 +11,7 @@ namespace ReadableApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddTransient<IRepository<Post>, Repository<Post>>();
-            services.AddSingleton<IDatabase, Database>();
-            services.AddTransient<IDbWriter, DbWriter<IPersistent<IPersistable>>>();
-            services.AddTransient<IDbReader, DbReader<IPersistent<IPersistable>>>();
+            services.AddAutoMapper(cfg => cfg.CreateMap<PersistentPost, PostDto>());
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
