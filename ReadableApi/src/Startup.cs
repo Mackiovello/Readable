@@ -11,7 +11,11 @@ namespace ReadableApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddAutoMapper(cfg => cfg.CreateMap<PersistentPost, PostDto>());
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.CreateMap<PersistentPost, PostDto>();
+                cfg.CreateMap<PostDto, PersistentPost>();
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
